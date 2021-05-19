@@ -6,17 +6,13 @@ int main(int argc, int *argv[]) {
         exit(0);
     }
 
-
     if (*argv[2] == 1) {
-        if (!fork())
             p1(*argv[1]);
     }
     if (*argv[2] == 2) {
-        if (!fork())
             p2(*argv[1]);
     }
     if (*argv[2] == 3) {
-        if (!fork())
             p3(*argv[1]);
     }
     return 0;
