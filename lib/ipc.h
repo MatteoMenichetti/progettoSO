@@ -6,4 +6,6 @@
 #include <fcntl.h>
 
 
-#define PADDR "pipe"
+#define PIPEADDR "pipeP1"
+#define SOCKADDR "socketP2"
+#define FILEADDR "fileP3"
