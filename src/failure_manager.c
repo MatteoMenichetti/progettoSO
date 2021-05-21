@@ -15,17 +15,18 @@ void funzione(int sig) {
     for (int i = 0; i < N; i++) {
         kill(pids[i], SIGKILL);
     }
+    printf("failure_manager: mi uccido\n");
     kill(getpid(), SIGKILL);
 }
 
 
 int main(int argc, char *argv[]) {
-
+    printf("%d\n", getpid());
     for (int i = 0; i < N; i++) {
         pids[i] = *argv[i];
     }
     signal(SIGUSR1, funzione);
     int status;
-    do { wait(&status); } while (status != SIGUSR1);
+    do { status = pause();} while (status != -1);
 
 }
