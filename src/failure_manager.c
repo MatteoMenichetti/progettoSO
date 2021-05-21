@@ -1,11 +1,18 @@
 #include <signal.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+#define N 5
 
 static int received_SIGUSR1 = 0;
-int pids[3];
+int pids[N];
 
 void funzione(int sig) {
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < N; i++) {
         kill(pids[i], SIGKILL);
     }
     kill(getpid(), SIGKILL);
@@ -13,11 +20,12 @@ void funzione(int sig) {
 
 
 int main(int argc, char *argv[]) {
-    for (int i = 0; i < 3; i++) {
+
+    for (int i = 0; i < N; i++) {
         pids[i] = *argv[i];
     }
     signal(SIGUSR1, funzione);
-    while (received_SIGUSR1 == 0) {
-        sleep(1);
-    }
+    int status;
+    do { wait(&status); } while (status != SIGUSR1);
+
 }
