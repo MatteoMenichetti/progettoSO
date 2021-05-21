@@ -25,7 +25,7 @@ char *split(char *buff) {
     char *token = strtok(buff, delim);
     do {
         printf("token = %s ", token);
-        sum(0);
-        printf(" sum = %d\n", sum);
+        int s=sum(token, 0);
     } while ((token = strtok(NULL, delim)) != NULL);
+    return NULL
 }
