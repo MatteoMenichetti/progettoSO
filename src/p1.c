@@ -1,6 +1,6 @@
 #include "../lib/p.h"
 
-void connecting(int csfd){
+void connecting(int csfd) {
     struct sockaddr_un sockServer;
     strcpy(sockServer.sun_path, SOCKADDR);
     sockServer.sun_family = AF_UNIX;
@@ -19,26 +19,13 @@ void p1(int modality, int sfd) {
         connecting(sfd);
         split(buff);
     }
-
-    char strWrite[100], strRead[100];
-
-    int nrchar = read(0, strWrite, sizeof(strWrite));
-    strWrite[nrchar - 1] = '\0';
-    printf("client: strWrite = %s\n", strWrite);
-    write(sfd, strWrite, strlen(strWrite));
-    fsync(sfd);
-    printf("client: scritto, leggo\n");
-    read(sfd, strRead, strlen(strWrite) + 1);
-    printf("client strRead = %s\n", strRead);
-    close(sfd);
 }
-char * split(char*buff){
+
+char *split(char *buff) {
     char *token = strtok(buff, delim);
     do {
-        sum = 0;
         printf("token = %s ", token);
-        for (int l = 0; l < strlen(str); l++)
-            sum += *(token + l);
+        sum(0);
         printf(" sum = %d\n", sum);
     } while ((token = strtok(NULL, delim)) != NULL);
 }
