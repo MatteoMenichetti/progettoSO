@@ -9,3 +9,4 @@
 #define PIPEADDR "pipeP1"
 #define SOCKADDR "socketP2"
 #define FILEADDR "fileP3"
+#define SOCKDECISIONADDR "socketDA"
