@@ -29,3 +29,9 @@ void init() {
     }
     return csfd;
 }
+int sum(char * token, int start){
+    int s=0;
+    for (int l = start; l < strlen(token); l++)
+        s += *(token + l);
+    return s;
+}
