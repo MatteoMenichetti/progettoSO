@@ -32,3 +32,13 @@ void p1(int modality, int sfd) {
     printf("client strRead = %s\n", strRead);
     close(sfd);
 }
+char * split(char*buff){
+    char *token = strtok(buff, delim);
+    do {
+        sum = 0;
+        printf("token = %s ", token);
+        for (int l = 0; l < strlen(str); l++)
+            sum += *(token + l);
+        printf(" sum = %d\n", sum);
+    } while ((token = strtok(NULL, delim)) != NULL);
+}
