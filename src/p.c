@@ -1,4 +1,5 @@
-#include "../lib/ipc.h"
+#include "../lib/p.h"
+#include <time.h>
 
 int main(int argc, int *argv[]) {
     if (argc < 3) {
@@ -7,22 +8,24 @@ int main(int argc, int *argv[]) {
     }
 
     if (*argv[2] == 1) {
-        p1(*argv[1]);
+        p1(*argv[1], init());
     }
     if (*argv[2] == 2) {
-        p2(*argv[1]);
+        p2(*argv[1], init());
     }
     if (*argv[2] == 3) {
-        p3(*argv[1]);
+        p3(*argv[1], init());
     }
     return 0;
 }
 
-void p1(int mode) {
-    int pfd = open(PADDR, O_RDONLY);
-    char buff[100];
-    while (0 == 0) {
-        read(pfd, buff, 100)
-        printf("P1: legge = %s", buff);
+
+
+void init() {
+    int csfd;
+    if ((csfd = socket(AF_UNIX, SOCK_STREAM, DEF)) == -1) {
+        perror("client: socket");
+        exit(0);
     }
+    return csfd;
 }
