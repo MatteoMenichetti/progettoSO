@@ -1,3 +1,4 @@
 #include "../lib/ipc.h"
 #define delim ","
-char*split(char*buffer);
+char*split(char);
+int sum(int);
