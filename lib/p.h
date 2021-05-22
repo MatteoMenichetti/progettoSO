@@ -1,6 +1,6 @@
 #include "../lib/ipc.h"
 
-#define delim ","
+#define delim ','
 #define ENABLE "FALLIMENTO"
 
 void splitP1(char *, int);
