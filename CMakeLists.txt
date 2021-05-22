@@ -4,3 +4,4 @@ project(progettoSO C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(main src/main.c)
+add_executable(src/p3.c)

@@ -6,16 +6,18 @@ int main(int argc, int *argv[]) {
         printf("P: argomenti non sufficienti");
         exit(0);
     }
-    int modality=0;
-    if(!strcmp(ENABLE, argv[1]))modality=1;
+    int modality = 0;
+    if (!strcmp(ENABLE, argv[1]))modality = 1;
+
+    int pfd = open(PIPEDECISIONADDR, O_RDWR);
     if (*argv[2] == 1) {
-        p1(modality);
+        p1(modality, pfd);
     }
     if (*argv[2] == 2) {
-        p2(modality);
+        p2(modality, pfd);
     }
     if (*argv[2] == 3) {
-        p3(modality);
+        p3(modality, pfd);
     }
     return 0;
 }
