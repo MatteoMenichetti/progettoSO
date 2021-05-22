@@ -1,9 +1,9 @@
 #include "../lib/p.h"
-
+#include "../lib/ipc.h"
 int definesocket() {
     int csfd;
     printf("P2: esegue socket\n");
-    if ((csfd = socket(AF_UNIX, SOCK_STREAM, DEF)) == -1) {
+    if ((csfd = socket(AF_UNIX, SOCK_STREAM, DEFAULT)) == -1) {
         perror("P2: socket");
         exit(0);
     }
@@ -14,23 +14,23 @@ void connecting(int sfd) {
     struct sockaddr_un sockServer;
     strcpy(sockServer.sun_path, SOCKADDR);
     sockServer.sun_family = AF_UNIX;
-    printf("P2: connessione socket")
-    while ((connect(csfd, (struct sockaddr *) &sockServer, sizeof(sockServer))) == -1) {
+    printf("P2: connessione socket");
+    while ((connect(sfd, (struct sockaddr *) &sockServer, sizeof(sockServer))) == -1) {
         perror("client: connect");
         sleep(1);
     }
 }
 
-void p2(int modality, int psdf) {
+void p2(int modality, int psfd) {
     int csfd = definesocket();
-    connecting(sfd);
+    connecting(psfd);
     char buff[BUFSIZ];
     if (read(csfd, buff, sizeof(buff)) == -1) {
         perror("P2: lettura socket");
         exit(EXIT_FAILURE);
     }
     splitP2(buff, psfd);
-    close(psdf);
+    close(psfd);
 }
 
 void splitP2(char *buff, int psfd) {
