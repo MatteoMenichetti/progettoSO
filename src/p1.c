@@ -10,7 +10,7 @@ void p1(int modality) {
     }
 }
 
-void split(char *buff, pdfd) {
+void split(char *buff, int pdfd) {
     char *token = strtok(buff, delim);
     int s;
     do {
