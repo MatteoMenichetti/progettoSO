@@ -1,4 +1,14 @@
 #include "../lib/ipc.h"
+
 #define delim ","
-char*split(char*, int);
-int sum(char*, int);
+#define ENABLE "FAILURE"
+
+char *split(char *, int);
+
+int sum(char *, int);
+
+void p1(int);
+
+void p2(int);
+
+void p3(int);
