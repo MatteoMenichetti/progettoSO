@@ -19,7 +19,7 @@ int main(int argc, int *argv[]) {
     return 0;
 }
 
-int init() {
+void init() {
     if (!unlink(PIPEDECISIONADDR)) {
         if (mknod(PIPEDECISIONADDR, S_IFIFO, DEFAULT) == -1) {
             perror("P: mknod");

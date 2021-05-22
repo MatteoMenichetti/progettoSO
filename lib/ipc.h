@@ -14,4 +14,4 @@
 #define PIPEDECISIONADDR "pipeDA"
 #define DEFAULT 0
 
-int init();
+void init();
