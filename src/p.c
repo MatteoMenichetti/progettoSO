@@ -6,7 +6,7 @@ int main(int argc, int *argv[]) {
         printf("P: argomenti non sufficienti");
         exit(0);
     }
-    int fd = init();
+
     if (*argv[2] == 1) {
         p1(argv[1], fd);
     }
@@ -18,13 +18,21 @@ int main(int argc, int *argv[]) {
     }
     return 0;
 }
-int init(){
-    unlink(PIPEDECISIONADDR);
-    mknod(PIPEDECISIONADDR, S_IFIFO, DEFAULT);
+
+int init() {
+    if (!unlink(PIPEDECISIONADDR)) {
+        if (mknod(PIPEDECISIONADDR, S_IFIFO, DEFAULT) == -1) {
+            perror("P: mknod");
+            exit(0);
+        }
+    } else {
+        perror("P: unlink");
+        exit(0);
+    }
 }
 
-int sum(char * token, int start){
-    int s=0;
+int sum(char *token, int start) {
+    int s = 0;
     for (int l = start; l < strlen(token); l++)
         s += *(token + l);
     return s;
