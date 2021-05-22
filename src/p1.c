@@ -6,12 +6,11 @@ void p1(int modality, int pdfd) {
     while (0 == 0) {
         read(pfd, buff, sizeof(buff));
         printf("P1: legge = %s\n", buff);
-        split(buff, pdfd);
-        sleep(1);
+        splitP1(buff, pdfd);
     }
 }
 
-void split(char *buff, int pfd) {
+void splitP1(char *buff, int pfd) {
     char *token = strtok(buff, delim);
     int s;
     do {
