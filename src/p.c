@@ -9,7 +9,7 @@ int main(int argc, int *argv[]) {
     int modality = 0;
     if (!strcmp(ENABLE, argv[1]))modality = 1;
 
-    int pfd = open(PIPEDECISIONADDR, O_RDWR);
+    int pfd = open(PIPEDECISIONADDR, O_WRONLY);
     if (*argv[2] == 1) {
         p1(modality, pfd);
     }
