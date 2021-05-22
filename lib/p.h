@@ -3,8 +3,8 @@
 #define delim ","
 #define ENABLE "FALLIMENTO"
 
-char *splitP1(char *, int);
-char *splitP2(char *, int);
+void splitP1(char *, int);
+void splitP2(char *, int);
 
 int sum(char *, int);
 
