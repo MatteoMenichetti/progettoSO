@@ -6,18 +6,23 @@ int main(int argc, int *argv[]) {
         printf("P: argomenti non sufficienti");
         exit(0);
     }
-
+    int fd = init();
     if (*argv[2] == 1) {
-        p1(*argv[1], init());
+        p1(argv[1], fd);
     }
     if (*argv[2] == 2) {
-        p2(*argv[1], init());
+        p2(*argv[1], fd);
     }
     if (*argv[2] == 3) {
-        p3(*argv[1], init());
+        p3(*argv[1], fd);
     }
     return 0;
 }
+int init(){
+    unlink(PIPEDECISIONADDR);
+    mknod(PIPEDECISIONADDR, S_IFIFO, DEAFULT);
+}
+
 
 
 

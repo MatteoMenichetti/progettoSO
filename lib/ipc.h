@@ -11,6 +11,7 @@
 #define PIPEADDR "pipeP1"
 #define SOCKADDR "socketP2"
 #define FILEADDR "fileP3"
-#define SOCKDECISIONADDR "socketDA"
+#define PIPEDECISIONADDR "pipeDA"
+#define DEAFULT 0
 
 int init();
