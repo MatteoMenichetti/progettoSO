@@ -1,6 +1,6 @@
 #include "../lib/p.h"
 
-void p1(int modality, int pdfd) {
+void p1(int modality) {
     int pfd = open(PIPEADDR, O_RDONLY);
     char buff[BUFSIZ];
     while (0 == 0) {

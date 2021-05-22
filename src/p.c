@@ -8,13 +8,13 @@ int main(int argc, int *argv[]) {
     }
 
     if (*argv[2] == 1) {
-        p1(argv[1], fd);
+        p1(argv[1]);
     }
     if (*argv[2] == 2) {
-        p2(*argv[1], fd);
+        p2(argv[1]);
     }
     if (*argv[2] == 3) {
-        p3(*argv[1], fd);
+        p3(argv[1]);
     }
     return 0;
 }
