@@ -22,14 +22,35 @@ void connecting(int sfd) {
 }
 
 void p2(int modality, int psdf) {
-    int sfd = definesocket();
+    int csfd = definesocket();
     connecting(sfd);
+    char buff[BUFSIZ];
+    if (read(csfd, buff, sizeof(buff)) == -1) {
+        perror("P2: lettura socket");
+        exit(EXIT_FAILURE);
+    }
+    splitP2(buff, psfd);
+    close(psdf);
 }
 
-void splitP2(char *buff) {
-    char *token = strtok(buff, delim);
-    do {
-        printf("token = %s ", token);
-        int s = sum(token, 0);
-    } while ((token = strtok(NULL, delim)) != NULL);
+void splitP2(char *buff, int psfd) {
+    char *token, *lastWorld, c;
+    int cmp = 0;
+    for (int i = 0; i < strlen(buff); i++) {
+        lastWorld = (buff + i);
+        for (int j = i + 1; j < strlen(buff); j++) {
+            c = *(buff + j);
+            cmp = (c - delim);
+            if ((c - delim) <= 0) {
+                token = malloc((j + i) * sizeof(char));
+                strncpy(token, (buff + i), j);
+                printf("token = %s\n", token);
+                int s = sum(token, 0);
+                printf("%d\n", s);
+                i += (j + 1);
+                break;
+            }
+        }
+    }
 }
+

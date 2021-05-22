@@ -34,7 +34,7 @@ void init() {
     }
 }
 
-int sumFromFirst(int *token, int start) {
+int sumFromFirst(char *token, int start) {
     int s = 0;
     for (int l = start; l < strlen(token); l++)
         s += *(token + l);
@@ -43,7 +43,7 @@ int sumFromFirst(int *token, int start) {
 
 int sumFromLast(char *token, int start) {
     int s = 0;
-    for (int l = start; l > 0; l--)
+    for (int l = start; l >= 0; l--)
         s += *(token + l);
     return s;
 }

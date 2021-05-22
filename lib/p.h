@@ -1,7 +1,7 @@
 #include "../lib/ipc.h"
 
 #define delim ","
-#define ENABLE "FAILURE"
+#define ENABLE "FALLIMENTO"
 
 char *splitP1(char *, int);
 char *splitP2(char *, int);
