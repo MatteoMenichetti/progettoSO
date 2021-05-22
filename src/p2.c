@@ -44,9 +44,10 @@ void splitP2(char *buff, int psfd) {
             if ((c - delim) <= 0) {
                 token = malloc((j + i) * sizeof(char));
                 strncpy(token, (buff + i), j);
-                printf("token = %s\n", token);
+                printf("token = %s", token);
                 int s = sum(token, 0);
-                printf("%d\n", s);
+                write(psfd, &s, sizeof(s));
+                printf(" s = %d\n", s);
                 i += (j + 1);
                 break;
             }
