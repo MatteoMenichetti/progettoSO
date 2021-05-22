@@ -20,20 +20,9 @@ int main(int argc, int *argv[]) {
 }
 int init(){
     unlink(PIPEDECISIONADDR);
-    mknod(PIPEDECISIONADDR, S_IFIFO, DEAFULT);
+    mknod(PIPEDECISIONADDR, S_IFIFO, DEFAULT);
 }
 
-
-
-
-void init() {
-    int csfd;
-    if ((csfd = socket(AF_UNIX, SOCK_STREAM, DEF)) == -1) {
-        perror("client: socket");
-        exit(0);
-    }
-    return csfd;
-}
 int sum(char * token, int start){
     int s=0;
     for (int l = start; l < strlen(token); l++)
