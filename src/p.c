@@ -6,15 +6,16 @@ int main(int argc, int *argv[]) {
         printf("P: argomenti non sufficienti");
         exit(0);
     }
-
+    int modality=0;
+    if(!strcmp(ENABLE, argv[1]))modality=1;
     if (*argv[2] == 1) {
-        p1(argv[1]);
+        p1(modality);
     }
     if (*argv[2] == 2) {
-        p2(argv[1]);
+        p2(modality);
     }
     if (*argv[2] == 3) {
-        p3(argv[1]);
+        p3(modality);
     }
     return 0;
 }
