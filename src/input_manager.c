@@ -1,4 +1,3 @@
-#include <string.h>
 #include "../lib/ipc.h"
 int main(){
     char buff[BUFSIZ];
@@ -7,6 +6,8 @@ int main(){
     fpData = fopen("datasetPiccolo.txt","r");
     fpAppoggio = fopen("fileDiAppoggio.txt","w");
     fgets(buff,BUFSIZ,fpData);
+    unlink(PIPEADDR);
+    mkfifo(PIPEADDR,0777);
     printf("Input Manager prima della open\n");
     do {
         fpPipe=open(PIPEADDR,O_WRONLY);
