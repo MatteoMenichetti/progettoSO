@@ -2,34 +2,37 @@
 #include <time.h>
 
 #define INT_ERR srand(time(NULL))
-#define ERR rand() % (10) + 1;
 
 void initializationPIPE() {
-    if (!unlink(PIPEDP1)) {
+    printf("P: eseguo unlink\n");
+    int u;
+    if (unlink(PIPEDP1)!=-1) {
         if (mknod(PIPEDP1, S_IFIFO, DEFAULT) == -1) {
             perror("P: mknod");
             exit(0);
         }
     } else {
-        perror("P: unlink");
+        perror("P: 1a unlink");
         exit(0);
     }
-    if (!unlink(PIPEDP2)) {
+    printf("P: eseguo unlink\n");
+    if (unlink(PIPEDP2)!=-1) {
         if (mknod(PIPEDP2, S_IFIFO, DEFAULT) == -1) {
             perror("P: mknod");
             exit(0);
         }
     } else {
-        perror("P: unlink");
+        perror("P: 2a unlink");
         exit(0);
     }
-    if (!unlink(PIPEDP2)) {
+    printf("P: eseguo unlink\n");
+    if (unlink(PIPEDP2)!=-1) {
         if (mknod(PIPEDP2, S_IFIFO, DEFAULT) == -1) {
             perror("P: mknod");
             exit(0);
         }
     } else {
-        perror("P: unlink");
+        perror("P: 3a unlink");
         exit(0);
     }
 }
@@ -48,11 +51,9 @@ int main(int argc, char *argv[]) {
             p1(pfd[0]);
         }
         if (*argv[2] == 2) {
-#define ADD 20
             p2(pfd[1]);
         }
         if (*argv[2] == 3) {
-#define ADD 30
             p3(pfd[2]);
         }
         return 0;
