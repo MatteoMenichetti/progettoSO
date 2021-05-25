@@ -23,7 +23,7 @@ void connecting(int sfd) {
 }
 
 void p2(int psfd) {
-    #define LAST (str)strlen(str)
+#define LAST (str)strlen(str)
     int csfd = definesocket();
     connecting(psfd);
     char buff[BUFSIZ];
@@ -44,10 +44,10 @@ void splitP2(char *buff, int psfd) {
                 token = malloc((j + i) * sizeof(char));
                 strncpy(token, (buff + i), j);
                 printf("token = %s", token);
-#ifdef ERR
-                s = sum(token)+ADD;
-#else
                 s = sum(token);
+#ifdef ERR
+                if(!ERR)
+                s +=20;
 #endif
                 write(psfd, &s, sizeof(s));
                 printf(" s = %d\n", s);

@@ -16,10 +16,10 @@ void splitP1(char *buff, int pfd) {
     int s;
     do {
         printf("P1: token = %s\n", token);
-#ifdef ERR
-        s = sum(token)+10;
-#else
         s = sum(token);
+#ifdef ERR
+        if(!ERR)
+        s +=10;
 #endif
         printf("P1: invio a DF %d\n", s);
         if (write(pfd, &s, sizeof(s)) == -1) {
