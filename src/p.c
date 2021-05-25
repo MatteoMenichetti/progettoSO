@@ -5,7 +5,7 @@
 
 void initializationPIPE() {
     printf("P: eseguo unlink\n");
-    int u;
+
     if (unlink(PIPEDP1) == 0) {
         if (mknod(PIPEDP1, S_IFIFO, DEFAULT) == -1) {
             perror("P: mknod");
