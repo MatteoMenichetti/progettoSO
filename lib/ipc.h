@@ -11,7 +11,9 @@
 #define PIPEADDR "pipeP1"
 #define SOCKADDR "socketP2"
 #define FILEADDR "fileP3"
-#define PIPEDECISIONADDR "pipeDA"
+#define PIPEDP1 "pipeDP1"
+#define PIPEDP2 "pipeDP2"
+#define PIPEDP3 "pipeDP3"
 #define DEFAULT 0
 
-void init();
+void inititializationPIPE();

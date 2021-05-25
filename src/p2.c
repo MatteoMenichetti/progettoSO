@@ -1,5 +1,6 @@
 #include "../lib/p.h"
 #include "../lib/ipc.h"
+
 int definesocket() {
     int csfd;
     printf("P2: esegue socket\n");
@@ -21,7 +22,8 @@ void connecting(int sfd) {
     }
 }
 
-void p2(int modality, int psfd) {
+void p2(int psfd) {
+    #define LAST (str)strlen(str)
     int csfd = definesocket();
     connecting(psfd);
     char buff[BUFSIZ];
@@ -34,18 +36,19 @@ void p2(int modality, int psfd) {
 }
 
 void splitP2(char *buff, int psfd) {
-    char *token, *lastWorld, c;
-    int cmp = 0;
+    char *token;
+    int s;
     for (int i = 0; i < strlen(buff); i++) {
-        lastWorld = (buff + i);
         for (int j = i + 1; j < strlen(buff); j++) {
-            c = *(buff + j);
-            cmp = (c - delim);
-            if ((c - delim) <= 0) {
+            if ((*(buff + j) - *delim) <= 0) {
                 token = malloc((j + i) * sizeof(char));
                 strncpy(token, (buff + i), j);
                 printf("token = %s", token);
-                int s = sum(token, 0);
+#ifdef ERR
+                s = sum(token)+ADD;
+#else
+                s = sum(token);
+#endif
                 write(psfd, &s, sizeof(s));
                 printf(" s = %d\n", s);
                 i += (j + 1);
@@ -54,4 +57,5 @@ void splitP2(char *buff, int psfd) {
         }
     }
 }
+
 

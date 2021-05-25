@@ -1,8 +1,8 @@
 #include "../lib/p.h"
 
-void p3(int modality, int psfd) {
+void p3(int psfd) {
 
-    FILE *fd = fopen(PIPEDECISIONADDR, "r");
+    FILE *fd = fopen(FILEADDR, "r");
 
     if (fd == NULL) {
         perror("P3: open");
@@ -11,7 +11,7 @@ void p3(int modality, int psfd) {
     char buff[BUFSIZ];
 
     while (0 == 0) {
-        while(fgets(buff, sizeof(buff), fd)==EOF);
+        while(fgets(buff, sizeof(buff), fd)==NULL);
         splitP2(buff, psfd);
     }
 }
