@@ -1,10 +1,9 @@
 #include "../lib/ipc.h"
 
-#define delim ','
+#define delim ((const char*)',')
 #define ENABLE "FALLIMENTO"
 
 #define INIT_ERR srand(time(NULL))
-
 
 void splitP1(char *, int);
 
