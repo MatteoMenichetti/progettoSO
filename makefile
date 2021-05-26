@@ -21,3 +21,13 @@ p2.o : ./src/p2.c ./lib/p.h
 
 p3.o : ./src/p3.c ./lib/p.h
 	cc -c ./src/p3.c
+
+install :
+
+	mkdir bin
+	mkdir tmp
+	mv *.o tmp
+	mv p bin
+	mv failure_manager bin
+	mv input_manager bin
+	mv decision_function bin
