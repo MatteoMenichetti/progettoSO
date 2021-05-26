@@ -1,5 +1,4 @@
 #include "../lib/p.h"
-#include <time.h>
 
 #define INT_ERR srand(time(NULL))
 
@@ -45,6 +44,7 @@ int main(int argc, char *argv[]) {
     }
     initializationPIPE();
     if (!strcmp(ENABLE, argv[1])) {
+        INT_ERR;
 #define ERR rand() % (10) + 1;}
         int pfd[3] = {open(PIPEDP1, O_WRONLY), open(PIPEDP2, O_WRONLY), open(PIPEDP3, O_WRONLY)};
         if (*argv[2] == 1) {
