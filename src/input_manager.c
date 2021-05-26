@@ -1,20 +1,21 @@
 #include "../lib/ipc.h"
-int main(){
+
+int main() {
     char buff[BUFSIZ];
-    FILE *fpData,*fpAppoggio;
+    FILE *fpData, *fpAppoggio;
     int fpPipe;
-    fpData = fopen("datasetPiccolo.txt","r");
-    fpAppoggio = fopen("fileDiAppoggio.txt","w");
-    fgets(buff,BUFSIZ,fpData);
+    fpData = fopen("datasetPiccolo.txt", "r");
+    fpAppoggio = fopen("fileDiAppoggio.txt", "w");
+    fgets(buff, BUFSIZ, fpData);
     unlink(PIPEADDR);
-    mkfifo(PIPEADDR,0777);
+    mkfifo(PIPEADDR, 0777);
     printf("Input Manager prima della open\n");
     do {
-        fpPipe=open(PIPEADDR,O_WRONLY);
+        fpPipe = open(PIPEADDR, O_WRONLY);
         if (fpPipe)
-        sleep(1);
-    }while (fpPipe ==-1);
-    if (fpPipe == -1){
+            sleep(1);
+    } while (fpPipe == -1);
+    if (fpPipe == -1) {
         perror("Input: open");
         exit(EXIT_FAILURE);
     }
@@ -45,17 +46,17 @@ int main(){
     int len;
     len = sizeof(socketClient);
     if ((asfd = accept(ssfd, (struct sockaddr *) &socketClient, &len)) == -1) {
-            perror("server: accept");
-            exit(EXIT_FAILURE);
+        perror("server: accept");
+        exit(EXIT_FAILURE);
     }
-    while(fgets(buff,BUFSIZ,fpData)!=NULL){
-        int stringaScritta = fputs(buff,fpAppoggio);
+    while (fgets(buff, BUFSIZ, fpData) != NULL) {
+        int stringaScritta = fputs(buff, fpAppoggio);
         //printf("Esito fputs:%d",stringaScritta);
-        printf("Stringa scritta in file di appoggio %s \n",buff);
-        write(fpPipe,buff,strlen(buff));
-        write(asfd,buff,strlen(buff));
+        printf("Stringa scritta in file di appoggio %s \n", buff);
+        write(fpPipe, buff, strlen(buff));
+        write(asfd, buff, strlen(buff));
         sleep(1);
     }
     fclose(fpData);
     fclose(fpAppoggio);
-    }
+}
