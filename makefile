@@ -13,16 +13,16 @@ failure_manager : src/failure_manager.c
 	cc ./src/failure_manager.c -o failure_manager
 
 p.o : src/p.c lib/p.h
-	cc -c ./src/p.c ./lib/p.h
+	cc -c ./src/p.c
 
 p1.o : src/p1.c lib/p.h
-	cc -c ./src/p1.c ./lib/p.h
+	cc -c ./src/p1.c
 
 p2.o : src/p2.c lib/p.h
-	cc -c ./src/p2.c ./lib/p.h
+	cc -c ./src/p2.c
 
 p3.o : src/p3.c lib/p.h
-	cc -c ./src/p3.c ./lib/p.h
+	cc -c ./src/p3.c
 
 
 install :
