@@ -31,3 +31,8 @@ install :
 	mv failure_manager bin
 	mv input_manager bin
 	mv decision_function bin
+
+clean :
+
+	rm -r bin
+	rm -r tmp
