@@ -8,12 +8,12 @@
 #include <unistd.h>
 #include <stdio.h>
 
-#define PIPEADDR "pipeP1"
-#define SOCKADDR "socketP2"
-#define FILEADDR "fileP3"
-#define PIPEDP1 "pipeDP1"
-#define PIPEDP2 "pipeDP2"
-#define PIPEDP3 "pipeDP3"
+#define PIPEADDR "../tmp/pipeP1"
+#define SOCKADDR "../tmp/socketP2"
+#define FILEADDR "../tmp/fileP3"
+#define PIPEDP1 "../tmp/pipeDP1"
+#define PIPEDP2 "../tmp/pipeDP2"
+#define PIPEDP3 "../tmp/pipeDP3"
 #define DEFAULT 0
 
 void inititializationPIPE();
