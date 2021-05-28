@@ -8,7 +8,7 @@ void p3(int flag) {
         perror("P: mknod");
         exit(EXIT_FAILURE);
     }
-    chmod(PIPEDP3, 0660);
+    chmod(PIPEDP3, 0777);
 
     int psfd;
     if((psfd=open(PIPEDP3, O_WRONLY))){

@@ -28,9 +28,9 @@ void p2(int flag) {
         perror("P2: mknod");
         exit(EXIT_FAILURE);
     }
-    chmod(PIPEDP2, 0660);
+    chmod(PIPEDP2, 0777);
     int psfd;
-    if ((psfd = open(PIPEDP2, O_WRONLY))) {
+    if ((psfd = open(PIPEDP2, O_WRONLY)) == -1) {
         perror("P2: open pipe");
         exit(EXIT_FAILURE);
     }
