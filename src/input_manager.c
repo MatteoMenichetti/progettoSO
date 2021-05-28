@@ -42,8 +42,7 @@ int main() {
         exit(EXIT_FAILURE);
     }
     int asfd;
-    char str[100];
-    int len;
+    unsigned int len;
     len = sizeof(socketClient);
     if ((asfd = accept(ssfd, (struct sockaddr *) &socketClient, &len)) == -1) {
         perror("server: accept");
