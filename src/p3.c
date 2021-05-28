@@ -1,6 +1,15 @@
 #include "../lib/p.h"
 
-void p3( int flag) {
+void p3(int flag) {
+    printf("P3: eseguo unlink\n");
+
+    unlink(PIPEDP3);
+    if (mknod(PIPEDP3, S_IFIFO, DEFAULT) == -1) {
+        perror("P: mknod");
+        exit(EXIT_FAILURE);
+    }
+    chmod(PIPEDP1, 0660);
+
     int psfd;
     if((psfd=open(PIPEDP3, O_WRONLY))){
         perror("P2: open pipe");

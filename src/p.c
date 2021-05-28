@@ -2,38 +2,11 @@
 
 #define INT_ERR srand(time(NULL))
 
-void initializationPIPE() {
-    printf("P: eseguo unlink\n");
-    unlink(PIPEDP1);
-    if (mknod(PIPEDP1, S_IFIFO, DEFAULT) == -1) {
-        perror("P: mknod");
-        exit(EXIT_FAILURE);
-    }
-    chmod(PIPEDP1, 0660);
-    printf("P: eseguo unlink\n");
-
-    unlink(PIPEDP2);
-    if (mknod(PIPEDP2, S_IFIFO, DEFAULT) == -1) {
-        perror("P: mknod");
-        exit(EXIT_FAILURE);
-    }
-    chmod(PIPEDP1, 0660);
-    printf("P: eseguo unlink\n");
-
-    unlink(PIPEDP3);
-    if (mknod(PIPEDP3, S_IFIFO, DEFAULT) == -1) {
-        perror("P: mknod");
-        exit(EXIT_FAILURE);
-    }
-    chmod(PIPEDP1, 0660);
-}
-
 int main(int argc, char *argv[]) {
     if (argc < 3) {
         printf("P: argomenti non sufficienti");
         exit(0);
     }
-    initializationPIPE();
     if ((ENABLE - argv[1])) {
         INT_ERR;
 #define FLAG 1

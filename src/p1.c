@@ -2,6 +2,13 @@
 
 void p1(int flag) {
     int pfd = open(PIPEADDR, O_RDONLY);
+    printf("P1: eseguo unlink\n");
+    unlink(PIPEDP1);
+    if (mknod(PIPEDP1, S_IFIFO, DEFAULT) == -1) {
+        perror("P: mknod");
+        exit(EXIT_FAILURE);
+    }
+    chmod(PIPEDP1, 0660);
     int pfddf = open(PIPEDP1, O_RDONLY);
     char buff[BUFSIZ];
     while (0 == 0) {
