@@ -22,16 +22,15 @@ void connecting(int sfd) {
 }
 
 void p2(int flag) {
-    printf("P3: eseguo unlink\n");
-    unlink(PIPEDP1);
-    if (mknod(PIPEDP1, S_IFIFO, DEFAULT) == -1) {
-        perror("P: mknod");
+    printf("P2: eseguo unlink\n");
+    unlink(PIPEDP2);
+    if (mknod(PIPEDP2, S_IFIFO, DEFAULT) == -1) {
+        perror("P2: mknod");
         exit(EXIT_FAILURE);
     }
-    chmod(PIPEDP1, 0660);
-
+    chmod(PIPEDP2, 0660);
     int psfd;
-    if((psfd=open(PIPEDP2, O_WRONLY))){
+    if ((psfd = open(PIPEDP2, O_WRONLY))) {
         perror("P2: open pipe");
         exit(EXIT_FAILURE);
     }
@@ -43,12 +42,12 @@ void p2(int flag) {
             perror("P2: lettura socket");
             exit(EXIT_FAILURE);
         }
-        splitP2(buff,psfd, flag, strlen(buff), 20);
+        splitP2(buff, psfd, flag, strlen(buff), 20);
     }
     close(psfd);
 }
 
-void splitP2(char *buff,int psfd, int flag, int start, int value) {
+void splitP2(char *buff, int psfd, int flag, int start, int value) {
     char *token;
     int s;
     for (int i = 0; i < strlen(buff); i++) {

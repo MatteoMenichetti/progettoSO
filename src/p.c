@@ -15,13 +15,12 @@ int main(int argc, char *argv[]) {
 #define FLAG 0
 #endif
 
-
     if (atoi(argv[2]) == P1) {
         printf("ESECIZIONE P1\n");
         p1(FLAG);
     }
     if (atoi(argv[2]) == P2) {
-        printf("ESECIZIONE P1\n");
+        printf("ESECIZIONE P2\n");
         p2(FLAG);
     }
     if (atoi(argv[2]) == P3) {
