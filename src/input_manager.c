@@ -1,6 +1,6 @@
 #include "../lib/ipc.h"
 
-int main() {
+int main(int argc, char *argv[]) {
     char buff[BUFSIZ];
     FILE *fpData, *fpAppoggio;
     int fpPipe;
