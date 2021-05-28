@@ -29,6 +29,7 @@ install :
 	@echo 'install in esecuzione'
 	mkdir bin
 	mkdir tmp
+	mkdir logs
 	mv *.o tmp
 	mv p bin
 	mv failure_manager bin
