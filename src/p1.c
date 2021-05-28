@@ -2,14 +2,18 @@
 
 void p1(int flag) {
     int pfd = open(PIPEADDR, O_RDONLY);
+
     printf("P1: eseguo unlink\n");
     unlink(PIPEDP1);
     if (mknod(PIPEDP1, S_IFIFO, DEFAULT) == -1) {
         perror("P: mknod");
         exit(EXIT_FAILURE);
     }
-    chmod(PIPEDP1, 0660);
-    int pfddf = open(PIPEDP1, O_RDONLY);
+    printf("P1: mknod eseguito\n");
+    chmod(PIPEDP1, 0777);
+
+    int pfddf = open(PIPEDP1, O_WRONLY);
+    printf("P1: open PIPEDP1 eseguita\n");
     char buff[BUFSIZ];
     while (0 == 0) {
         int r = read(pfd, buff, sizeof(buff));
