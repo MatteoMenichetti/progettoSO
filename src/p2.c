@@ -30,10 +30,10 @@ void p2(int flag) {
     }
     chmod(PIPEDP2, 0777);
     int psfd;
-   /* if ((psfd = open(PIPEDP2, O_WRONLY)) == -1) {
-        perror("P2: open pipe");
-        exit(EXIT_FAILURE);
-    }*/
+    /* if ((psfd = open(PIPEDP2, O_WRONLY)) == -1) {
+         perror("P2: open pipe");
+         exit(EXIT_FAILURE);
+     }*/
     int csfd = definesocket();
     connecting(csfd);
     char buff[BUFSIZ];
@@ -49,22 +49,27 @@ void p2(int flag) {
 
 void splitP2(char *buff/*, int psfd*/, int flag, int start, int value) {
     char *token;
-    int s;
+    int s = 0;
     for (int i = 0; i < strlen(buff); i++) {
         for (int j = i + 1; j < strlen(buff); j++) {
             if ((*(buff + j) - *delim) <= 0) {
                 token = malloc((j + i) * sizeof(char));
                 strncpy(token, (buff + i), j);
                 printf("token = %s", token);
-                s = sum(token, start);
+                s += sum(token, start);
                 if (flag == ACTIVE_FAILURE)errsum(&s, value);
-               /* write(psfd, &s, sizeof(s));*/
                 printf(" s = %d\n", s);
                 i += (j + 1);
                 break;
             }
         }
     }
+    printf("P2: invio a DF %d\n", s);
+    /* if(write(psfd, &s, sizeof(s))==-1){
+ * perror("P1: write");
+        exit(EXIT_FAILURE);
+ * }
+ */
 }
 
 

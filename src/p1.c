@@ -20,26 +20,33 @@ void p1(int flag) {
     }*/
 
     printf("P1: open PIPEDP1 eseguita\n");
+    printf("pfd = %d\n", pfd);
     char buff[BUFSIZ];
+    int s = 0;
     while (0 == 0) {
         int r = read(pfd, buff, sizeof(buff));
-        printf("pfd = %d\n", r);
         printf("P1: legge = %s\n", buff);
-        splitP1(buff/*, pfddf*/, flag);
+        s = splitP1(buff/*, pfddf*/, flag);
+        printf("s = %d\n", s);
     }
 }
 
-void splitP1(char *buff/*, int pfddf*/, int flag) {
-    char *token = strtok(buff, delim);
-    int s;
+int splitP1(char *buff/*, int pfddf*/, int flag) {
+    printf("P1: esecuzione strtok\n");
+    char *token;
+    token = strtok(buff, delim);
+    printf("P1: token =  %s", buff);
+    int s = 0;
     do {
         printf("P1: token = %s\n", token);
-        s = sum(token, 0);
+        s += sum(token, 0);
         if (flag == ACTIVE_FAILURE)errsum(&s, 10);
-        printf("P1: invio a DF %d\n", s);
-        /*if (write(pfddf, &s, sizeof(s)) == -1) {
-            perror("P1: write");
-            exit(EXIT_FAILURE);
-        }*/
+
     } while ((token = strtok(NULL, delim)) != NULL);
+    printf("P1: invio a DF %d\n", s);
+    return s;
+    /*if (write(pfddf, &s, sizeof(s)) == -1) {
+        perror("P1: write");
+        exit(EXIT_FAILURE);
+    }*/
 }

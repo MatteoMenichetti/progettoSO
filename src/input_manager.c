@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     printf("Sono dopo la open\n");
-    struct sockaddr_un sockServer, socketClient;
+   /* struct sockaddr_un sockServer, socketClient;
     strcpy(sockServer.sun_path, SOCKADDR);
     sockServer.sun_family = AF_UNIX;
     unlink(SOCKADDR);
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
     if ((asfd = accept(ssfd, (struct sockaddr *) &socketClient, &len)) == -1) {
         perror("server: accept");
         exit(EXIT_FAILURE);
-    }
+    }*/
 
     printf("accept eseguita\n");
 
@@ -72,8 +72,9 @@ int main(int argc, char *argv[]) {
         //printf("Esito fputs:%d",stringaScritta);
         printf("Stringa scritta in file di appoggio %s \n", buff);
         write(fpPipe, buff, strlen(buff));
-        write(asfd, buff, strlen(buff));
+        //write(asfd, buff, strlen(buff));
         sleep(1);
+        strncpy(buff, "\0", strlen(buff));
     }
     fclose(fpData);
     close(fpAppoggio);
