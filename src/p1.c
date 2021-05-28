@@ -23,7 +23,7 @@ void p1(int flag) {
     char buff[BUFSIZ];
     while (0 == 0) {
         int r = read(pfd, buff, sizeof(buff));
-        printf("pfd = %d", r);
+        printf("pfd = %d\n", r);
         printf("P1: legge = %s\n", buff);
         splitP1(buff/*, pfddf*/, flag);
     }
