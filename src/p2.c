@@ -21,19 +21,26 @@ void connecting(int sfd) {
     }
 }
 
-void p2(int psfd, int flag) {
-    int csfd = definesocket();
-    connecting(psfd);
-    char buff[BUFSIZ];
-    if (read(csfd, buff, sizeof(buff)) == -1) {
-        perror("P2: lettura socket");
+void p2(int flag) {
+    int psfd;
+    if((psfd=open(PIPEDP2, O_WRONLY))){
+        perror("P2: open pipe");
         exit(EXIT_FAILURE);
     }
-    splitP2(buff, psfd, flag, strlen(buff), 20);
+    int csfd = definesocket();
+    connecting(csfd);
+    char buff[BUFSIZ];
+    while (0 == 0) {
+        if (read(csfd, buff, sizeof(buff)) == -1) {
+            perror("P2: lettura socket");
+            exit(EXIT_FAILURE);
+        }
+        splitP2(buff,psfd, flag, strlen(buff), 20);
+    }
     close(psfd);
 }
 
-void splitP2(char *buff, int psfd, int flag, int start, int value) {
+void splitP2(char *buff,int psfd, int flag, int start, int value) {
     char *token;
     int s;
     for (int i = 0; i < strlen(buff); i++) {

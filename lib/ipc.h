@@ -15,5 +15,9 @@
 #define PIPEDP2 "../tmp/pipeDP2"
 #define PIPEDP3 "../tmp/pipeDP3"
 #define DEFAULT 0
+#define P1 1
+#define P2 2
+#define P3 3
 
 void inititializationPIPE();
+void openPIPE(int*);

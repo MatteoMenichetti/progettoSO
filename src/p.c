@@ -9,6 +9,7 @@ void initializationPIPE() {
         perror("P: mknod");
         exit(EXIT_FAILURE);
     }
+    chmod(PIPEDP1, 0660);
     printf("P: eseguo unlink\n");
 
     unlink(PIPEDP2);
@@ -16,15 +17,15 @@ void initializationPIPE() {
         perror("P: mknod");
         exit(EXIT_FAILURE);
     }
-
+    chmod(PIPEDP1, 0660);
     printf("P: eseguo unlink\n");
 
     unlink(PIPEDP3);
     if (mknod(PIPEDP3, S_IFIFO, DEFAULT) == -1) {
         perror("P: mknod");
         exit(EXIT_FAILURE);
-
     }
+    chmod(PIPEDP1, 0660);
 }
 
 int main(int argc, char *argv[]) {
@@ -41,15 +42,17 @@ int main(int argc, char *argv[]) {
 #define FLAG 0
 #endif
 
-    int pfd[3] = {open(PIPEDP1, O_WRONLY), open(PIPEDP2, O_WRONLY), open(PIPEDP3, O_WRONLY)};
-    if (*argv[2] == 1) {
-        p1(pfd[0], FLAG);
+    if (*argv[2] == P1) {
+        printf("ESECIZIONE P1\n");
+        p1(FLAG);
     }
-    if (*argv[2] == 2) {
-        p2(pfd[1], FLAG);
+    if (*argv[2] == P2) {
+        printf("ESECIZIONE P1\n");
+        p2(FLAG);
     }
-    if (*argv[2] == 3) {
-        p3(pfd[2], FLAG);
+    if (*argv[2] == P3) {
+        printf("ESECIZIONE P3\n");
+        p3(FLAG);
     }
     return 0;
 }
@@ -75,6 +78,6 @@ int sum(char *token, int start) {
     } else return sumFromFirst(token, start);
 }
 
-void errsum(int *s, int value){
-    if(ERR==EVENT)*s+=value;
+void errsum(int *s, int value) {
+    if (ERR == EVENT)*s += value;
 }

@@ -1,17 +1,17 @@
 #include "../lib/p.h"
 
-void p1(int pdfd, int flag) {
+void p1(int flag) {
     int pfd = open(PIPEADDR, O_RDONLY);
     char buff[BUFSIZ];
     while (0 == 0) {
         int r = read(pfd, buff, sizeof(buff));
         printf("pfd = %d", r);
         printf("P1: legge = %s\n", buff);
-        splitP1(buff, pdfd, flag);
+        splitP1(buff, flag);
     }
 }
 
-void splitP1(char *buff, int pfd, int flag) {
+void splitP1(char *buff, int flag) {
     char *token = strtok(buff, delim);
     int s;
     do {
