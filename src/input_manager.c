@@ -2,24 +2,29 @@
 
 int main(int argc, char *argv[]) {
     char buff[2048];
+
     FILE *fpData, *fpAppoggio;
+
     int fpPipe;
     fpData = fopen("../reduceDATAset.csv", "r");
-    fpAppoggio = fopen("fileDiAppoggio.txt", "w");
+    fpAppoggio = fopen(FILEADDR, "w");
+
     fgets(buff, 2048, fpData);
+
     unlink(PIPEADDR);
     if (mknod(PIPEADDR,S_IFIFO,DEFAULT)==-1){
         perror("Input manager:PIPEADDR");
         exit(EXIT_FAILURE);
     }
     chmod(PIPEADDR, 0660);
+
     printf("Input Manager prima della open\n");
     fpPipe = open(PIPEADDR, O_WRONLY);
     if (fpPipe == -1) {
         perror("Input: open");
         exit(EXIT_FAILURE);
     }
-    printf("Sono dopo la open");
+    printf("Sono dopo la open\n");
     struct sockaddr_un sockServer, socketClient;
     strcpy(sockServer.sun_path, SOCKADDR);
     sockServer.sun_family = AF_UNIX;
@@ -37,18 +42,28 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
+    printf("bind eseguita\n");
+
     if (listen(ssfd, 1) == -1) {
         perror("server: listen");
         exit(EXIT_FAILURE);
     }
+
+    printf("listen eseguita\n");
+
     int asfd;
     unsigned int len;
     len = sizeof(socketClient);
+    printf("IM: eseguo la accept\n");
     if ((asfd = accept(ssfd, (struct sockaddr *) &socketClient, &len)) == -1) {
         perror("server: accept");
         exit(EXIT_FAILURE);
     }
+
+    printf("accept eseguita\n");
+
     while (fgets(buff, BUFSIZ, fpData) != NULL) {
+        printf("IM: scrivo %s\n", buff);
         int stringaScritta = fputs(buff, fpAppoggio);
         //printf("Esito fputs:%d",stringaScritta);
         printf("Stringa scritta in file di appoggio %s \n", buff);
