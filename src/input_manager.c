@@ -1,20 +1,20 @@
 #include "../lib/ipc.h"
 
 int main(int argc, char *argv[]) {
-    char buff[BUFSIZ];
+    char buff[2048];
     FILE *fpData, *fpAppoggio;
     int fpPipe;
-    fpData = fopen("datasetPiccolo.txt", "r");
+    fpData = fopen("../reduceDATAset.csv", "r");
     fpAppoggio = fopen("fileDiAppoggio.txt", "w");
-    fgets(buff, BUFSIZ, fpData);
+    fgets(buff, 2048, fpData);
     unlink(PIPEADDR);
-    mkfifo(PIPEADDR, 0777);
+    if (mknod(PIPEADDR,S_IFIFO,DEFAULT)==-1){
+        perror("Input manager:PIPEADDR");
+        exit(EXIT_FAILURE);
+    }
+    chmod(PIPEADDR, 0660);
     printf("Input Manager prima della open\n");
-    do {
-        fpPipe = open(PIPEADDR, O_WRONLY);
-        if (fpPipe)
-            sleep(1);
-    } while (fpPipe == -1);
+    fpPipe = open(PIPEADDR, O_WRONLY);
     if (fpPipe == -1) {
         perror("Input: open");
         exit(EXIT_FAILURE);
