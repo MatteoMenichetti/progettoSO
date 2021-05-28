@@ -1,1 +1,1 @@
-cc -c src/p.c ; cc -c src/p1.c ; cc -c ./src/p2.c ; cc -c ./src/p3.c ; mv *.o ./tmp ; cc ./src/failure_manager.c -o ./bin/failure_manager ; cc ./src/input_manager.c -o ./bin/input_manager ; cc ./src/decision_function.c -o ./bin/decision_function ; cc ./p.o ./p1.o ./p2.o ./p3.o -o ./bin/p
+cc -c src/p.c ; cc -c src/p1.c ; cc -c ./src/p2.c ; cc -c ./src/p3.c ; cc ./src/failure_manager.c -o ./bin/failure_manager ; cc ./src/input_manager.c -o ./bin/input_manager ; cc ./src/decision_function.c -o ./bin/decision_function ; cc ./p.o ./p1.o ./p2.o ./p3.o -o ./bin/p
