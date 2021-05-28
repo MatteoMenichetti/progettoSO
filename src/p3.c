@@ -15,6 +15,9 @@ void p3(int flag) {
         perror("P3: open pipe");
         exit(EXIT_FAILURE);
     }*/
+
+    printf("P3: eseguo fopen\n");
+
     FILE *fd = fopen(FILEADDR, "r");
 
     if (fd == NULL) {
@@ -25,6 +28,7 @@ void p3(int flag) {
 
     while (0 == 0) {
         while (fgets(buff, sizeof(buff), fd) == NULL)usleep(500);
+        printf("P3: buff = %s", buff);
         splitP2(buff/*, psfd*/, flag, 0, 30);
     }
 }
