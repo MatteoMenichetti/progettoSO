@@ -1,5 +1,5 @@
 all : p p.o p1.o p2.o p3.o input_manager decision_function failure_manager
-	@echo 'compilazione completato'
+	@echo 'compilazione completata'
 p : p.o p1.o p2.o p3.o
 	cc ./p.o ./p1.o ./p2.o ./p3.o -o p
 

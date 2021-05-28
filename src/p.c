@@ -5,34 +5,23 @@
 void initializationPIPE() {
     printf("P: eseguo unlink\n");
 
-    if (unlink(PIPEDP1) == 0) {
-        if (mknod(PIPEDP1, S_IFIFO, DEFAULT) == -1) {
-            perror("P: mknod");
-            exit(EXIT_FAILURE);
-        }
-    } else if (unlink(PIPEDP1) == -1) {
-        perror("P: 1a unlink");
+    if (mknod(PIPEDP1, S_IFIFO, DEFAULT) == -1) {
+        perror("P: mknod");
         exit(EXIT_FAILURE);
     }
     printf("P: eseguo unlink\n");
-    if (unlink(PIPEDP2) == 0) {
-        if (mknod(PIPEDP2, S_IFIFO, DEFAULT) == -1) {
-            perror("P: mknod");
-            exit(EXIT_FAILURE);
-        }
-    } else if (unlink(PIPEDP2) == -1) {
-        perror("P: 2a unlink");
+
+    if (mknod(PIPEDP2, S_IFIFO, DEFAULT) == -1) {
+        perror("P: mknod");
         exit(EXIT_FAILURE);
     }
+
     printf("P: eseguo unlink\n");
-    if (unlink(PIPEDP2) == 0) {
-        if (mknod(PIPEDP2, S_IFIFO, DEFAULT) == -1) {
-            perror("P: mknod");
-            exit(EXIT_FAILURE);
-        }
-    } else if (unlink(PIPEDP3)) {
-        perror("P: 3a unlink");
+
+    if (mknod(PIPEDP3, S_IFIFO, DEFAULT) == -1) {
+        perror("P: mknod");
         exit(EXIT_FAILURE);
+
     }
 }
 
