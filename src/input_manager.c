@@ -8,6 +8,7 @@ int main(int argc, char *argv[]) {
     int fpPipe;
     fpData = fopen("../reduceDATAset.csv", "r");
     fpAppoggio = fopen(FILEADDR, "w");
+    chmod(FILEADDR, 0777);
 
     fgets(buff, 2048, fpData);
 
@@ -16,7 +17,7 @@ int main(int argc, char *argv[]) {
         perror("Input manager:PIPEADDR");
         exit(EXIT_FAILURE);
     }
-    chmod(PIPEADDR, 0660);
+    chmod(PIPEADDR, 0777);
 
     printf("Input Manager prima della open\n");
     fpPipe = open(PIPEADDR, O_WRONLY);
