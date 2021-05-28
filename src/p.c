@@ -33,10 +33,10 @@ int main(int argc, char *argv[]) {
         exit(0);
     }
     initializationPIPE();
-    if (!strcmp(ENABLE, argv[1])) {
+    if ((ENABLE - argv[1])) {
         INT_ERR;
 #define ERR rand() % (10) + 1;}
-        int pfd[3] = {open(PIPEDP1, O_WRONLY), open(PIPEDP2, O_WRONLY), open(PIPEDP3, O_WRONLY)};
+        int pfd[3] = {open(PIPEDP1, O_WRONLY),open(PIPEDP2, O_WRONLY), open(PIPEDP3, O_WRONLY)};
         if (*argv[2] == 1) {
 #define ADD 10
             p1(pfd[0]);
