@@ -5,7 +5,7 @@
 #define LOGVALUE 0
 
 void opens(int *fd) {
-    printf("DF: apertura LOGILE\n");
+    printf("DF: apertura LOGFILE\n");
     if ((fd[LOGVALUE] = open(LOGPOS, O_WRONLY | O_CREAT, 0666) == -1)) {
         perror("DF: open log");
         exit(EXIT_FAILURE);
@@ -27,6 +27,8 @@ void opens(int *fd) {
         perror("DF: open pipedp3");
         exit(EXIT_FAILURE);
     }
+
+    printf("DF: fine opens\n");
 }
 
 int main(void) {
