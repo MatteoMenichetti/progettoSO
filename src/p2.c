@@ -46,7 +46,7 @@ void splitP2(char *buff, int psfd) {
                 s = sum(token);
 #ifdef ERR
                 if(!ERR)
-                s +=20;
+                s += ADD;
 #endif
                 write(psfd, &s, sizeof(s));
                 printf(" s = %d\n", s);

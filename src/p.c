@@ -37,12 +37,15 @@ int main(int argc, char *argv[]) {
 #define ERR rand() % (10) + 1;}
         int pfd[3] = {open(PIPEDP1, O_WRONLY), open(PIPEDP2, O_WRONLY), open(PIPEDP3, O_WRONLY)};
         if (*argv[2] == 1) {
+#define ADD 10
             p1(pfd[0]);
         }
         if (*argv[2] == 2) {
             p2(pfd[1]);
+#define ADD 20
         }
         if (*argv[2] == 3) {
+#define ADD 30
             p3(pfd[2]);
         }
         return 0;

@@ -19,7 +19,7 @@ void splitP1(char *buff, int pfd) {
         s = sum(token);
 #ifdef ERR
         if(!ERR)
-        s +=10;
+        s += ADD;
 #endif
         printf("P1: invio a DF %d\n", s);
         if (write(pfd, &s, sizeof(s)) == -1) {
