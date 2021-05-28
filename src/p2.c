@@ -30,10 +30,10 @@ void p2(int flag) {
     }
     chmod(PIPEDP2, 0777);
     int psfd;
-    if ((psfd = open(PIPEDP2, O_WRONLY)) == -1) {
+   /* if ((psfd = open(PIPEDP2, O_WRONLY)) == -1) {
         perror("P2: open pipe");
         exit(EXIT_FAILURE);
-    }
+    }*/
     int csfd = definesocket();
     connecting(csfd);
     char buff[BUFSIZ];
@@ -42,12 +42,12 @@ void p2(int flag) {
             perror("P2: lettura socket");
             exit(EXIT_FAILURE);
         }
-        splitP2(buff, psfd, flag, strlen(buff), 20);
+        splitP2(buff/*, psfd*/, flag, strlen(buff), 20);
     }
     close(psfd);
 }
 
-void splitP2(char *buff, int psfd, int flag, int start, int value) {
+void splitP2(char *buff/*, int psfd*/, int flag, int start, int value) {
     char *token;
     int s;
     for (int i = 0; i < strlen(buff); i++) {
@@ -58,7 +58,7 @@ void splitP2(char *buff, int psfd, int flag, int start, int value) {
                 printf("token = %s", token);
                 s = sum(token, start);
                 if (flag == ACTIVE_FAILURE)errsum(&s, value);
-                write(psfd, &s, sizeof(s));
+               /* write(psfd, &s, sizeof(s));*/
                 printf(" s = %d\n", s);
                 i += (j + 1);
                 break;
