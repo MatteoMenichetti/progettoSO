@@ -32,6 +32,5 @@ int main(void) {
         if (read(fd[P1], vp1, sizeof(int)) == -1)perror("DF: read P1");
         if (read(fd[P2], vp2, sizeof(int)) == -1)perror("DF: read P2");
         if (read(fd[P3], vp3, sizeof(int)) == -1)perror("DF: read P3");
-
     }
 }
