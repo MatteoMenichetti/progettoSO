@@ -76,5 +76,5 @@ int main(int argc, char *argv[]) {
         sleep(1);
     }
     fclose(fpData);
-    fclose(fpAppoggio);
+    close(fpAppoggio);
 }
