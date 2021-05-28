@@ -1,19 +1,17 @@
 #include "../lib/ipc.h"
 
 int main(int argc, char *argv[]) {
-    char buff[2048];
+    char buff[BUFSIZ];
 
-    FILE *fpData, *fpAppoggio;
+    FILE *fpData/*, *fpAppoggio*/;
 
     int fpPipe;
     fpData = fopen("../reduceDATAset.csv", "r");
-    fpAppoggio = fopen(FILEADDR, "w");
+    int fpAppoggio = open(FILEADDR, O_WRONLY | O_CREAT | O_TRUNC, 0777);
     chmod(FILEADDR, 0777);
 
-    fgets(buff, 2048, fpData);
-
     unlink(PIPEADDR);
-    if (mknod(PIPEADDR,S_IFIFO,DEFAULT)==-1){
+    if (mknod(PIPEADDR, S_IFIFO, DEFAULT) == -1) {
         perror("Input manager:PIPEADDR");
         exit(EXIT_FAILURE);
     }
@@ -63,9 +61,14 @@ int main(int argc, char *argv[]) {
 
     printf("accept eseguita\n");
 
+    fgets(buff, BUFSIZ, fpData);
+    strncpy(buff, "\0", strlen(buff));
+
     while (fgets(buff, BUFSIZ, fpData) != NULL) {
         printf("IM: scrivo %s\n", buff);
-        int stringaScritta = fputs(buff, fpAppoggio);
+        write(fpAppoggio, buff, strlen(buff));
+        fsync(fpAppoggio);
+        //int stringaScritta = fputs(buff, fpAppoggio);
         //printf("Esito fputs:%d",stringaScritta);
         printf("Stringa scritta in file di appoggio %s \n", buff);
         write(fpPipe, buff, strlen(buff));
