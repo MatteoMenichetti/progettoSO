@@ -21,8 +21,7 @@ void connecting(int sfd) {
     }
 }
 
-void p2(int psfd) {
-#define LAST (str)strlen(str)
+void p2(int psfd, int flag) {
     int csfd = definesocket();
     connecting(psfd);
     char buff[BUFSIZ];
@@ -30,11 +29,11 @@ void p2(int psfd) {
         perror("P2: lettura socket");
         exit(EXIT_FAILURE);
     }
-    splitP2(buff, psfd);
+    splitP2(buff, psfd, flag, strlen(buff), 20);
     close(psfd);
 }
 
-void splitP2(char *buff, int psfd) {
+void splitP2(char *buff, int psfd, int flag, int start, int value) {
     char *token;
     int s;
     for (int i = 0; i < strlen(buff); i++) {
@@ -43,11 +42,8 @@ void splitP2(char *buff, int psfd) {
                 token = malloc((j + i) * sizeof(char));
                 strncpy(token, (buff + i), j);
                 printf("token = %s", token);
-                s = sum(token);
-#ifdef ERR
-                if(!ERR)
-                s += ADD;
-#endif
+                s = sum(token, start);
+                if (flag == ACTIVE_FAILURE)errsum(&s, value);
                 write(psfd, &s, sizeof(s));
                 printf(" s = %d\n", s);
                 i += (j + 1);

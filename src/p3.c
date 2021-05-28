@@ -1,6 +1,6 @@
 #include "../lib/p.h"
 
-void p3(int psfd) {
+void p3(int psfd, int flag) {
 
     FILE *fd = fopen(FILEADDR, "r");
 
@@ -12,6 +12,6 @@ void p3(int psfd) {
 
     while (0 == 0) {
         while (fgets(buff, sizeof(buff), fd) == NULL);
-        splitP2(buff, psfd);
+        splitP2(buff, psfd, flag, 0, 30);
     }
 }
