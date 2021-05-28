@@ -4,13 +4,14 @@
 
 void initializationPIPE() {
     printf("P: eseguo unlink\n");
-
+    unlink(PIPEDP1);
     if (mknod(PIPEDP1, S_IFIFO, DEFAULT) == -1) {
         perror("P: mknod");
         exit(EXIT_FAILURE);
     }
     printf("P: eseguo unlink\n");
 
+    unlink(PIPEDP2);
     if (mknod(PIPEDP2, S_IFIFO, DEFAULT) == -1) {
         perror("P: mknod");
         exit(EXIT_FAILURE);
@@ -18,6 +19,7 @@ void initializationPIPE() {
 
     printf("P: eseguo unlink\n");
 
+    unlink(PIPEDP3);
     if (mknod(PIPEDP3, S_IFIFO, DEFAULT) == -1) {
         perror("P: mknod");
         exit(EXIT_FAILURE);
@@ -26,7 +28,7 @@ void initializationPIPE() {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
+    if (argc < 3) {
         printf("P: argomenti non sufficienti");
         exit(0);
     }
