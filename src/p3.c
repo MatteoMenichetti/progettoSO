@@ -11,7 +11,7 @@ void p3(int psfd) {
     char buff[BUFSIZ];
 
     while (0 == 0) {
-        while(fgets(buff, sizeof(buff), fd)==NULL);
+        while (fgets(buff, sizeof(buff), fd) == NULL);
         splitP2(buff, psfd);
     }
 }
