@@ -7,7 +7,7 @@
 #define FALLIMENTO "FALLIMENTO"
 #define SUCCESSO "SUCCESSO"
 
-void writeOnLog(const int *fd, char *buffer) { write(fd[LOGVALUE], FALLIMENTO, sizeof(FALLIMENTO)); }
+void writeOnLog(int fd, char *buffer) { write(fd, FALLIMENTO, sizeof(FALLIMENTO)); }
 
 void opens(int *fd) {
     printf("DF: apertura LOGFILE\n");
