@@ -9,7 +9,7 @@
 
 int splitP1(char * /*, int*/,int);
 
-void splitP2(char * /*,int*/, int, int, int);
+int splitP2(char * /*,int*/, int, int, int);
 
 int sum(char *, int);
 

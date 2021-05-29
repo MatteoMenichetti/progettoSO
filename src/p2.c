@@ -34,7 +34,7 @@ void p2(int flag) {
          perror("P2: open pipe");
          exit(EXIT_FAILURE);
      }*/
-    int csfd = definesocket();
+    int csfd = definesocket(), s=0;
     connecting(csfd);
     char buff[BUFSIZ];
     while (0 == 0) {
@@ -42,12 +42,18 @@ void p2(int flag) {
             perror("P2: lettura socket");
             exit(EXIT_FAILURE);
         }
-        splitP2(buff/*, psfd*/, flag, strlen(buff), 20);
+        s=splitP2(buff/*, psfd*/, flag, strlen(buff), 20);
+        printf("P2: invio a DF %d\n", s);
+        /*if (write(pfddf, &s, sizeof(s)) == -1) {
+        perror("P1: write");
+        exit(EXIT_FAILURE);
+    }*/
+        strncpy(buff, "\0", strlen(buff));
     }
     close(psfd);
 }
 
-void splitP2(char *buff/*, int psfd*/, int flag, int start, int value) {
+int splitP2(char *buff/*, int psfd*/, int flag, int start, int value) {
     char *token;
     int s = 0;
     for (int i = 0; i < strlen(buff); i++) {
@@ -64,12 +70,7 @@ void splitP2(char *buff/*, int psfd*/, int flag, int start, int value) {
             }
         }
     }
-    printf("P2: invio a DF %d\n", s);
-    /* if(write(psfd, &s, sizeof(s))==-1){
- * perror("P1: write");
-        exit(EXIT_FAILURE);
- * }
- */
+    return s;
 }
 
 

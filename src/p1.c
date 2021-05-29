@@ -27,6 +27,12 @@ void p1(int flag) {
         r = read(pfd, buff, sizeof(buff));
         printf("P1: legge = %s\n", buff);
         s = splitP1(buff/*, pfddf*/, flag);
+        printf("P1: invio a DF %d\n", s);
+        /*if (write(pfddf, &s, sizeof(s)) == -1) {
+        perror("P1: write");
+        exit(EXIT_FAILURE);
+    }*/
+        strncpy(buff, "\0", strlen(buff));
         printf("s = %d\n", s);
     }
 }
@@ -38,15 +44,10 @@ int splitP1(char *buff/*, int pfddf*/, int flag) {
     printf("P1: token =  %s", buff);
     int s = 0;
     do {
-        printf("P1: token = %s\n", token);
         s += sum(token, 0);
         if (flag == ACTIVE_FAILURE)errsum(&s, 10);
 
     } while ((token = strtok(NULL, delim)) != NULL);
-    printf("P1: invio a DF %d\n", s);
     return s;
-    /*if (write(pfddf, &s, sizeof(s)) == -1) {
-        perror("P1: write");
-        exit(EXIT_FAILURE);
-    }*/
+
 }
