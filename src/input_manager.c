@@ -1,4 +1,5 @@
 #include "../lib/ipc.h"
+#include <signal.h>
 
 int initializationSOCKET(struct sockaddr_un *sockServer) {
     strcpy(sockServer->sun_path, SOCKADDR);
@@ -50,16 +51,16 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     printf("Sono dopo la open\n");
-   /* struct sockaddr_un sockServer, socketClient;
-    int ssfd = initializationSOCKET(&sockServer);
-    int asfd;
-    unsigned int len;
-    len = sizeof(socketClient);
-    printf("IM: eseguo la accept\n");
-    if ((asfd = accept(ssfd, (struct sockaddr *) &socketClient, &len)) == -1) {
-        perror("server: accept");
-        exit(EXIT_FAILURE);
-    }*/
+    /* struct sockaddr_un sockServer, socketClient;
+     int ssfd = initializationSOCKET(&sockServer);
+     int asfd;
+     unsigned int len;
+     len = sizeof(socketClient);
+     printf("IM: eseguo la accept\n");
+     if ((asfd = accept(ssfd, (struct sockaddr *) &socketClient, &len)) == -1) {
+         perror("server: accept");
+         exit(EXIT_FAILURE);
+     }*/
 
     //inserire fork
 
@@ -81,4 +82,5 @@ int main(int argc, char *argv[]) {
     }
     fclose(fpData);
     close(fpAppoggio);
+    kill(0, SIGKILL);
 }
