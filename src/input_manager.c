@@ -73,7 +73,6 @@ int main(int argc, char *argv[]) {
         printf("IM: scrivo %s\n", buff);
         write(fpAppoggio, buff, strlen(buff));
         fsync(fpAppoggio);
-        //printf("Esito fputs:%d",stringaScritta);
         printf("Stringa scritta in file di appoggio %s \n", buff);
         write(fpPipe, buff, strlen(buff));
         //write(asfd, buff, strlen(buff));
