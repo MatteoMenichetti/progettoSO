@@ -34,6 +34,7 @@ void p1(int flag) {
     }*/
         strncpy(buff, "\0", r);
         printf("s = %d\n", s);
+        s=0;
     }
 }
 
@@ -43,7 +44,7 @@ void splitP1(char *buff, int *s, int flag) {
     token = strtok(buff, delim);
     printf("P1: token =  %s", buff);
     do {
-        *s += sum(token, 0);
+        *s += sum(token, s);
     } while ((token = strtok(NULL, delim)) != NULL);
     if (flag == ACTIVE_FAILURE)errsum(s, 10);
 }

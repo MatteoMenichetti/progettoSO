@@ -42,33 +42,36 @@ void p2(int flag) {
             perror("P2: lettura socket");
             exit(EXIT_FAILURE);
         }
-        splitP2(buff,&s, flag, strlen(buff), 20);
+        splitP2(buff, &s, flag, strlen(buff), 20);
         printf("P2: invio a DF %d\n", s);
         /*if (write(pfddf, &s, sizeof(s)) == -1) {
         perror("P1: write");
         exit(EXIT_FAILURE);
     }*/
         strncpy(buff, "\0", strlen(buff));
+        s = 0;
     }
     close(psfd);
 }
 
-void splitP2(char *buff, int* s, int flag, int start, int value) {
-    char *token;
-    for (int i = 0; i < strlen(buff); i++) {
-        for (int j = i + 1; j < strlen(buff); j++) {
-            if ((*(buff + j) - *delim) <= 0) {
-                token = malloc((j + i) * sizeof(char));
-                strncpy(token, (buff + i), j);
-                printf("token = %s", token);
-                *s += sum(token, start);
-                printf(" s = %d\n", *s);
-                i += (j + 1);
-                free(token);
-                break;
-            }
+void tokenSum(char *token, char *buff, int *s, int i, int n) {
+    token = calloc(strlen(buff + i), sizeof(char));
+    strncpy(token, buff + i, n);
+    sum(token, s);
+    free(token);
+}
+
+void splitP2(char *buff, int *s, int flag, int start, int value) {
+    char *token, last;
+    for (int i = strlen(buff) - 1; i > 0; i--) {
+        if ((*(buff + i) - *delim) == 0) {
+            last = i;
+            tokenSum(token, buff, s, i + 1, strlen(buff + i + 1));
         }
     }
+    tokenSum(token, buff, s, 0, last);
+    printf("s = %d\n", *s);
+
     if (flag == ACTIVE_FAILURE)errsum(s, value);
 }
 

@@ -30,25 +30,9 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-
-int sumFromFirst(char *token, int start) {
-    int s = 0;
-    for (int l = start; l < strlen(token); l++)
-        s += *(token + l);
-    return s;
-}
-
-int sumFromLast(char *token, int start) {
-    int s = 0;
-    for (int l = start; l >= 0; l--)
-        s += *(token + l);
-    return s;
-}
-
-int sum(char *token, int start) {
-    if (start == strlen(token)) {
-        return sumFromLast(token, start);
-    } else return sumFromFirst(token, start);
+int sum(char *token, int *s) {
+    for (int l = 0; l < strlen(token); l++)
+        *s += *(token + l);
 }
 
 void errsum(int *s, int value) {
