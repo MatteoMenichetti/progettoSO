@@ -25,14 +25,14 @@ void p1(int flag) {
     int s = 0, r = 0;
     while (0 == 0) {
         r = read(pfd, buff, sizeof(buff));
-        printf("P1: legge = %s\n", buff);
+        printf("P1: legge = %s (nr char = %d)\n", buff, r);
         s = splitP1(buff/*, pfddf*/, flag);
         printf("P1: invio a DF %d\n", s);
         /*if (write(pfddf, &s, sizeof(s)) == -1) {
         perror("P1: write");
         exit(EXIT_FAILURE);
     }*/
-        strncpy(buff, "\0", strlen(buff));
+        strncpy(buff, "\0", r);
         printf("s = %d\n", s);
     }
 }

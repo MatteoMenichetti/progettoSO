@@ -25,11 +25,11 @@ void p3(int flag) {
         exit(EXIT_FAILURE);
     }
     char buff[BUFSIZ];
-    int s=0;
+    int s = 0;
     while (0 == 0) {
         while (fgets(buff, sizeof(buff), fd) == NULL)usleep(500);
         printf("P3: buff = %s", buff);
-        s=splitP2(buff/*, psfd*/, flag, 0, 30);
+        s = splitP2(buff/*, psfd*/, flag, 0, 30);
         /*if (write(pfddf, &s, sizeof(s)) == -1) {
         perror("P1: write");
         exit(EXIT_FAILURE);
