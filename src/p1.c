@@ -44,7 +44,6 @@ void splitP1(char *buff, int *s, int flag) {
     printf("P1: token =  %s", buff);
     do {
         *s += sum(token, 0);
-        if (flag == ACTIVE_FAILURE)errsum(s, 10);
-
     } while ((token = strtok(NULL, delim)) != NULL);
+    if (flag == ACTIVE_FAILURE)errsum(s, 10);
 }
