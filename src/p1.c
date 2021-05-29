@@ -12,7 +12,7 @@ void p1(int flag) {
     printf("P1: mknod eseguito\n");
     chmod(PIPEDP1, 0777);
 
-    int pfddf;
+    int pfddf = 0;
 
     /*if ((pfddf = open(PIPEDP3, O_WRONLY))) {
         perror("P3: open pipe");
@@ -22,9 +22,9 @@ void p1(int flag) {
     printf("P1: open PIPEDP1 eseguita\n");
     printf("pfd = %d\n", pfd);
     char buff[BUFSIZ];
-    int s = 0;
+    int s = 0, r = 0;
     while (0 == 0) {
-        int r = read(pfd, buff, sizeof(buff));
+        r = read(pfd, buff, sizeof(buff));
         printf("P1: legge = %s\n", buff);
         s = splitP1(buff/*, pfddf*/, flag);
         printf("s = %d\n", s);
