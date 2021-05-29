@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     printf("Sono dopo la open\n");
-    struct sockaddr_un sockServer, socketClient;
+   /* struct sockaddr_un sockServer, socketClient;
     int ssfd = initializationSOCKET(&sockServer);
     int asfd;
     unsigned int len;
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
     if ((asfd = accept(ssfd, (struct sockaddr *) &socketClient, &len)) == -1) {
         perror("server: accept");
         exit(EXIT_FAILURE);
-    }
+    }*/
 
     //inserire fork
 
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
         printf("Stringa scritta in file di appoggio %s \n", buff);
         write(fpPipe, buff, strlen(buff));
         //write(asfd, buff, strlen(buff));
-        sleep(1);
+        sleep(10);
         strncpy(buff, "\0", strlen(buff));
     }
     fclose(fpData);
