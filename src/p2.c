@@ -61,7 +61,7 @@ void splitP2(char *buff, int* s, int flag, int start, int value) {
                 token = malloc((j + i) * sizeof(char));
                 strncpy(token, (buff + i), j);
                 printf("token = %s", token);
-                s += sum(token, start);
+                *s += sum(token, start);
                 if (flag == ACTIVE_FAILURE)errsum(s, value);
                 printf(" s = %d\n", *s);
                 i += (j + 1);
