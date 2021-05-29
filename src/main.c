@@ -5,11 +5,8 @@ int main() {
 
     /*
      * avvio processi
-     * P1, P2, P3
-     * exec(binp, 1);
-     * decision_function
-     * input_manager
-     * failure_manager
+     * input manager avvia P1,  P2, P3
+     * decision_function avvia failure_manager
      */
     return 0;
 }
