@@ -14,7 +14,7 @@ void p1(int flag) {
 
     int pfddf = 0;
 
-    /*if ((pfddf = open(PIPEDP3, O_WRONLY))) {
+    /*if ((pfddf = open(PIPEDP1, O_WRONLY))) {
         perror("P3: open pipe");
         exit(EXIT_FAILURE);
     }*/
@@ -26,7 +26,7 @@ void p1(int flag) {
     while (0 == 0) {
         r = read(pfd, buff, sizeof(buff));
         printf("P1: legge = %s (nr char = %d)\n", buff, r);
-        s = splitP1(buff/*, pfddf*/, flag);
+        splitP1(buff, &s, flag);
         printf("P1: invio a DF %d\n", s);
         /*if (write(pfddf, &s, sizeof(s)) == -1) {
         perror("P1: write");
@@ -37,17 +37,14 @@ void p1(int flag) {
     }
 }
 
-int splitP1(char *buff/*, int pfddf*/, int flag) {
+void splitP1(char *buff, int *s, int flag) {
     printf("P1: esecuzione strtok\n");
     char *token;
     token = strtok(buff, delim);
     printf("P1: token =  %s", buff);
-    int s = 0;
     do {
         s += sum(token, 0);
-        if (flag == ACTIVE_FAILURE)errsum(&s, 10);
+        if (flag == ACTIVE_FAILURE)errsum(s, 10);
 
     } while ((token = strtok(NULL, delim)) != NULL);
-    return s;
-
 }

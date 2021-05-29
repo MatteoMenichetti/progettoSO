@@ -29,7 +29,7 @@ void p3(int flag) {
     while (0 == 0) {
         while (fgets(buff, sizeof(buff), fd) == NULL)usleep(500);
         printf("P3: buff = %s", buff);
-        s = splitP2(buff/*, psfd*/, flag, 0, 30);
+        splitP2(buff, &s, flag, 0, 30);
         /*if (write(pfddf, &s, sizeof(s)) == -1) {
         perror("P1: write");
         exit(EXIT_FAILURE);

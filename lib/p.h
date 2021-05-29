@@ -7,9 +7,9 @@
 #define EVENT 0
 #define ACTIVE_FAILURE 1
 
-int splitP1(char * /*, int*/,int);
+void splitP1(char * , int*,int);
 
-int splitP2(char * /*,int*/, int, int, int);
+void splitP2(char * ,int, int, int, int);
 
 int sum(char *, int);
 
