@@ -63,7 +63,7 @@ void createPIPE() {
 
 void splitP2(char *buff, char *token) {
     int s = 0;
-    for (int i = 0; i < (strlen(buff) - 1); i++) {
+    for (int i = 0; i < (strlen(buff)); i++) {
         if (strncmp((buff + i), delim, 1) != 0) {
             token = (char *) realloc(token, strlen(token) + 1);
             token[s] = buff[i];
