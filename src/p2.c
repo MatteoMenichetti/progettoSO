@@ -61,9 +61,12 @@ void createPIPE() {
     chmod(PIPEDP2, 0777);
 }
 
-void splitP2(char *buff, char *token) {
+void splitP2(char *buff, char * token) {
     int s = 0;
+    
+    printf("splitP2\n");
     for (int i = 0; i < (strlen(buff)); i++) {
+        printf("eseguo cmp\n");
         if (strncmp((buff + i), delim, 1) != 0) {
             token = (char *) realloc(token, strlen(token) + 1);
             token[s] = buff[i];

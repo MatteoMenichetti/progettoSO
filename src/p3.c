@@ -20,14 +20,15 @@ void p3(int flag) {
 
     FILE *fd = fopen(FILEADDR, "r");
 
+    printf("P3: fopen eseguita\n");
     if (fd == NULL) {
         perror("P3: open");
         exit(EXIT_FAILURE);
     }
-    char buff[BUFSIZ], *token;
+    char buff[BUFSIZ], *token = (char *) calloc(1, sizeof(char));
     int s = 0;
     while (0 == 0) {
-        while (fgets(buff, sizeof(buff), fd) == NULL)usleep(500);
+        while ((int) fgets(buff, sizeof(buff), fd) == EOF)usleep(500);
         printf("P3: buff = %s", buff);
         splitP2(buff, token);
         s = sum(token, 0);
