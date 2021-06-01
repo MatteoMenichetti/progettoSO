@@ -11,7 +11,7 @@ void p3(int flag) {
     chmod(PIPEDP3, 0777);
 
     int psfd;
-    if ((psfd = open(PIPEDP3, O_WRONLY))) {
+    if ((psfd = open(PIPEDP3, O_WRONLY)) == -1) {
         perror("P3: open pipe");
         exit(EXIT_FAILURE);
     }
@@ -33,9 +33,9 @@ void p3(int flag) {
         token = splitP2(buff);
         s = sum(token, 0);
         if (write(psfd, &s, sizeof(s)) == -1) {
-        perror("P1: write");
-        exit(EXIT_FAILURE);
-    }
+            perror("P1: write");
+            exit(EXIT_FAILURE);
+        }
         strncpy(buff, "\0", strlen(buff));
     }
 }
