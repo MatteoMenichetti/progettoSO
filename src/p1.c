@@ -24,7 +24,10 @@ void p1(int flag) {
     char buff[BUFSIZ];
     int s = 0, r = 0;
     while (0 == 0) {
-        r = read(pfd, buff, sizeof(buff));
+        if (r = read(pfd, buff, sizeof(buff)) == -1) {
+            perror("P1: read su pipe");
+            exit(EXIT_FAILURE);
+        }
         printf("P1: legge = %s (nr char = %d)\n", buff, r);
         splitP1(buff, &s, flag);
         printf("P1: invio a DF %d\n", s);
@@ -34,7 +37,7 @@ void p1(int flag) {
     }*/
         strncpy(buff, "\0", r);
         printf("s = %d\n", s);
-        s=0;
+        s = 0;
     }
 }
 
