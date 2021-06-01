@@ -24,12 +24,13 @@ void p3(int flag) {
         perror("P3: open");
         exit(EXIT_FAILURE);
     }
-    char buff[BUFSIZ];
+    char buff[BUFSIZ], *token;
     int s = 0;
     while (0 == 0) {
         while (fgets(buff, sizeof(buff), fd) == NULL)usleep(500);
         printf("P3: buff = %s", buff);
-        splitP2(buff, &s, flag, 0, 30);
+        splitP2(buff, token);
+        s = sum(token, 0);
         /*if (write(pfddf, &s, sizeof(s)) == -1) {
         perror("P1: write");
         exit(EXIT_FAILURE);
