@@ -45,12 +45,14 @@ int main(int argc, char *argv[]) {
     chmod(PIPEADDR, 0777);
 
     printf("Input Manager prima della open\n");
-    fpPipe = open(PIPEADDR, O_WRONLY);
+
+   fpPipe = open(PIPEADDR, O_WRONLY);
     if (fpPipe == -1) {
         perror("Input: open");
         exit(EXIT_FAILURE);
     }
-    /*printf("Sono dopo la open\n");
+    printf("Sono dopo la open\n");
+
     struct sockaddr_un sockServer, socketClient;
     int ssfd = initializationSOCKET(&sockServer);
     int asfd;
@@ -61,8 +63,6 @@ int main(int argc, char *argv[]) {
         perror("server: accept");
         exit(EXIT_FAILURE);
     }
-*/
-    //inserire fork
 
     printf("accept eseguita\n");
 
@@ -73,10 +73,10 @@ int main(int argc, char *argv[]) {
     while (fgets(buff, BUFSIZ, fpData) != NULL) {
         printf("IM: scrivo %s\n", buff);
         /* write(fpAppoggio, buff, strlen(buff));
-         fsync(fpAppoggio);*/
-        printf("Stringa scritta in file di appoggio %s \n", buff);
+         fsync(fpAppoggio);
+        printf("Stringa scritta in file di appoggio %s \n", buff);*/
         write(fpPipe, buff, strlen(buff));
-        //write(asfd, buff, strlen(buff));
+        write(asfd, buff, strlen(buff));
         sleep(10);
         strncpy(buff, "\0", strlen(buff));
     }
