@@ -12,12 +12,12 @@ void p1(int flag) {
     printf("P1: mknod eseguito\n");
     chmod(PIPEDP1, 0777);
 
-    int pfddf = 0;
+    int psfd = 0;
 
-    /*if ((pfddf = open(PIPEDP1, O_WRONLY))) {
+    if ((psfd = open(PIPEDP1, O_WRONLY))) {
         perror("P3: open pipe");
         exit(EXIT_FAILURE);
-    }*/
+    }
 
     printf("P1: open PIPEDP1 eseguita\n");
     printf("pfd = %d\n", pfd);
@@ -31,10 +31,10 @@ void p1(int flag) {
         printf("P1: legge = %s (nr char = %d)\n", buff, r);
         splitP1(buff, &s, flag);
         printf("P1: invio a DF %d\n", s);
-        /*if (write(pfddf, &s, sizeof(s)) == -1) {
+        if (write(psfd, &s, sizeof(s)) == -1) {
         perror("P1: write");
         exit(EXIT_FAILURE);
-    }*/
+    }
         strncpy(buff, "\0", r);
         printf("s = %d\n", s);
         s = 0;

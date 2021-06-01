@@ -11,10 +11,10 @@ void p3(int flag) {
     chmod(PIPEDP3, 0777);
 
     int psfd;
-    /*if ((psfd = open(PIPEDP3, O_WRONLY))) {
+    if ((psfd = open(PIPEDP3, O_WRONLY))) {
         perror("P3: open pipe");
         exit(EXIT_FAILURE);
-    }*/
+    }
 
     printf("P3: eseguo fopen\n");
 
@@ -28,14 +28,14 @@ void p3(int flag) {
     char buff[BUFSIZ], *token = (char *) calloc(1, sizeof(char));
     int s = 0;
     while (0 == 0) {
-        while ((int) fgets(buff, sizeof(buff), fd) == EOF)usleep(500);
+        while ((int) *fgets(buff, sizeof(buff), fd) == EOF)usleep(500);
         printf("P3: buff = %s", buff);
         token = splitP2(buff);
         s = sum(token, 0);
-        /*if (write(pfddf, &s, sizeof(s)) == -1) {
+        if (write(psfd, &s, sizeof(s)) == -1) {
         perror("P1: write");
         exit(EXIT_FAILURE);
-    }*/
+    }
         strncpy(buff, "\0", strlen(buff));
     }
 }

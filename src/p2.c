@@ -25,12 +25,12 @@ void connecting(int sfd) {
 
 void p2(int flag) {
     printf("P2: eseguo unlink\n");
-    /*createPIPE();
+    createPIPE();
     int psfd;
     if ((psfd = open(PIPEDP2, O_WRONLY)) == -1) {
          perror("P2: open pipe");
          exit(EXIT_FAILURE);
-     }*/
+     }
     int csfd = definesocket(), s = 0;
     connecting(csfd);
     char buff[BUFSIZ], *token = (char *) calloc(1, sizeof(char));
@@ -42,10 +42,10 @@ void p2(int flag) {
         token = splitP2(buff);
         s = sum(token, strlen(token));
         printf("P2: invio a DF %d\n", s);
-        /*if (write(psfd, &s, sizeof(s)) == -1) {
+        if (write(psfd, &s, sizeof(s)) == -1) {
         perror("P1: write");
         exit(EXIT_FAILURE);
-    }*/
+    }
         strncpy(buff, "\0", strlen(buff));
     }
     /*close(psfd); mai eseguite
@@ -75,17 +75,3 @@ char *splitP2(char *buff) {
     }
     return token;
 }
-
-/*void splitP2(char *buff, char *token) {
-    int s = 0;
-
-    printf("splitP2\n");
-    for (int i = 0; i < (strlen(buff)); i++) {
-        printf("eseguo cmp\n");
-        if (strncmp((buff + i), delim, 1) != 0) {
-            token = (char *) realloc(token, strlen(token) + 1);
-            token[s] = buff[i];
-            s++;
-        }
-    }
-}*/
