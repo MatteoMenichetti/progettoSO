@@ -30,7 +30,7 @@ void p3(int flag) {
     while (0 == 0) {
         while ((int) fgets(buff, sizeof(buff), fd) == EOF)usleep(500);
         printf("P3: buff = %s", buff);
-        splitP2(buff, token);
+        token = splitP2(buff);
         s = sum(token, 0);
         /*if (write(pfddf, &s, sizeof(s)) == -1) {
         perror("P1: write");

@@ -39,7 +39,7 @@ void p2(int flag) {
             perror("P2: lettura socket");
             exit(EXIT_FAILURE);
         }
-        splitP2(buff, token);
+        token = splitP2(buff);
         s = sum(token, strlen(token));
         printf("P2: invio a DF %d\n", s);
         /*if (write(psfd, &s, sizeof(s)) == -1) {
@@ -61,9 +61,9 @@ void createPIPE() {
     chmod(PIPEDP2, 0777);
 }
 
-void splitP2(char *buff, char * token) {
+char *splitP2(char *buff) {
     int s = 0;
-    
+    char *token = calloc(1, sizeof(char));
     printf("splitP2\n");
     for (int i = 0; i < (strlen(buff)); i++) {
         printf("eseguo cmp\n");
@@ -73,4 +73,19 @@ void splitP2(char *buff, char * token) {
             s++;
         }
     }
+    return token;
 }
+
+/*void splitP2(char *buff, char *token) {
+    int s = 0;
+
+    printf("splitP2\n");
+    for (int i = 0; i < (strlen(buff)); i++) {
+        printf("eseguo cmp\n");
+        if (strncmp((buff + i), delim, 1) != 0) {
+            token = (char *) realloc(token, strlen(token) + 1);
+            token[s] = buff[i];
+            s++;
+        }
+    }
+}*/
