@@ -14,8 +14,8 @@ void p1(int flag) {
 
     int psfd = 0;
 
-    if ((psfd = open(PIPEDP1, O_WRONLY))) {
-        perror("P3: open pipe");
+    if ((psfd = open(PIPEDP1, O_WRONLY))==-1) {
+        perror("P1: open pipe");
         exit(EXIT_FAILURE);
     }
 
