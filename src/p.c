@@ -30,10 +30,23 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-int sum(char *token, int *s) {
-    printf("token da sommare = %s\n", token);
+int sumFromFirst(char *token) {
+    int s = 0;
     for (int l = 0; l < strlen(token); l++)
-        *s += *(token + l);
+        s += *(token + l);
+    return s;
+}
+
+int sumFromLast(char *token) {
+    int s = 0;
+    for (int l = strlen(token); l >= 0; l--)
+        s += *(token + l);
+    return s;
+}
+
+int sum(char *token, int start) {
+    if (start == 0)return sumFromFirst(token);
+    return sumFromLast(token);
 }
 
 void errsum(int *s, int value) {
