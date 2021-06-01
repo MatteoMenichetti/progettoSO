@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
 }
 
 int sum(char *token, int *s) {
+    printf("token da sommare = %s\n", token);
     for (int l = 0; l < strlen(token); l++)
         *s += *(token + l);
 }
