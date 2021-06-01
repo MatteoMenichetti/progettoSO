@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     }
 
     int pid;
-    for(int i=0; i<3; i++){
+    for(int i=1; i<=3; i++){
         execl("./p", "./p", argv[1], i, NULL);
     }*/
     char buff[BUFSIZ];
