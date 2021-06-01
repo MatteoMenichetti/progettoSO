@@ -40,7 +40,7 @@ int main(void) {
     int fd[4], pid;
     char *vp1, *vp2, *vp3;
     if (!(pid = fork()))
-        execl("./failure_manager", "./failure_manager");
+        execl("./failure_manager", "./failure_manager", NULL);
     opens(fd);
     while (0 == 0) {
         printf("DF: leggo\n");
