@@ -1,4 +1,5 @@
 #include "../lib/p.h"
+
 struct Token {
     char *token;
     struct Token *previous;
@@ -48,6 +49,15 @@ void p2(int flag) {
             exit(EXIT_FAILURE);
         }
         splitP2(buff, &s, flag, strlen(buff), 20);
+        struct Token *p=&tokenLL, *tmp=p;
+        do {
+            sum(p->token, &s);
+            if (p->previous == NULL) {
+                int i = 0;
+                i++;
+            }
+            p = p->previous;
+        } while (p != NULL);
         printf("P2: invio a DF %d\n", s);
         /*if (write(pfddf, &s, sizeof(s)) == -1) {
         perror("P1: write");
@@ -58,14 +68,6 @@ void p2(int flag) {
     }
     close(psfd);
 }
-
-void tokenSum(char *token, char *buff, int *s, int i, int n) {
-    token = calloc(strlen(buff + i), sizeof(char));
-    strncpy(token, buff + i, n);
-    sum(token, s);
-    free(token);
-}
-
 
 
 void operation(struct Token *token, char *buff, int *s, int i, int n) {
@@ -87,12 +89,12 @@ void splitP2(char *buff, int *s, int flag, int start, int value) {
     struct Token *token = &tokenLL;
     int lastDelimiter = strlen(buff);
     for (int i = strlen(buff) - 1; i > 0; i--) {
-        if (strncmp((buff+i), delim, 1) == 0) { //strncmp((buff+i), delim, 1) (*(buff + i) - *delim)
+        if (strncmp((buff + i), delim, 1) == 0) { //strncmp((buff+i), delim, 1) (*(buff + i) - *delim)
             operation(token, buff, s, i + 1, lastDelimiter - i - 1);
             token = token->previous;
             lastDelimiter = i;
         }
     }
     operation(token, buff, s, 0, lastDelimiter);
-    printf("s = %d\n", *s);
+    printf("P2: s = %d\n", *s);
 }
