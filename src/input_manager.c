@@ -35,6 +35,7 @@ int main(int argc, char *argv[]) {
     int fpPipe;
     FILE *fpData = fopen("../reduceDATAset.csv", "r");
     int fpAppoggio = open(FILEADDR, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+
     chmod(FILEADDR, 0777);
 
     unlink(PIPEADDR);
@@ -72,9 +73,8 @@ int main(int argc, char *argv[]) {
     int stringaScritta = 0;
     while (fgets(buff, BUFSIZ, fpData) != NULL) {
         printf("IM: scrivo %s\n", buff);
-        /* write(fpAppoggio, buff, strlen(buff));
+        write(fpAppoggio, buff, strlen(buff));
          fsync(fpAppoggio);
-        printf("Stringa scritta in file di appoggio %s \n", buff);*/
         write(fpPipe, buff, strlen(buff));
         write(asfd, buff, strlen(buff));
         sleep(10);
