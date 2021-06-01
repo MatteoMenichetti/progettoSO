@@ -1,4 +1,9 @@
 #include "../lib/p.h"
+struct Token {
+    char *token;
+    struct Token *previous;
+} tokenLL;
+
 
 int definesocket() {
     int csfd;
@@ -61,18 +66,33 @@ void tokenSum(char *token, char *buff, int *s, int i, int n) {
     free(token);
 }
 
-void splitP2(char *buff, int *s, int flag, int start, int value) {
-    char *token, last;
-    for (int i = strlen(buff) - 1; i > 0; i--) {
-        if ((*(buff + i) - *delim) == 0) {
-            last = i;
-            tokenSum(token, buff, s, i + 1, strlen(buff + i + 1));
+
+
+void operation(struct Token *token, char *buff, int *s, int i, int n) {
+    token->previous = calloc(1, sizeof(struct Token));
+    if (tokenLL.token == NULL) {
+        tokenLL.token = calloc(strlen(buff + i), sizeof(char));
+        strncpy(tokenLL.token, buff + i, n);
+    } else {
+        token->token = calloc(strlen(buff + i), sizeof(char));
+        strncpy(token->token, buff + i, n);
+        if (i == 0) {
+            free(token->previous);
+            token->previous = NULL;
         }
     }
-    tokenSum(token, buff, s, 0, last);
-    printf("s = %d\n", *s);
-
-    if (flag == ACTIVE_FAILURE)errsum(s, value);
 }
 
-
+void splitP2(char *buff, int *s, int flag, int start, int value) {
+    struct Token *token = &tokenLL;
+    int lastDelimiter = strlen(buff);
+    for (int i = strlen(buff) - 1; i > 0; i--) {
+        if (strncmp((buff+i), delim, 1) == 0) { //strncmp((buff+i), delim, 1) (*(buff + i) - *delim)
+            operation(token, buff, s, i + 1, lastDelimiter - i - 1);
+            token = token->previous;
+            lastDelimiter = i;
+        }
+    }
+    operation(token, buff, s, 0, lastDelimiter);
+    printf("s = %d\n", *s);
+}
