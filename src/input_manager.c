@@ -30,8 +30,17 @@ int initializationSOCKET(struct sockaddr_un *sockServer) {
 }
 
 int main(int argc, char *argv[]) {
-    char buff[BUFSIZ];
 
+    /*if(argc<2){
+        printf("IM: numero argomenti non suff.");
+        exit(EXIT_FAILURE);
+    }
+
+    int pid;
+    for(int i=0; i<3; i++){
+        execl("./p", "./p", argv[1], i, NULL);
+    }*/
+    char buff[BUFSIZ];
     int fpPipe;
     FILE *fpData = fopen("../reduceDATAset.csv", "r");
     int fpAppoggio = open(FILEADDR, O_WRONLY | O_CREAT | O_TRUNC, 0777);
