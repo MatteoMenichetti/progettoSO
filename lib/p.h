@@ -9,9 +9,9 @@
 
 void splitP1(char *, int *, int);
 
-void splitP2(char *, int *, int, int, int);
+void splitP2(char *, char *);
 
-int sum(char *, int*);
+int sum(char *, int);
 
 void p1(int);
 
