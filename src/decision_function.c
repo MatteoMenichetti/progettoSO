@@ -47,11 +47,11 @@ int main(void) {
     int voted_output = open(VOTED, O_WRONLY | O_CREAT | O_TRUNC, 0666);
     while (0 == 0) {
         dprintf(voted_output, "inizio iterazione riga %d \n", i);
-        if ((read(fd[P1 - 1], vp + P1, sizeof(int))) == -1) { perror("DF: read P1"); }
+        if ((read(fd[P1], vp + P1 - 1, sizeof(int))) == -1) { perror("DF: read P1"); }
         dprintf(voted_output, " p1: %d \n", vp[P1 - 1]);
-        if ((read(fd[P2 - 1], vp + P2, sizeof(int))) == -1) { perror("DF: read P2"); }
+        if ((read(fd[P2], vp + P2 - 1, sizeof(int))) == -1) { perror("DF: read P2"); }
         dprintf(voted_output, " p2: %d \n", vp[P2 - 1]);
-        if ((read(fd[P3 - 1], vp + P3, sizeof(int))) == -1) { perror("DF: read P3"); }
+        if ((read(fd[P3], vp + P3 - 1, sizeof(int))) == -1) { perror("DF: read P3"); }
         dprintf(voted_output, " p3: %d \n", vp[P3 - 1]);
         dprintf(voted_output, "fine iterazione riga %d \n", i);
 
