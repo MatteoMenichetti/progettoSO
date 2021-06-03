@@ -36,9 +36,12 @@ int main(int argc, char *argv[]) {
     }
     int pid;
 
+    printf("IM: avvio i tre P\n");
     for (int i = 1; i <= 3; i++) {
         execl("./p", "./p", argv[2], i, NULL);
     }
+    printf("IM: avviati\n");
+
     char buff[BUFSIZ];
     int fpPipe;
     FILE *fpData = fopen(argv[1], "r");
