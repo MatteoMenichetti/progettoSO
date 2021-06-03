@@ -42,6 +42,7 @@ int main(void) {
 
     if (!(pid = fork()))
         execl("./failure_manager", "./failure_manager", NULL);
+
     opens(fd);
     int i = 1;
     int voted_output = open(VOTED, O_WRONLY | O_CREAT | O_TRUNC, 0666);
