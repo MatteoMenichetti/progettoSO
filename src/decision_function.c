@@ -38,9 +38,8 @@ void opens(int *fd) {
 
 
 int main(void) {
-    int fd[4];
-    int pid;
-    int vp[3];
+    int fd[4], vp[3], pid;
+
     if (!(pid = fork()))
         execl("./failure_manager", "./failure_manager", NULL);
     opens(fd);
