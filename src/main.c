@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
      */
 
     if (!fork())
-        execl("./input_manager", "./input_manager", *argv[1], NULL);
+        execl("./input_manager", "./input_manager", *argv[1], *argv[2], NULL);
     if (!fork())
         execl("./decision_function", "./decision_function", NULL);
     return 0;
