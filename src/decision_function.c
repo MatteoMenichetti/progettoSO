@@ -56,7 +56,7 @@ int main(void) {
         dprintf(voted_output, " p3: %d \n", vp[P3 - 1]);
         dprintf(voted_output, "fine iterazione riga %d \n", i);
 
-        if (!(vp + P1 == vp + P2) || !(vp + P1 == vp + P3) || !(vp + P2 == vp + P3)) {
+        if (!(vp + P1 == vp + P2) && !(vp + P1 == vp + P3) && !(vp + P2 == vp + P3)) {
             writeOnLog(fd[LOGVALUE], FALLIMENTO);
             kill(pid, SIGUSR1);
         } else {
