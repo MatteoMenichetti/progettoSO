@@ -4,10 +4,10 @@
 #define LOGPOS "../logs/system_log"
 #define VOTED "../logs/voted_output"
 #define LOGVALUE 0
-#define FALLIMENTO "FALLIMENTO"
-#define SUCCESSO "SUCCESSO"
+#define FALLIMENTO "FALLIMENTO\n"
+#define SUCCESSO "SUCCESSO\n"
 
-void writeOnLog(int fd, char *buffer) { write(fd, buffer, sizeof(buffer)); }
+void writeOnLog(int fd, char *buffer) { write(fd, buffer, strlen(buffer)); }
 
 void opens(int *fd) {
     printf("DF: apertura LOGFILE\n");
