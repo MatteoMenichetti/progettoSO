@@ -29,7 +29,8 @@ void p1(int flag) {
             exit(EXIT_FAILURE);
         }
         printf("P1: legge = %s (nr char = %d)\n", buff, r);
-        splitP1(buff, &s, flag);
+        splitP1(buff, &s);
+        if (flag == ACTIVE_FAILURE)errsum(s, 10);
         printf("P1: invio a DF %d\n", s);
         if (write(psfd, &s, sizeof(s)) == -1) {
         perror("P1: write");
@@ -41,7 +42,7 @@ void p1(int flag) {
     }
 }
 
-void splitP1(char *buff, int *s, int flag) {
+void splitP1(char *buff, int *s) {
     printf("P1: esecuzione strtok\n");
     char *token;
     token = strtok(buff, delim);
@@ -49,5 +50,4 @@ void splitP1(char *buff, int *s, int flag) {
     do {
         *s += sum(token, 0);
     } while ((token = strtok(NULL, delim)) != NULL);
-    if (flag == ACTIVE_FAILURE)errsum(s, 10);
 }
