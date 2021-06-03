@@ -37,11 +37,11 @@ int main(int argc, char *argv[]) {
     int pid;
 
     for (int i = 1; i <= 3; i++) {
-        execl("./p", "./p", argv[1], i, NULL);
+        execl("./p", "./p", argv[2], i, NULL);
     }
     char buff[BUFSIZ];
     int fpPipe;
-    FILE *fpData = fopen("../reduceDATAset.csv", "r");
+    FILE *fpData = fopen(argv[1], "r");
     int fpAppoggio = open(FILEADDR, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 
     chmod(FILEADDR, 0777);
