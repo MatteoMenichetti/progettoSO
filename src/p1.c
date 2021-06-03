@@ -30,7 +30,7 @@ void p1(int flag) {
         }
         printf("P1: legge = %s (nr char = %d)\n", buff, r);
         splitP1(buff, &s);
-        if (flag == ACTIVE_FAILURE)errsum(s, 10);
+        if (flag == ACTIVE_FAILURE)errsum(&s, 10);
         printf("P1: invio a DF %d\n", s);
         if (write(psfd, &s, sizeof(s)) == -1) {
         perror("P1: write");
