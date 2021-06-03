@@ -1,7 +1,7 @@
 #include "../lib/ipc.h"
 #include <time.h>
 
-#define ERR rand() % (10) + 1
+#define ERR rand() % (10)
 #define delim (",")
 #define ENABLE "FALLIMENTO"
 #define EVENT 0
