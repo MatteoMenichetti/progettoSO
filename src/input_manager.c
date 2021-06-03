@@ -30,14 +30,13 @@ int initializationSOCKET(struct sockaddr_un *sockServer) {
 }
 
 int main(int argc, char *argv[]) {
-
-    /*if(argc<2){
+    /*if (argc < 2) {
         printf("IM: numero argomenti non suff.");
         exit(EXIT_FAILURE);
     }
-
     int pid;
-    for(int i=1; i<=3; i++){
+
+    for (int i = 1; i <= 3; i++) {
         execl("./p", "./p", argv[1], i, NULL);
     }*/
     char buff[BUFSIZ];
@@ -56,7 +55,7 @@ int main(int argc, char *argv[]) {
 
     printf("Input Manager prima della open\n");
 
-   fpPipe = open(PIPEADDR, O_WRONLY);
+    fpPipe = open(PIPEADDR, O_WRONLY);
     if (fpPipe == -1) {
         perror("Input: open");
         exit(EXIT_FAILURE);
@@ -83,7 +82,7 @@ int main(int argc, char *argv[]) {
     while (fgets(buff, BUFSIZ, fpData) != NULL) {
         printf("IM: scrivo %s\n", buff);
         write(fpAppoggio, buff, strlen(buff));
-         fsync(fpAppoggio);
+        fsync(fpAppoggio);
         write(fpPipe, buff, strlen(buff));
         write(asfd, buff, strlen(buff));
         sleep(10);
