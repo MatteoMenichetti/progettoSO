@@ -41,7 +41,7 @@ void p2(int flag) {
         }
         token = splitP2(buff);
         s = sum(token, strlen(token));
-        if (flag == ACTIVE_FAILURE)errsum(&s, 10);
+        if (flag == ACTIVE_FAILURE)errsum(&s, 20);
         printf("P2: invio a DF %d\n", s);
         if (write(psfd, &s, sizeof(s)) == -1) {
         perror("P1: write");
