@@ -30,25 +30,24 @@ int initializationSOCKET(struct sockaddr_un *sockServer) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
+    if (argc < 3) {
         printf("IM: numero argomenti non suff.");
         exit(EXIT_FAILURE);
     }
     int pid;
     char c;
     printf("IM: avvio i tre P\n");
-
+    printf("IM: argv[2] = %s\n", argv[2]);
     for (int NP = 1; NP <= 3; NP++) {
         if (!fork()) {
             c = NP + 48;
-            int e = execl("./p", argv[1], &c, "\0");
+            int e = execl("./p", argv[1], argv[2], &c, (char *) NULL);
             printf("IM: execl = %d\n", e);
             if (e == -1) {
                 perror("IM: execl");
                 exit(EXIT_FAILURE);
             }
         }
-
     }
 
     printf("IM: avviati\n");

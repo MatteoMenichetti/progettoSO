@@ -23,10 +23,12 @@ void connecting(int sfd) {
     }
 }
 
-void p2(int flag) {
+void p2(int flag, int pid) {
     printf("P2: eseguo unlink\n");
     createPIPE();
     int psfd;
+    printf("P2: apro PIPEDP2\n");
+    kill(pid, SIGCONT);
     if ((psfd = open(PIPEDP2, O_WRONLY)) == -1) {
          perror("P2: open pipe");
          exit(EXIT_FAILURE);

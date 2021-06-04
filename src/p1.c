@@ -1,7 +1,6 @@
 #include "../lib/p.h"
 
-void p1(int flag) {
-    int pfd = open(PIPEADDR, O_RDONLY);
+void p1(int flag, int pid) {
 
     printf("P1: eseguo unlink\n");
     unlink(PIPEDP1);
@@ -13,12 +12,13 @@ void p1(int flag) {
     chmod(PIPEDP1, 0777);
 
     int psfd = 0;
-
+    printf("P1: apro PIPEDP1\n");
+    kill(pid, SIGCONT);
     if ((psfd = open(PIPEDP1, O_WRONLY)) == -1) {
         perror("P1: open pipe");
         exit(EXIT_FAILURE);
     }
-
+    int pfd = open(PIPEADDR, O_RDONLY);
     printf("P1: open PIPEDP1 eseguita\n");
     printf("P1: pfd = %d\n", pfd);
     char buff[BUFSIZ];

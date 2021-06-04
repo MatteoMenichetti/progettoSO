@@ -11,14 +11,14 @@
 
 void splitP1(char *, int *);
 
-char* splitP2(char *);
+char *splitP2(char *);
 
 int sum(char *, int);
 
-void p1(int);
+void p1(int, int);
 
-void p2(int);
+void p2(int, int);
 
-void p3(int);
+void p3(int, int);
 
 void errsum(int *, int);
