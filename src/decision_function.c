@@ -63,10 +63,12 @@ int main(void) {
         dprintf(voted_output, "fine iterazione riga %d \n", i);
 
         if (!(vp1 == vp2) && !(vp1 == vp3) && !(vp2 == vp3)) {
+            printf("DF: scrive su file %s\n", FALLIMENTO);
             writeOnLog(fd[LOGVALUE], FALLIMENTO);
             kill(pid, SIGUSR1);
         } else {
             i++;
+            printf("DF: scrive su file %s\n", SUCCESSO);
             writeOnLog(fd[LOGVALUE], SUCCESSO);
         }
     }
