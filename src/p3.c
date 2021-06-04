@@ -36,10 +36,10 @@ void p3(int flag) {
             res += strlen(buff);
             token = splitP2(buff);
             s = sum(token, 0);
-            errsum(&s, 30);
+            if (flag == ACTIVE_FAILURE)errsum(&s, 30);
             printf("somma: %d \n", s);
             if (write(psfd, &s, sizeof(s)) == -1) {
-                perror("P1: write");
+                perror("P3: write");
                 exit(EXIT_FAILURE);
             }
             printf("Inviato: %d \n", s);
