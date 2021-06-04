@@ -6,7 +6,7 @@ void p1(int flag) {
     printf("P1: eseguo unlink\n");
     unlink(PIPEDP1);
     if (mknod(PIPEDP1, S_IFIFO, DEFAULT) == -1) {
-        perror("P: mknod");
+        perror("P1: mknod");
         exit(EXIT_FAILURE);
     }
     printf("P1: mknod eseguito\n");
@@ -20,7 +20,7 @@ void p1(int flag) {
     }
 
     printf("P1: open PIPEDP1 eseguita\n");
-    printf("pfd = %d\n", pfd);
+    printf("P1: pfd = %d\n", pfd);
     char buff[BUFSIZ];
     int s = 0, r = 0;
     while (0 == 0) {
@@ -37,7 +37,7 @@ void p1(int flag) {
             exit(EXIT_FAILURE);
         }
         strncpy(buff, "\0", r);
-        printf("s = %d\n", s);
+        printf("P1: s = %d\n", s);
         s = 0;
     }
 }

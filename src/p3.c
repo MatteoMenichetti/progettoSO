@@ -29,8 +29,7 @@ void p3(int flag) {
     char *token = (char *) calloc(1, sizeof(char));
     printf("P3: sono prima del while \n");
 
-    int s;
-    int res = 0;
+    int s, res = 0;
 
     while (0 == 0) {
         if (fgets(buff, sizeof(buff), fd)) {

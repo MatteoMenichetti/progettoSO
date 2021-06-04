@@ -1,5 +1,7 @@
 #include "../lib/ipc.h"
 #include <time.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #define ERR rand() % (10)
 #define delim (",")

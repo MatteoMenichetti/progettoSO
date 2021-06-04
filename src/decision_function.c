@@ -38,25 +38,31 @@ void opens(int *fd) {
 
 
 int main(void) {
-    int fd[4], vp[3], pid;
+    int fd[4], pid;
 
     if (!(pid = fork()))
         execl("./failure_manager", "./failure_manager", NULL);
-
+    int vp1, vp2, vp3;
+    if (!(pid = fork()))
+        execl("./failure_manager", "./failure_manager", NULL);
     opens(fd);
     int i = 1;
-    int voted_output = open(VOTED, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+    int voted_output = open("voted_output", O_WRONLY | O_CREAT | O_TRUNC, 0666);
     while (0 == 0) {
+
+        if ((read(fd[P1], &vp1, sizeof(int))) == -1) { perror("DF: read P1"); }
+
+        if ((read(fd[P2], &vp2, sizeof(int))) == -1) { perror("DF: read P2"); }
+
+        if ((read(fd[P3], &vp3, sizeof(int))) == -1) { perror("DF: read P3"); }
+
         dprintf(voted_output, "inizio iterazione riga %d \n", i);
-        if ((read(fd[P1], vp + P1 - 1, sizeof(int))) == -1) { perror("DF: read P1"); }
-        dprintf(voted_output, " p1: %d \n", vp[P1 - 1]);
-        if ((read(fd[P2], vp + P2 - 1, sizeof(int))) == -1) { perror("DF: read P2"); }
-        dprintf(voted_output, " p2: %d \n", vp[P2 - 1]);
-        if ((read(fd[P3], vp + P3 - 1, sizeof(int))) == -1) { perror("DF: read P3"); }
-        dprintf(voted_output, " p3: %d \n", vp[P3 - 1]);
+        dprintf(voted_output, " p1: %d \n", vp1);
+        dprintf(voted_output, " p2: %d \n", vp2);
+        dprintf(voted_output, " p3: %d \n", vp3);
         dprintf(voted_output, "fine iterazione riga %d \n", i);
 
-        if (!(vp + P1 == vp + P2) && !(vp + P1 == vp + P3) && !(vp + P2 == vp + P3)) {
+        if (!(vp1 == vp2) && !(vp1 == vp3) && !(vp2 == vp3)) {
             writeOnLog(fd[LOGVALUE], FALLIMENTO);
             kill(pid, SIGUSR1);
         } else {

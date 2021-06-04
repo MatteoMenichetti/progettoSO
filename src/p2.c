@@ -18,7 +18,7 @@ void connecting(int sfd) {
     sockServer.sun_family = AF_UNIX;
     printf("P2: connessione socket");
     while ((connect(sfd, (struct sockaddr *) &sockServer, sizeof(sockServer))) == -1) {
-        perror("client: connect");
+        perror("P2: connect");
         sleep(1);
     }
 }
@@ -35,7 +35,7 @@ void p2(int flag) {
     connecting(csfd);
     char buff[BUFSIZ], *token = (char *) calloc(1, sizeof(char));
     while (0 == 0) {
-        if (read(csfd, buff, sizeof(buff)) == -1) {
+        if ((read(csfd, buff, sizeof(buff))) == -1) {
             perror("P2: lettura socket");
             exit(EXIT_FAILURE);
         }
@@ -43,8 +43,8 @@ void p2(int flag) {
         s = sum(token, strlen(token));
         if (flag == ACTIVE_FAILURE)errsum(&s, 20);
         printf("P2: invio a DF %d\n", s);
-        if (write(psfd, &s, sizeof(s)) == -1) {
-        perror("P1: write");
+        if ((write(psfd, &s, sizeof(s))) == -1) {
+        perror("P2: write");
         exit(EXIT_FAILURE);
     }
         strncpy(buff, "\0", strlen(buff));

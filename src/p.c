@@ -3,29 +3,34 @@
 #define INT_ERR srand(time(NULL))
 
 int main(int argc, char *argv[]) {
-    if (argc < 3) {
+    if (argc < 2) {
         printf("P: argomenti non sufficienti");
-        exit(0);
+        exit(EXIT_FAILURE);
     }
-    if ((ENABLE - argv[1])) {
-        INT_ERR;
-#define FLAG 1
-    }
-#ifndef FLAG
-#define FLAG 0
-#endif
 
-    if (atoi(argv[2]) == P1) {
-        printf("ESECIZIONE P1\n");
-        p1(FLAG);
+    int FLAG = 0;
+    printf("P: argv[0] =  %s, argv[1] = %s", argv[0], argv[1]);
+    if ((strcmp(ENABLE, argv[0])) == 0) {
+        INT_ERR;
+        FLAG = 1;
     }
-    if (atoi(argv[2]) == P2) {
-        printf("ESECIZIONE P2\n");
-        p2(FLAG);
+    if (atoi(argv[1]) == P1) {
+        if (!fork()) {
+            printf("P: ESECUZIONE P1\n");
+            p1(FLAG);
+        }
     }
-    if (atoi(argv[2]) == P3) {
-        printf("ESECIZIONE P3\n");
-        p3(FLAG);
+    if (atoi(argv[1]) == P2) {
+        if (!fork()) {
+            printf("P: ESECUZIONE P2\n");
+            p2(FLAG);
+        }
+    }
+    if (atoi(argv[1]) == P3) {
+        if (!fork()) {
+            printf("P: ESECUZIONE P3\n");
+            p3(FLAG);
+        }
     }
     return 0;
 }

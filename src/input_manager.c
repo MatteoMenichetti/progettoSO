@@ -6,26 +6,26 @@ int initializationSOCKET(struct sockaddr_un *sockServer) {
     sockServer->sun_family = AF_UNIX;
     unlink(SOCKADDR);
     int ssfd;
-    if ((ssfd = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) {
-        perror("server: socket");
+    if ((ssfd = socket(AF_UNIX, SOCK_STREAM, DEFAULT)) == -1) {
+        perror("IM: socket");
         exit(EXIT_FAILURE);
     }
 
-    printf("server: ssfd = %d\n", ssfd);
+    printf("IM: ssfd = %d\n", ssfd);
 
     if (bind(ssfd, (struct sockaddr *) sockServer, sizeof(*sockServer)) == -1) {
-        perror("server: bind");
+        perror("IM: bind");
         exit(EXIT_FAILURE);
     }
 
-    printf("bind eseguita\n");
+    printf("IM: bind eseguita\n");
 
     if (listen(ssfd, 1) == -1) {
-        perror("server: listen");
+        perror("IM: listen");
         exit(EXIT_FAILURE);
     }
 
-    printf("listen eseguita\n");
+    printf("IM: listen eseguita\n");
     return ssfd;
 }
 
@@ -35,35 +35,46 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     int pid;
-
+    char c;
     printf("IM: avvio i tre P\n");
-    for (int i = 1; i <= 3; i++) {
-        execl("./p", "./p", argv[2], i, NULL);
+
+    for (int NP = 1; NP <= 3; NP++) {
+        if (!fork()) {
+            c = NP + 48;
+            int e = execl("./p", argv[1], &c, "\0");
+            printf("IM: execl = %d\n", e);
+            if (e == -1) {
+                perror("IM: execl");
+                exit(EXIT_FAILURE);
+            }
+        }
+
     }
+
     printf("IM: avviati\n");
 
     char buff[BUFSIZ];
     int fpPipe;
-    FILE *fpData = fopen(argv[1], "r");
+    FILE *fpData = fopen(argv[2], "r");
     int fpAppoggio = open(FILEADDR, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 
     chmod(FILEADDR, 0777);
 
     unlink(PIPEADDR);
     if (mknod(PIPEADDR, S_IFIFO, DEFAULT) == -1) {
-        perror("Input manager: PIPEADDR");
+        perror("IM: PIPEADDR");
         exit(EXIT_FAILURE);
     }
     chmod(PIPEADDR, 0777);
 
-    printf("Input Manager prima della open\n");
+    printf("IM prima della open\n");
 
     fpPipe = open(PIPEADDR, O_WRONLY);
     if (fpPipe == -1) {
-        perror("Input: open");
+        perror("IM: open");
         exit(EXIT_FAILURE);
     }
-    printf("Sono dopo la open\n");
+    printf("IM: Sono dopo la open\n");
 
     struct sockaddr_un sockServer, socketClient;
     int ssfd = initializationSOCKET(&sockServer);
@@ -72,16 +83,15 @@ int main(int argc, char *argv[]) {
     len = sizeof(socketClient);
     printf("IM: eseguo la accept\n");
     if ((asfd = accept(ssfd, (struct sockaddr *) &socketClient, &len)) == -1) {
-        perror("server: accept");
+        perror("IM: accept");
         exit(EXIT_FAILURE);
     }
 
-    printf("accept eseguita\n");
+    printf("IM: accept eseguita\n");
 
     fgets(buff, BUFSIZ, fpData);
     strncpy(buff, "\0", strlen(buff));
 
-    int stringaScritta = 0;
     while (fgets(buff, BUFSIZ, fpData) != NULL) {
         printf("IM: scrivo %s\n", buff);
         write(fpAppoggio, buff, strlen(buff));
@@ -93,5 +103,6 @@ int main(int argc, char *argv[]) {
     }
     fclose(fpData);
     close(fpAppoggio);
+    close(asfd);
     kill(0, SIGKILL);
 }
