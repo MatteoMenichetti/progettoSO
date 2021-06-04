@@ -15,22 +15,17 @@ int main(int argc, char *argv[]) {
         FLAG = 1;
     }
     if (atoi(argv[1]) == P1) {
-        if (!fork()) {
-            printf("P: ESECUZIONE P1\n");
-            p1(FLAG);
-        }
+        printf("P: ESECUZIONE P1\n");
+        p1(FLAG);
     }
     if (atoi(argv[1]) == P2) {
-        if (!fork()) {
-            printf("P: ESECUZIONE P2\n");
-            p2(FLAG);
-        }
+        printf("P: ESECUZIONE P2\n");
+        p2(FLAG);
     }
     if (atoi(argv[1]) == P3) {
-        if (!fork()) {
-            printf("P: ESECUZIONE P3\n");
-            p3(FLAG);
-        }
+        printf("P: ESECUZIONE P3\n");
+        p3(FLAG);
+
     }
     return 0;
 }
