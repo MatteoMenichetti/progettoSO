@@ -9,7 +9,7 @@ void funzione(int sig) {
 
 
 int main(void ) {
-    printf("FM: %d\n", getpid());
+    printf("FM: pid = %d\n", getpid());
     signal(SIGUSR1, funzione);
     int status;
     do { status = pause(); } while (status != -1);
