@@ -27,12 +27,13 @@ void p2(int flag, int pid) {
     printf("P2: eseguo unlink\n");
     createPIPE();
     int psfd;
-    printf("P2: apro PIPEDP2\n");
+    printf("P1: invio SIGCONT a %d", pid);
     kill(pid, SIGCONT);
+    printf("P2: apro PIPEDP2\n");
     if ((psfd = open(PIPEDP2, O_WRONLY)) == -1) {
-         perror("P2: open pipe");
-         exit(EXIT_FAILURE);
-     }
+        perror("P2: open pipe");
+        exit(EXIT_FAILURE);
+    }
     int csfd = definesocket(), s = 0;
     connecting(csfd);
     char buff[BUFSIZ], *token = (char *) calloc(1, sizeof(char));
@@ -46,9 +47,9 @@ void p2(int flag, int pid) {
         if (flag == ACTIVE_FAILURE)errsum(&s, 20);
         printf("P2: invio a DF %d\n", s);
         if ((write(psfd, &s, sizeof(s))) == -1) {
-        perror("P2: write");
-        exit(EXIT_FAILURE);
-    }
+            perror("P2: write");
+            exit(EXIT_FAILURE);
+        }
         strncpy(buff, "\0", strlen(buff));
     }
     /*close(psfd); mai eseguite

@@ -12,8 +12,9 @@ void p1(int flag, int pid) {
     chmod(PIPEDP1, 0777);
 
     int psfd = 0;
-    printf("P1: apro PIPEDP1\n");
+    printf("P1: invio SIGCONT a %d", pid);
     kill(pid, SIGCONT);
+    printf("P1: apro PIPEDP1\n");
     if ((psfd = open(PIPEDP1, O_WRONLY)) == -1) {
         perror("P1: open pipe");
         exit(EXIT_FAILURE);

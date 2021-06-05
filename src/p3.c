@@ -11,8 +11,9 @@ void p3(int flag, int pid) {
     chmod(PIPEDP3, 0777);
 
     int psfd;
-    printf("P3: apro PIPEDP3\n");
+    printf("P1: invio SIGCONT a %d", pid);
     kill(pid, SIGCONT);
+    printf("P3: apro PIPEDP3\n");
     if ((psfd = open(PIPEDP3, O_WRONLY)) == -1) {
         perror("P3: open pipe");
         exit(EXIT_FAILURE);
