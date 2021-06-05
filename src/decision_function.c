@@ -47,7 +47,7 @@ int main(void) {
         execl("./failure_manager", "./failure_manager", NULL);
     opens(fd);
     int i = 1;
-    int voted_output = open("voted_output", O_WRONLY | O_CREAT | O_TRUNC, 0666);
+    int voted_output = open(VOTED, O_WRONLY | O_CREAT | O_TRUNC, 0666);
     while (0 == 0) {
 
         if ((read(fd[P1], &vp1, sizeof(int))) == -1) { perror("DF: read P1"); }
