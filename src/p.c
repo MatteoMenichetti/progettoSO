@@ -9,8 +9,8 @@ int main(int argc, char *argv[]) {
     }
 
     int FLAG = 0;
-    printf("P: argv[0] = %s, argv[1] = %s\n", argv[0], argv[1]);
-    if ((strcmp(ENABLE, argv[0])) == 0) {
+    printf("P: argv[0] = %s, argv[1] = %s, argv[2] = %s\n", argv[0], argv[1], argv[2]);
+    if ((strcmp(ENABLE, argv[1])) == 0) {
         INT_ERR;
         FLAG = 1;
     }
