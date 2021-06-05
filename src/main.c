@@ -21,7 +21,10 @@ int main(int argc, char *argv[]) {
     if (!(pid = fork())) {
         for (int i = 0; i < 3; i++) {
             printf("main: mi sospendo\n");
-            kill(getpid(), SIGSTOP);
+           if (pause() == -1) {
+                printf("main: pause");
+                exit(EXIT_FAILURE);
+            }
         }
         e = execl("./decision_function", (char *) NULL);
         printf("main fork 1 IM: exec = %d\n", e);
