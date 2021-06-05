@@ -16,15 +16,15 @@ int main(int argc, char *argv[]) {
     }
     if (atoi(argv[3]) == P1) {
         printf("P: ESECUZIONE P1\n");
-        p1(FLAG, *argv[2]);
+        p1(FLAG, atoi(argv[2]));
     }
     if (atoi(argv[3]) == P2) {
         printf("P: ESECUZIONE P2\n");
-        p2(FLAG, *argv[2]);
+        p2(FLAG, atoi(argv[2]));
     }
     if (atoi(argv[3]) == P3) {
         printf("P: ESECUZIONE P3\n");
-        p3(FLAG, *argv[2]);
+        p3(FLAG, atoi(argv[2]));
     }
     return 0;
 }
