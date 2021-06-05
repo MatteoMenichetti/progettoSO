@@ -39,12 +39,9 @@ void opens(int *fd) {
 
 int main(void) {
     int fd[4], pid;
-
-    if (!(pid = fork()))
-        execl("./failure_manager", "./failure_manager", NULL);
     int vp1, vp2, vp3;
     if (!(pid = fork()))
-        execl("./failure_manager", "./failure_manager", NULL);
+        execl("./failure_manager", NULL);
     opens(fd);
     int i = 1;
     int voted_output = open(VOTED, O_WRONLY | O_CREAT | O_TRUNC, 0666);
