@@ -37,11 +37,11 @@ int main(int argc, char *argv[]) {
     int pid;
     char c;
     printf("IM: avvio i tre P\n");
-    printf("IM: argv[2] = %s\n", argv[2]);
+    printf("IM: argv[0] = %s, argv[1] = %s, argv[2] = %s\n", argv[0], argv[1], argv[2]);
     for (int NP = 1; NP <= 3; NP++) {
         if (!fork()) {
             c = NP + 48;
-            int e = execl("./p", argv[1], argv[2], &c, (char *) NULL);
+            int e = execl("./p", "p", argv[0], argv[2], &c, (char *) NULL);
             printf("IM: execl = %d\n", e);
             if (e == -1) {
                 perror("IM: execl");
