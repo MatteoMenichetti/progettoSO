@@ -27,7 +27,7 @@ void p2(int flag, int pid) {
     printf("P2: eseguo unlink\n");
     createPIPE();
     int psfd;
-    printf("P1: invio SIGCONT a %d", pid);
+    printf("P1: invio SIGCONT a %d\n", pid);
     kill(pid, SIGCONT);
     printf("P2: apro PIPEDP2\n");
     if ((psfd = open(PIPEDP2, O_WRONLY)) == -1) {
