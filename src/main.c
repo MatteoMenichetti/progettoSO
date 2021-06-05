@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     printf("main: avvio decision_function\n");
     int pid, e;
     if (!(pid = fork())) {
-        for(int i=0;i<3;i++)pause();
+        for (int i = 0; i < 3; i++)pause();
         e = execl("./decision_function", (char *) NULL);
         printf("main fork 1 IM: exec = %d\n", e);
     }
