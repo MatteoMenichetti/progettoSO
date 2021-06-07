@@ -39,21 +39,18 @@ int EqualCondition(int vp1, int vp2, int vp3) {
 }
 
 int main(void) {
-    int fd[4], pid, vp[3],i = 1, voted_output = open(VOTEDO, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+    int fd[4], pid, vp[3], i = 1, voted_output = open(VOTEDO, O_WRONLY | O_CREAT | O_TRUNC, 0666);
     if (!(pid = fork()))
         execl("./failure_manager", "failure_manager", NULL);
     openPIPE(fd);
     while (0 == 0) {
-        if ((read(fd[P1], (vp + P1 - 1), sizeof(int))) == -1) { perror("DF: read P1"); }
+        if ((read(fd[P1], (vp + P1 - 1), sizeof(int))) == -1) perror("DF: read P1");
 
-        if ((read(fd[P2], (vp + P2 - 1), sizeof(int))) == -1) { perror("DF: read P2"); }
+        if ((read(fd[P2], (vp + P2 - 1), sizeof(int))) == -1) perror("DF: read P2");
 
-        if ((read(fd[P3], (vp + P3 - 1), sizeof(int))) == -1) { perror("DF: read P3"); }
-        dprintf(voted_output, "inizio iterazione riga %d \n", i);
-        dprintf(voted_output, " p1: %d \n", vp + P1 - 1);
-        dprintf(voted_output, " p2: %d \n", vp + P2 - 1);
-        dprintf(voted_output, " p3: %d \n", vp + P3 - 1);
-        dprintf(voted_output, "fine iterazione riga %d \n", i);
+        if ((read(fd[P3], (vp + P3 - 1), sizeof(int))) == -1) perror("DF: read P3");
+
+        dprintf(voted_output, "READ %d : p1 = %d p2 = %d p3 = %d \n", i, vp + P1 - 1, vp + P2 - 1, vp + P3 - 1);
 
         if (!EqualCondition(vp[P1 - 1], vp[P2 - 1], vp[P3 - 1])) {
             writeOnLog(fd[LOGVALUE], FALLIMENTO);
