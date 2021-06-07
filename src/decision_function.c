@@ -39,12 +39,10 @@ int EqualCondition(int vp1, int vp2, int vp3) {
 }
 
 int main(void) {
-    int fd[4], pid, vp[3];
+    int fd[4], pid, vp[3],i = 1, voted_output = open(VOTEDO, O_WRONLY | O_CREAT | O_TRUNC, 0666);
     if (!(pid = fork()))
         execl("./failure_manager", "failure_manager", NULL);
     openPIPE(fd);
-    int i = 1;
-    int voted_output = open(VOTEDO, O_WRONLY | O_CREAT | O_TRUNC, 0666);
     while (0 == 0) {
         if ((read(fd[P1], (vp + P1 - 1), sizeof(int))) == -1) { perror("DF: read P1"); }
 
