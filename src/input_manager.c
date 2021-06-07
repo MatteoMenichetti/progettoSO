@@ -23,38 +23,43 @@ int initializationSOCKET(struct sockaddr_un *sockServer) {
     return ssfd;
 }
 
-void trap(int sig) { /* do nothing */ }
+void acceptSOCKET(int* asfd){
+    struct sockaddr_un sockServer, socketClient;
+    int ssfd = initializationSOCKET(&sockServer);
+    unsigned int len = sizeof(socketClient);
+    if ((*asfd = accept(ssfd, (struct sockaddr *) &socketClient, &len)) == -1) {
+        perror("server: accept");
+        exit(EXIT_FAILURE);
+    }
+}
 
-int main(int argc, char *argv[]) {
-
-    char buff[BUFSIZ];
-    int fpPipe;
-    FILE *fpData = fopen(argv[0], "r");
-    int fpAppoggio = open(FILEADDR,O_CREAT|O_WRONLY |O_TRUNC,0777);
-    chmod(FILEADDR, 0777);
+void inititializationPIPE() {
     unlink(PIPEADDR);
     if (mknod(PIPEADDR, S_IFIFO, DEFAULT) == -1) {
         perror("Input manager: PIPEADDR");
         exit(EXIT_FAILURE);
     }
     chmod(PIPEADDR, 0777);
+}
 
-   fpPipe = open(PIPEADDR, O_WRONLY);
-    if (fpPipe == -1) {
+void openPIPE(int *fdPipe) {
+    *fdPipe = open(PIPEADDR, O_WRONLY);
+    if (*fdPipe == -1) {
         perror("Input: open");
         exit(EXIT_FAILURE);
     }
 
-    struct sockaddr_un sockServer, socketClient;
-    int ssfd = initializationSOCKET(&sockServer);
-    int asfd;
-    unsigned int len;
-    len = sizeof(socketClient);
-    if ((asfd = accept(ssfd, (struct sockaddr *) &socketClient, &len)) == -1) {
-        perror("server: accept");
-        exit(EXIT_FAILURE);
-    }
+}
 
+int main(int argc, char *argv[]) {
+
+    char buff[BUFSIZ];
+    int fdPipe, fpAppoggio = open(FILEADDR, O_CREAT | O_WRONLY | O_TRUNC, 0777), asfd;
+    FILE *fpData = fopen(argv[0], "r");
+
+    inititializationPIPE();
+    openPIPE(&fdPipe);
+    acceptSOCKET(&asfd);
 
     fgets(buff, BUFSIZ, fpData);
     strncpy(buff, "\0", strlen(buff));
@@ -63,8 +68,11 @@ int main(int argc, char *argv[]) {
     while (fgets(buff, BUFSIZ, fpData) != NULL) {
         write(fpAppoggio, buff, strlen(buff));
         fsync(fpAppoggio);
-        write(fpPipe, buff, strlen(buff));
+        //
+        write(fdPipe, buff, strlen(buff));
+        //
         write(asfd, buff, strlen(buff));
+        //
         sleep(1);
         strncpy(buff, "\0", strlen(buff));
     }
