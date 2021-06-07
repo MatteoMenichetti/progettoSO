@@ -3,13 +3,13 @@
 #include <stdio.h>
 
 void funzione(int sig) {
-    printf("FM: uccido tutti\n");
+    printf("failure_manager: uccido tutti\n");
     kill(0, SIGKILL);
 }
 
 
-int main(void ) {
-    printf("FM: pid = %d\n", getpid());
+int main(int argc, char *argv[]) {
+    printf("%d\n", getpid());
     signal(SIGUSR1, funzione);
     int status;
     do { status = pause(); } while (status != -1);

@@ -3,28 +3,29 @@
 #define INT_ERR srand(time(NULL))
 
 int main(int argc, char *argv[]) {
-    if (argc < 4) {
+    if (argc < 2) {
         printf("P: argomenti non sufficienti");
-        exit(EXIT_FAILURE);
+        exit(0);
     }
 
-    int FLAG = 0;
-    printf("P: argv[0] = %s, argv[1] = %s, argv[2] = %s, argv[3] = %s\n", argv[0], argv[1], argv[2],argv[3]);
-    if ((strcmp(ENABLE, argv[2])) == 0) {
+    int flag = 0, pid = atoi(argv[2]);
+
+    if ((strcmp(argv[0], ENABLE)) == 0) {
         INT_ERR;
-        FLAG = 1;
+        flag = 1;
     }
-    if (atoi(argv[3]) == P1) {
-        printf("P: ESECUZIONE P1\n");
-        p1(FLAG, atoi(argv[2]));
+
+    if (atoi(argv[1]) == P1) {
+        printf("ESECUZIONE P1\n");
+        p1(flag, pid);
     }
-    if (atoi(argv[3]) == P2) {
-        printf("P: ESECUZIONE P2\n");
-        p2(FLAG, atoi(argv[2]));
+    if (atoi(argv[1]) == P2) {
+        printf("ESECUZIONE P2\n");
+        p2(flag, pid);
     }
-    if (atoi(argv[3]) == P3) {
-        printf("P: ESECUZIONE P3\n");
-        p3(FLAG, atoi(argv[2]));
+    if (atoi(argv[1]) == P3) {
+        printf("ESECUZIONE P3\n");
+        p3(flag, pid);
     }
     return 0;
 }
@@ -49,5 +50,5 @@ int sum(char *token, int start) {
 }
 
 void errsum(int *s, int value) {
-    if (ERR == EVENT)*s += value;
+    if ((ERR == EVENT))*s += value;
 }

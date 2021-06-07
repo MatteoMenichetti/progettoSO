@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <signal.h>
 
 #define PIPEADDR "../tmp/pipeP1"
 #define SOCKADDR "../tmp/socketP2"
