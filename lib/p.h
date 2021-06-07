@@ -1,10 +1,9 @@
 #include "../lib/ipc.h"
 #include <time.h>
-#include <sys/types.h>
 #include <sys/wait.h>
 
 #define ERR rand() % (10)
-#define delim (",")
+#define delim ","
 #define ENABLE "FALLIMENTO"
 #define EVENT 0
 #define ACTIVE_FAILURE 1
