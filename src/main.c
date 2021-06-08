@@ -7,20 +7,20 @@ void trap(int sig) { /* do nothing */ }
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        printf("IM: numero argomenti non suff.");
+        printf("main: numero argomenti non suff.");
         exit(EXIT_FAILURE);
     }
     char *cpid = calloc(1, sizeof(char));
     sprintf(cpid, "%d", getpid());
     char c;
     signal(SIGCONT, trap);
-    printf("Main: avvio i tre P\n");
+    printf("main: avvio i tre P\n");
     for (int NP = 1; NP <= 3; NP++) {
         if (!fork()) {
             c = NP + 48;
             int e = execl("./p", argv[1], &c, cpid, (char *) 0);
             if (e == -1) {
-                perror("IM: execl");
+                perror("m: execl");
                 exit(EXIT_FAILURE);
             }
         }
