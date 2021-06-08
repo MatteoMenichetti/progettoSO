@@ -45,4 +45,5 @@ clean :
 	@echo 'clean in esecuzione'
 	rm -r bin
 	rm -r tmp
+	rm -r logs
 	@echo 'clean completato'
