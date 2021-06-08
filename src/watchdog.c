@@ -2,8 +2,8 @@
 
 int failure_pid = 0;
 
-void handler() {
-    printf("watchdog: inivio SIGUSR1 a FM (%d)", failure_pid);
+void USR1_handler() {
+    printf("watchdog: inivio SIGUSR1 a FM (%d)\n", failure_pid);
     kill(failure_pid, SIGUSR1);
 }
 
@@ -21,12 +21,13 @@ int main(int argc, char *argv[]) {
     }
 
     failure_pid = atoi(argv[1]);
+
     int fd = -1;
     char *buff = (char *) calloc(1, strlen(IMALIVE));
 
     openPIPE(&fd);
 
-    signal(SIGALRM, handler);
+    signal(SIGALRM, USR1_handler);
 
     while (0 == 0) {
         alarm(3);
