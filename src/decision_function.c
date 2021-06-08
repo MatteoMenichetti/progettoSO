@@ -2,7 +2,6 @@
 
 #define LOGPOS "../logs/system_log"
 #define VOTEDPOS "../logs/voted_output"
-#define WATCHdPOS "../tmp/pipeWATCDOG"
 #define LOGVALUE 0
 #define VOTEDVALUE 4
 #define WATCHVALUE 5
@@ -35,7 +34,7 @@ void openFILE(int *fd) {
 
 void openPIPE(int *fd) {
 
-    if (((fd[WATCHVALUE] = open(WATCHdPOS, O_WRONLY))) == -1) {
+    if (((fd[WATCHVALUE] = open(WATCHPPOS, O_WRONLY))) == -1) {
         perror("DF: open WATCHDOG pipe");
         exit(EXIT_FAILURE);
     }

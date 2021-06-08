@@ -15,6 +15,7 @@
 #define PIPEDP1 "../tmp/pipeDP1"
 #define PIPEDP2 "../tmp/pipeDP2"
 #define PIPEDP3 "../tmp/pipeDP3"
+#define WATCHPPOS "../tmp/pipeWATCDOG"
 #define DEFAULT 0
 #define P1 1
 #define P2 2
