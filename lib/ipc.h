@@ -20,6 +20,7 @@
 #define P1 1
 #define P2 2
 #define P3 3
+#define IMALIVE "IMALIVE"
 
 void initializationPIPE();
 void openPIPE(int*);

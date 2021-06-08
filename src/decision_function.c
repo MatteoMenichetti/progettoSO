@@ -7,7 +7,6 @@
 #define WATCHVALUE 5
 #define FALLIMENTO "FALLIMENTO \n"
 #define SUCCESSO "SUCCESSO \n"
-#define IMALIVE "IMALIVE"
 
 void writeOnLog(int *fd, char *buffer) {
     if ((write(fd[VOTEDVALUE], buffer, strlen(buffer))) == -1) {
