@@ -96,7 +96,7 @@ int main(void) {
 
         if ((read(fd[P3], (valueSplitSum + P3 - 1), sizeof(int))) == -1) perror("DF: read P3");
 
-        dprintf(fd[VOTEDVALUE], "READ %d : p1 = %d p2 = %d p3 = %d \n", i, valueSplitSum[P1 - 1], valueSplitSum[P2 - 1], valueSplitSum[P3 - 1]);
+        dprintf(fd[LOGVALUE], "READ %d : p1 = %d p2 = %d p3 = %d \n", i, valueSplitSum[P1 - 1], valueSplitSum[P2 - 1], valueSplitSum[P3 - 1]);
 
         if (!EqualCondition(valueSplitSum[P1 - 1], valueSplitSum[P2 - 1], valueSplitSum[P3 - 1])) {
             writeOnLog(fd, FALLIMENTO);
