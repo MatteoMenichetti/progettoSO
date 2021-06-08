@@ -31,7 +31,8 @@ void connecting(int sfd) {
 }
 
 void p2(int flag, int pid) {
-    int psfd, csfd = definesocket(), s = 0, buff[BUFSIZ], *token = (char *) calloc(1, sizeof(char));
+    int psfd, csfd = definesocket(), s = 0;
+    char *token = (char *) calloc(1, sizeof(char)) ,buff[BUFSIZ];
 
     createPIPE();
 
