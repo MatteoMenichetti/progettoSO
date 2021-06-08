@@ -6,7 +6,7 @@ void p1(int flag, int pid) {
         perror("P: mknod");
         exit(EXIT_FAILURE);
     }
-    chmod(PIPEDP1, 0777);
+    chmod(PIPEDP1, PERMISSION);
 
 
     int kills = kill(pid, SIGCONT);
