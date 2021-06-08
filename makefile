@@ -3,6 +3,9 @@ all : p p.o p1.o p2.o p3.o input_manager decision_function failure_manager main
 main :
 	cc ./src/main.c -o ./main
 
+watchdog : ./lib/ipc.h
+	cc ./src/watchdog.c -o watchdog
+
 p : p.o p1.o p2.o p3.o
 	cc ./p.o ./p1.o ./p2.o ./p3.o -o p
 
