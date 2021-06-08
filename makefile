@@ -1,5 +1,8 @@
-all : p p.o p1.o p2.o p3.o input_manager decision_function failure_manager
+all : p p.o p1.o p2.o p3.o input_manager decision_function failure_manager main
 	@echo 'compilazione completata'
+main :
+	cc ./src/main.c -o ./main
+
 p : p.o p1.o p2.o p3.o
 	cc ./p.o ./p1.o ./p2.o ./p3.o -o p
 
