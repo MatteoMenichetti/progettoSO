@@ -23,7 +23,7 @@ int initializationSOCKET(struct sockaddr_un *sockServer) {
     return ssfd;
 }
 
-void acceptSOCKET(int* asfd){
+void acceptSOCKET(int *asfd) {
     struct sockaddr_un sockServer, socketClient;
     int ssfd = initializationSOCKET(&sockServer);
     unsigned int len = sizeof(socketClient);
@@ -33,7 +33,7 @@ void acceptSOCKET(int* asfd){
     }
 }
 
-void inititializationPIPE() {
+void initializationPIPE() {
     unlink(PIPEADDR);
     if (mknod(PIPEADDR, S_IFIFO, DEFAULT) == -1) {
         perror("Input manager: PIPEADDR");
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
     int fdPipe, fpAppoggio = open(FILEADDR, O_CREAT | O_WRONLY | O_TRUNC, 0777), asfd;
     FILE *fpData = fopen(argv[0], "r");
 
-    inititializationPIPE();
+    initializationPIPE();
     openPIPE(&fdPipe);
     acceptSOCKET(&asfd);
 
