@@ -3,6 +3,13 @@
 
 void createPIPE();
 
+void openPIPE(int *fd) {
+    if ((*fd = open(PIPEDP2, O_WRONLY)) == -1) {
+        perror("P2: open pipe");
+        exit(EXIT_FAILURE);
+    }
+}
+
 int definesocket() {
     int csfd;
     printf("P2: esegue socket\n");
@@ -25,42 +32,34 @@ void connecting(int sfd) {
 
 void p2(int flag, int pid) {
     createPIPE();
+
     kill(pid, SIGCONT);
+
     int psfd;
-    if ((psfd = open(PIPEDP2, O_WRONLY)) == -1) {
-        perror("P2: open pipe");
-        exit(EXIT_FAILURE);
-    }
+    openPIPE(&psfd);
 
     int csfd = definesocket(), s = 0;
     connecting(csfd);
+
     char buff[BUFSIZ], *token = (char *) calloc(1, sizeof(char));
-    int r = 0;
     while (0 == 0) {
-        r = read(csfd, buff, sizeof(buff));
-        if (r == 0) {
-            continue;
-        }
-        if (r == -1) {
+        if ((read(csfd, buff, sizeof(buff))) == -1) {
             perror("P2: lettura socket");
             exit(EXIT_FAILURE);
         }
 
-
         token = splitP2(buff);
         s = sum(token, strlen(token));
-        if (flag == ACTIVE_FAILURE) { errsum(&s, 20); }
+        if (flag == ACTIVE_FAILURE) errsum(&s, 20);
+
         printf("P2: invio a DF %d\n", s);
         if (write(psfd, &s, sizeof(s)) == -1) {
             perror("P1: write");
             exit(EXIT_FAILURE);
         }
+
         strncpy(buff, "\0", strlen(buff));
     }
-
-
-    /*close(psfd); mai eseguite
-    close(csfd);*/
 }
 
 void createPIPE() {
