@@ -96,7 +96,7 @@ int main(void) {
 
         if ((read(fd[P3], (vp + P3 - 1), sizeof(int))) == -1) perror("DF: read P3");
 
-        dprintf(fd[VOTEDVALUE], "READ %d : p1 = %d p2 = %d p3 = %d \n", i, vp + P1 - 1, vp + P2 - 1, vp + P3 - 1);
+        dprintf(fd[VOTEDVALUE], "READ %d : p1 = %d p2 = %d p3 = %d \n", i, vp[P1 - 1], vp[P2 - 1], vp[P3 - 1]);
 
         if (!EqualCondition(vp[P1 - 1], vp[P2 - 1], vp[P3 - 1])) {
             writeOnLog(fd, FALLIMENTO);
