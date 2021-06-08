@@ -13,10 +13,20 @@ void writeOnLog(int *fd, char *buffer) {
         perror("DF: write on voted_output");
         exit(EXIT_FAILURE);
     }
+    pause();
     if ((write(fd[WATCHVALUE], IMALIVE, strlen(IMALIVE))) == -1) {
         perror("DF: write on voted_output");
         exit(EXIT_FAILURE);
     }
+}
+
+void initializationPIPE() {
+    unlink(WATCHPPOS);
+    if ((mknod(WATCHPPOS, S_IFIFO, DEFAULT)) == -1) {
+        perror("watchdog: mknod");
+        exit(EXIT_FAILURE);
+    }
+    chmod(WATCHPPOS, 0777);
 }
 
 void openFILE(int *fd) {
@@ -63,9 +73,13 @@ int EqualCondition(int vp1, int vp2, int vp3) {
 int main(void) {
     int fd[6], pid, vp[3], i = 1;
 
+    initializationPIPE();
+
+    printf("DF: avvio FM\n");
     if (!(pid = fork()))
         execl("./failure_manager", "failure_manager", (char *) NULL);
 
+    printf("DF: avvio watchdog\n");
     if (!(fork())) {
         char *cpid = (char *) calloc(1, sizeof(pid));
         sprintf(cpid, "%d", pid);
