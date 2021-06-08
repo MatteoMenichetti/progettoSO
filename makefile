@@ -38,6 +38,7 @@ install :
 	mv failure_manager bin
 	mv input_manager bin
 	mv decision_function bin
+	mv main bin
 	@echo 'install completato'
 
 clean :
