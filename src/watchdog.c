@@ -1,10 +1,10 @@
 #include "../lib/ipc.h"
 
-int pid = 0;
+int failure_pid = 0;
 
 void handler() {
-    printf("watchdog: inivio SIGUSR1 a FM (%d)", pid);
-    kill(pid, SIGUSR1);
+    printf("watchdog: inivio SIGUSR1 a FM (%d)", failure_pid);
+    kill(failure_pid, SIGUSR1);
 }
 
 void openPIPE(int *fd) {
@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    pid = atoi(argv[1]);
+    failure_pid = atoi(argv[1]);
     int fd = -1;
     char *buff = (char *) calloc(1, strlen(IMALIVE));
 
