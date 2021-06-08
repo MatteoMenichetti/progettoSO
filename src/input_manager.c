@@ -66,12 +66,13 @@ int main(int argc, char *argv[]) {
 
     int stringaScritta = 0;
     while (fgets(buff, BUFSIZ, fpData) != NULL) {
-        write(fpAppoggio, buff, strlen(buff));
-        fsync(fpAppoggio);
         //
         write(fdPipe, buff, strlen(buff));
         //
         write(asfd, buff, strlen(buff));
+        //
+        write(fpAppoggio, buff, strlen(buff));
+        fsync(fpAppoggio);
         //
         sleep(1);
         strncpy(buff, "\0", strlen(buff));
