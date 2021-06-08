@@ -20,5 +20,5 @@
 #define P2 2
 #define P3 3
 
-void inititializationPIPE();
+void initializationPIPE();
 void openPIPE(int*);
