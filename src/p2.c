@@ -1,5 +1,5 @@
 #include "../lib/p.h"
-  #include <signal.h>
+#include <signal.h>
 
 void createPIPE();
 
@@ -18,46 +18,47 @@ void connecting(int sfd) {
     strcpy(sockServer.sun_path, SOCKADDR);
     sockServer.sun_family = AF_UNIX;
     while ((connect(sfd, (struct sockaddr *) &sockServer, sizeof(sockServer))) == -1) {
-        perror("client: connect");
+        perror("P2: connect");
         sleep(1);
     }
 }
 
-void p2(int flag,int pid) {
+void p2(int flag, int pid) {
     createPIPE();
-     kill(pid,SIGCONT);
+    kill(pid, SIGCONT);
     int psfd;
     if ((psfd = open(PIPEDP2, O_WRONLY)) == -1) {
-         perror("P2: open pipe");
-         exit(EXIT_FAILURE);
-     }
-     
+        perror("P2: open pipe");
+        exit(EXIT_FAILURE);
+    }
+
     int csfd = definesocket(), s = 0;
     connecting(csfd);
     char buff[BUFSIZ], *token = (char *) calloc(1, sizeof(char));
-    int r=0;
+    int r = 0;
     while (0 == 0) {
-        r=read(csfd, buff, sizeof(buff));
-         if(r==0){
-            continue;}
-        if (r== -1) {
+        r = read(csfd, buff, sizeof(buff));
+        if (r == 0) {
+            continue;
+        }
+        if (r == -1) {
             perror("P2: lettura socket");
             exit(EXIT_FAILURE);
         }
-        
-      
+
+
         token = splitP2(buff);
         s = sum(token, strlen(token));
-        if (flag == ACTIVE_FAILURE){errsum(&s, 20);}
+        if (flag == ACTIVE_FAILURE) { errsum(&s, 20); }
         printf("P2: invio a DF %d\n", s);
         if (write(psfd, &s, sizeof(s)) == -1) {
-        perror("P1: write");
-        exit(EXIT_FAILURE);
-    }
+            perror("P1: write");
+            exit(EXIT_FAILURE);
+        }
         strncpy(buff, "\0", strlen(buff));
     }
 
-    
+
     /*close(psfd); mai eseguite
     close(csfd);*/
 }
