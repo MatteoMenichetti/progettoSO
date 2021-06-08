@@ -21,6 +21,7 @@
 #define P2 2
 #define P3 3
 #define IMALIVE "IMALIVE"
+#define PERMISSION 0777
 
 void initializationPIPE();
 void openPIPE(int*);
