@@ -9,10 +9,10 @@ watchdog : ./lib/ipc.h
 p : p.o p1.o p2.o p3.o
 	cc ./p.o ./p1.o ./p2.o ./p3.o -o p
 
-decision_function : lib/ipc.h
+decision_function : ./lib/ipc.h
 	cc ./src/decision_function.c -o decision_function
 
-input_manager :
+input_manager : ./lib/ipc.h
 	cc ./src/input_manager.c -o input_manager
 
 failure_manager :
@@ -24,7 +24,7 @@ p.o : lib/p.h
 p1.o : lib/p.h
 	cc -c ./src/p1.c
 
-p2.o :lib/p.h
+p2.o : lib/p.h
 	cc -c ./src/p2.c
 
 p3.o : lib/p.h

@@ -67,7 +67,7 @@ void createPIPE() {
         perror("P2: mknod");
         exit(EXIT_FAILURE);
     }
-    chmod(PIPEDP2, 0777);
+    chmod(PIPEDP2, PERMISSION);
 }
 
 char *splitP2(char *buff) {
