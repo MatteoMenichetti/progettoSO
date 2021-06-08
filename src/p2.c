@@ -31,17 +31,15 @@ void connecting(int sfd) {
 }
 
 void p2(int flag, int pid) {
+    int psfd, csfd = definesocket(), s = 0, buff[BUFSIZ], *token = (char *) calloc(1, sizeof(char));
+
     createPIPE();
 
     kill(pid, SIGCONT);
 
-    int psfd;
     openPIPE(&psfd);
-
-    int csfd = definesocket(), s = 0;
     connecting(csfd);
 
-    char buff[BUFSIZ], *token = (char *) calloc(1, sizeof(char));
     while (0 == 0) {
         if ((read(csfd, buff, sizeof(buff))) == -1) {
             perror("P2: lettura socket");
