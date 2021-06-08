@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
         printf("watchdog: numero argomenti insuff.");
         exit(EXIT_FAILURE);
     }
+
     pid = atoi(argv[1]);
     int fd = -1;
     char *buff = (char *) calloc(1, strlen(IMALIVE));
