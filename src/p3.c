@@ -3,7 +3,7 @@
 void p3(int flag, int pid) {
     unlink(PIPEDP3);
     if (mknod(PIPEDP3, S_IFIFO, DEFAULT) == -1) {
-        perror("P: mknod");
+        perror("P3: mknod");
         exit(EXIT_FAILURE);
     }
     chmod(PIPEDP3, 0777);
@@ -23,8 +23,7 @@ void p3(int flag, int pid) {
 
     char buff[BUFSIZ];
     char *token = (char *) malloc(sizeof(char));
-    int s = 0;
-    int res = 0;
+    int s = 0, res = 0;
 
     while (0 == 0) {
         if (fgets(buff, sizeof(buff), fd)) {
