@@ -13,7 +13,7 @@ void writeOnLog(int *fd, char *buffer) {
         perror("DF: write on voted_output");
         exit(EXIT_FAILURE);
     }
-    pause();
+
     if ((write(fd[WATCHVALUE], IMALIVE, strlen(IMALIVE))) == -1) {
         perror("DF: write on voted_output");
         exit(EXIT_FAILURE);
