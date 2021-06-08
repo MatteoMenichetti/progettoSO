@@ -8,22 +8,22 @@ int main(int argc, char *argv[]) {
         exit(0);
     }
 
-    int flag = 0, pid = atoi(argv[2]);
+    int flag = 0, pid = atoi(argv[3]);
 
-    if ((strcmp(argv[0], ENABLE)) == 0) {
+    if ((strcmp(argv[1], ENABLE)) == 0) {
         INT_ERR;
         flag = 1;
     }
 
-    if (atoi(argv[1]) == P1) {
+    if (atoi(argv[2]) == P1) {
         printf("p: ESECUZIONE P1\n");
         p1(flag, pid);
     }
-    if (atoi(argv[1]) == P2) {
+    if (atoi(argv[2]) == P2) {
         printf("p: ESECUZIONE P2\n");
         p2(flag, pid);
     }
-    if (atoi(argv[1]) == P3) {
+    if (atoi(argv[2]) == P3) {
         printf("p: ESECUZIONE P3\n");
         p3(flag, pid);
     }

@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     for (int NP = 1; NP <= 3; NP++) {
         if (!fork()) {
             c = NP + 48;
-            int e = execl("./p", argv[1], &c, cpid, (char *) 0);
+            int e = execl("./p","p", argv[1], &c, cpid, (char *) 0);
             if (e == -1) {
                 perror("m: execl");
                 exit(EXIT_FAILURE);
