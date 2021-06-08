@@ -7,14 +7,6 @@ void handler() {
     kill(pid, SIGUSR1);
 }
 
-void initializationPIPE() {
-    if ((mknod(WATCHPPOS, S_IFIFO, DEFAULT)) == -1) {
-        perror("watchdog: mknod");
-        exit(EXIT_FAILURE);
-    }
-    chmod(WATCHPPOS, 0777);
-}
-
 void openPIPE(int *fd) {
     while ((*fd = open(WATCHPPOS, O_RDONLY)) == -1) {
         perror("watchdog: open WATCHDOGPIPE");
@@ -31,7 +23,6 @@ int main(int argc, char *argv[]) {
     int fd = -1;
     char *buff = (char *) calloc(1, strlen(IMALIVE));
 
-    initializationPIPE();
     openPIPE(&fd);
 
     signal(SIGALRM, handler);
