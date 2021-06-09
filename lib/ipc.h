@@ -24,4 +24,4 @@
 #define PERMISSION 0777
 
 void initializationPIPE();
-void openPIPE(int*);
+int openPIPE(char*);
