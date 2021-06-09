@@ -21,5 +21,3 @@ void p2(int, int);
 void p3(int, int);
 
 void errsum(int *, int);
-
-void createPIPE(char *);
