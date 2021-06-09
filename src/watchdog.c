@@ -7,8 +7,8 @@ void USR1_handler() {
     kill(failure_pid, SIGUSR1);
 }
 
-void openPIPE(int *fd) {
-    while ((*fd = open(WATCHPPOS, O_RDONLY)) == -1) {
+void openPIPE(char*path) {
+    while ((path = open(WATCHPPOS, O_RDONLY)) == -1) {
         perror("watchdog: open WATCHDOGPIPE");
         sleep(1);
     }
