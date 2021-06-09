@@ -1,14 +1,6 @@
 #include "../lib/p.h"
 #include <signal.h>
 
-void createPIPE();
-
-void openPIPE(int *fd) {
-    if ((*fd = open(PIPEDP2, O_WRONLY)) == -1) {
-        perror("P2: open pipe");
-        exit(EXIT_FAILURE);
-    }
-}
 
 int definesocket() {
     int csfd;
@@ -34,11 +26,12 @@ void p2(int flag, int pid) {
     int psfd, csfd = definesocket(), s = 0;
     char *token = (char *) calloc(1, sizeof(char)) ,buff[BUFSIZ];
 
-    createPIPE();
+    createPIPE(PIPEDP2);
 
     kill(pid, SIGCONT);
 
-    openPIPE(&psfd);
+    psfd= openPIPE(PIPEDP2);
+
     connecting(csfd);
 
     while (0 == 0) {
@@ -61,14 +54,6 @@ void p2(int flag, int pid) {
     }
 }
 
-void createPIPE() {
-    unlink(PIPEDP2);
-    if (mknod(PIPEDP2, S_IFIFO, DEFAULT) == -1) {
-        perror("P2: mknod");
-        exit(EXIT_FAILURE);
-    }
-    chmod(PIPEDP2, PERMISSION);
-}
 
 char *splitP2(char *buff) {
     int s = 0;

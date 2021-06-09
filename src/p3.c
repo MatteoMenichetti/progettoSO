@@ -1,18 +1,13 @@
 #include "../lib/p.h"
 
 void p3(int flag, int pid) {
-    unlink(PIPEDP3);
-    if (mknod(PIPEDP3, S_IFIFO, DEFAULT) == -1) {
-        perror("P3: mknod");
-        exit(EXIT_FAILURE);
-    }
-    chmod(PIPEDP3, PERMISSION);
+    createPIPE(PIPEDP3);
+
     kill(pid, SIGCONT);
-    int psfd;
-    if ((psfd = open(PIPEDP3, O_WRONLY)) == -1) {
-        perror("P3: open pipe");
-        exit(EXIT_FAILURE);
-    }
+
+    int psfd= openPIPE(PIPEDP3);
+
+
     FILE *fd = fopen(FILEADDR, "r+");
 
 

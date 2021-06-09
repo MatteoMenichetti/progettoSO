@@ -1,21 +1,11 @@
 #include "../lib/p.h"
 
 void p1(int flag, int pid) {
-    unlink(PIPEDP1);
-    if (mknod(PIPEDP1, S_IFIFO, DEFAULT) == -1) {
-        perror("P: mknod");
-        exit(EXIT_FAILURE);
-    }
-    chmod(PIPEDP1, PERMISSION);
-
+    createPIPE(PIPEDP1);
 
     int kills = kill(pid, SIGCONT);
 
-    int psfd = 0;
-    if ((psfd = open(PIPEDP1, O_WRONLY)) == -1) {
-        perror("P1: open pipe");
-        exit(EXIT_FAILURE);
-    }
+    int psfd = openPIPE(PIPEDP1);
 
     int pfd = open(PIPEADDR, O_RDONLY);
 
