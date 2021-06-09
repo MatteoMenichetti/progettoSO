@@ -1,27 +1,23 @@
+#include "common.h"
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <sys/types.h>
-#include <stdio.h>
 #include <sys/stat.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <signal.h>
 
-#define PIPEADDR "../tmp/pipeP1"
-#define SOCKADDR "../tmp/socketP2"
-#define FILEADDR "../tmp/fileP3"
-#define PIPEDP1 "../tmp/pipeDP1"
-#define PIPEDP2 "../tmp/pipeDP2"
-#define PIPEDP3 "../tmp/pipeDP3"
-#define WATCHPPOS "../tmp/pipeWATCDOG"
+#define PIPEPATH "../tmp/pipeP1"
+#define SOCKPATH "../tmp/socketP2"
+#define FILEPATH "../tmp/fileP3"
+#define PIPEDP1PATH "../tmp/pipeDP1"
+#define PIPEDP2PATH "../tmp/pipeDP2"
+#define PIPEDP3PATH "../tmp/pipeDP3"
+#define WATCHPATH "../tmp/pipeWATCDOG"
 #define DEFAULT 0
 #define P1 1
 #define P2 2
 #define P3 3
 #define IMALIVE "IMALIVE"
-#define PERMISSION 0777
+#define PERMISSIONPIPE 0777
 
-void initializationPIPE();
-int openPIPE(char*);
+void createPIPE(char **, int);
+
+int *openPIPE(char **, int, int *);
