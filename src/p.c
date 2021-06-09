@@ -62,7 +62,7 @@ int openPIPE(char *path) {
     return fd;
 }
 
-void initializationPIPE(char *path) {
+void createPIPE(char *path) {
     unlink(path);
     if (mknod(path, S_IFIFO, DEFAULT) == -1) {
         perror("P: mknod");

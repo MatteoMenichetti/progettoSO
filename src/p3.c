@@ -16,8 +16,7 @@ void p3(int flag, int pid) {
         exit(EXIT_FAILURE);
     }
 
-    char buff[BUFSIZ];
-    char *token = (char *) malloc(sizeof(char));
+    char buff[BUFSIZ],*token = (char *) malloc(sizeof(char));
     int s = 0, res = 0;
 
     while (0 == 0) {

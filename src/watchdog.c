@@ -7,11 +7,13 @@ void USR1_handler() {
     kill(failure_pid, SIGUSR1);
 }
 
-void openPIPE(char*path) {
-    while ((path = open(WATCHPPOS, O_RDONLY)) == -1) {
+int openPIPE(char *path) {
+    int fd;
+    while ((fd = open(WATCHPPOS, O_RDONLY)) == -1) {
         perror("watchdog: open WATCHDOGPIPE");
         sleep(1);
     }
+    return fd;
 }
 
 int main(int argc, char *argv[]) {
