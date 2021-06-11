@@ -4,4 +4,4 @@
 #include <stdio.h>
 #include <signal.h>
 
-#define PERMISIONFILE 0666
+#define PERMISSIONFILE 0666
