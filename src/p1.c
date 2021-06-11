@@ -1,13 +1,14 @@
 #include "../lib/p.h"
 
-void p1(int flag, int pid) {
-    createPIPE(PIPEDP1);
+void p1(int modality, int pid) {
+    int flag=O_WRONLY;
+    createPIPE((char**)PIPEDP1PATH,1);
 
     int kills = kill(pid, SIGCONT);
 
-    int psfd = openPIPE(PIPEDP1);
+    int psfd = openPIPE((char**)PIPEDP1PATH, 1, &flag);
 
-    int pfd = open(PIPEADDR, O_RDONLY);
+    int pfd = open(PIPEPATH, O_RDONLY);
 
     char buff[BUFSIZ];
     int s = 0, r = 0;
@@ -24,7 +25,7 @@ void p1(int flag, int pid) {
 
         splitP1(buff, &s);
 
-        if (flag == ACTIVE_FAILURE)errsum(&s, 10);
+        if (modality == ACTIVE_FAILURE)errsum(&s, 10);
 
         printf("P1: invio a DF %d\n", s);
         if (write(psfd, &s, sizeof(s)) == -1) {

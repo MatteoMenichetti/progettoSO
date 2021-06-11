@@ -14,7 +14,7 @@ int definesocket() {
 
 void connecting(int sfd) {
     struct sockaddr_un sockServer;
-    strcpy(sockServer.sun_path, SOCKADDR);
+    strcpy(sockServer.sun_path, SOCKPATH);
     sockServer.sun_family = AF_UNIX;
     while ((connect(sfd, (struct sockaddr *) &sockServer, sizeof(sockServer))) == -1) {
         perror("P2: connect");
@@ -22,15 +22,15 @@ void connecting(int sfd) {
     }
 }
 
-void p2(int flag, int pid) {
-    int psfd, csfd = definesocket(), s = 0;
-    char *token = (char *) calloc(1, sizeof(char)) ,buff[BUFSIZ];
+void p2(int modality, int pid) {
+    int psfd, csfd = definesocket(), s = 0, flag[1]={O_WRONLY};
+    char *token = (char *) calloc(1, sizeof(char)), buff[BUFSIZ];
 
-    createPIPE(PIPEDP2);
+    createPIPE((char **) PIPEDP2PATH, 1);
 
     kill(pid, SIGCONT);
 
-    psfd= openPIPE(PIPEDP2);
+    psfd = openPIPE((char**)PIPEDP2PATH, 1, flag);
 
     connecting(csfd);
 
@@ -42,7 +42,7 @@ void p2(int flag, int pid) {
 
         token = splitP2(buff);
         s = sum(token, strlen(token));
-        if (flag == ACTIVE_FAILURE) errsum(&s, 20);
+        if (modality == ACTIVE_FAILURE) errsum(&s, 20);
 
         printf("P2: invio a DF %d\n", s);
         if (write(psfd, &s, sizeof(s)) == -1) {
