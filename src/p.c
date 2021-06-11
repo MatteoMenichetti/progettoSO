@@ -52,21 +52,3 @@ int sum(char *token, int start) {
 void errsum(int *s, int value) {
     if ((ERR == EVENT))*s += value;
 }
-
-int openPIPE(char *path) {
-    int fd;
-    if ((fd = open(path, O_WRONLY)) == -1) {
-        perror("P2: open pipe");
-        exit(EXIT_FAILURE);
-    }
-    return fd;
-}
-
-void createPIPE(char *path) {
-    unlink(path);
-    if (mknod(path, S_IFIFO, DEFAULT) == -1) {
-        perror("P: mknod");
-        exit(EXIT_FAILURE);
-    }
-    chmod(path, PERMISSION);
-}
