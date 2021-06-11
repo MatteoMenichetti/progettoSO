@@ -3,10 +3,10 @@
 int initializationSOCKET(struct sockaddr_un *sockServer) {
     int fd;
 
-    strcpy(sockServer->sun_path, SOCKADDR);
+    strcpy(sockServer->sun_path, SOCKPATH);
     sockServer->sun_family = AF_UNIX;
 
-    unlink(SOCKADDR);
+    unlink(SOCKPATH);
 
     if ((fd = socket(AF_UNIX, SOCK_STREAM, DEFAULT)) == -1) {
         perror("IM: socket");
@@ -37,36 +37,25 @@ void acceptSOCKET(int *sfd) {
     }
 }
 
-void initializationPIPE() {
-
-    unlink(PIPEADDR);
-
-    if (mknod(PIPEADDR, S_IFIFO, DEFAULT) == -1) {
-        perror("Input manager: PIPEADDR");
-        exit(EXIT_FAILURE);
-    }
-    chmod(PIPEADDR, PERMISSION);
-}
-
-int openPIPE(char *path) {
-    int fd = open(path, O_WRONLY);
-    if (path == -1) {
-        perror("Input: open");
-        exit(EXIT_FAILURE);
-    }
-    return fd;
-}
-
 int main(int argc, char *argv[]) {
     if (argc < 2) {
         printf("input_manager: numero argomenti insuff.\n");
         exit(EXIT_FAILURE);
     }
     char buff[BUFSIZ];
-    int fdPipe = openPIPE(PIPEADDR), fpAppoggio = open(FILEADDR, O_CREAT | O_WRONLY | O_TRUNC, PERMISSION), sfd;
+    int flag[1] = {O_WRONLY}, fdPipe, fpAppoggio = open(FILEPATH,
+                                                        O_CREAT | O_WRONLY |
+                                                        O_TRUNC,
+                                                        PERMISSIONFILE), sfd;
     FILE *fpData = fopen(argv[1], "r");
 
-    initializationPIPE();
+    printf("IM: create PIPE\n");
+
+    createPIPE((char **) &PIPEPATH, 1);
+
+    printf("IM: open PIPE\n");
+
+    fdPipe = *openPIPE((char **) &PIPEPATH, 1, flag);
 
     acceptSOCKET(&sfd);
 
