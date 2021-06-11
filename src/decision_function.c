@@ -23,12 +23,12 @@ void writeOnLog(int *fd, char *buffer) {
 }
 
 void openFILE(int *fd) {
-    if (((fd[LOGPOS] = open(LOGPATH, O_WRONLY | O_CREAT | O_TRUNC, PERMISIONFILE)) == -1)) {
+    if (((fd[LOGPOS] = open(LOGPATH, O_WRONLY | O_CREAT | O_TRUNC, PERMISSIONFILE)) == -1)) {
         perror("DF: open log");
         exit(EXIT_FAILURE);
     }
 
-    if ((fd[VOTEDPOS] = open(VOTEDPATH, O_WRONLY | O_CREAT | O_TRUNC, PERMISIONFILE)) == -1) {
+    if ((fd[VOTEDPOS] = open(VOTEDPATH, O_WRONLY | O_CREAT | O_TRUNC, PERMISSIONFILE)) == -1) {
         perror("DF: open voted_output");
         exit(EXIT_FAILURE);
     }
@@ -46,7 +46,7 @@ void createPIPES() {
 }
 
 void openPIPES(int fd[]) {
-    char *paths[4] = {PIPEDP1PATH,PIPEDP2PATH, PIPEDP3PATH, WATCHPATH};
+    char *paths[4] = {PIPEDP1PATH, PIPEDP2PATH, PIPEDP3PATH, WATCHPATH};
     int flags[4] = {O_WRONLY, O_RDONLY, O_RDONLY, O_RDONLY};
     fd = openPIPE(paths, 4, flags);
 }
