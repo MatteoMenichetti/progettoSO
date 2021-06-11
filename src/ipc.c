@@ -19,6 +19,7 @@ int *openPIPE(char *path[], int nrelements, int *flag) {
             char message[100];
             sprintf(message, "open %s", path[i]);
             perror(message);
+            exit(EXIT_FAILURE);
         }
     return fd;
 }
