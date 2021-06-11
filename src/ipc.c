@@ -1,7 +1,7 @@
 #include "../lib/ipc.h"
 
 void createPIPE(char *path[], int nrelements) {
-    for (int i = 0; i < nrelements; ++i) {
+    for (int i = 0; i < nrelements; i++) {
         unlink(path[i]);
         if ((mknod(path[i], S_IFIFO, DEFAULT)) == -1) {
             perror("watchdog: mknod");
