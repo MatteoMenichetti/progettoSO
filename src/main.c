@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <signal.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include "../lib/common.h"
 
 void trap(int sig) { /* do nothing */ }
 
@@ -10,6 +7,7 @@ int main(int argc, char *argv[]) {
         printf("main: numero argomenti non suff.");
         exit(EXIT_FAILURE);
     }
+
     char *cpid = calloc(1, sizeof(char));
     sprintf(cpid, "%d", getpid());
     char c;
