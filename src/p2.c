@@ -23,15 +23,17 @@ void connecting(int sfd) {
 }
 
 void p2(int modality, int pid) {
-    int psfd, csfd = definesocket(), s = 0, flag[1]={O_WRONLY};
-    char *token = (char *) calloc(1, sizeof(char)), buff[BUFSIZ];
+    int psfd, csfd = definesocket(), s = 0, flag[1] = {O_WRONLY};
+    char *token = (char *) calloc(1, sizeof(char)), buff[BUFSIZ], *path[1] = {PIPEDP2PATH};
 
-    createPIPE((char **) PIPEDP2PATH, 1);
-
+    printf("P2: creazione PIPEDP2\n");
+    createPIPE(path, 1);
     kill(pid, SIGCONT);
 
-    psfd = openPIPE((char**)PIPEDP2PATH, 1, flag);
+    printf("P2: open PIPEDP2\n");
+    psfd = *openPIPE(path, 1, flag);
 
+    printf("P1: connessione socket\n");
     connecting(csfd);
 
     while (0 == 0) {
@@ -40,6 +42,7 @@ void p2(int modality, int pid) {
             exit(EXIT_FAILURE);
         }
 
+        printf("P2: splitP2\n");
         token = splitP2(buff);
         s = sum(token, strlen(token));
         if (modality == ACTIVE_FAILURE) errsum(&s, 20);
