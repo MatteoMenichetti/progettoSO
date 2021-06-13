@@ -27,8 +27,10 @@ int main(int argc, char *argv[]) {
 
     int pid_decision = fork();
     if (pid_decision == 0) {
+        printf("main: avvio DF\n");
         execl("./decision_function", "decision_function", NULL);
     } else {
+        printf("main: avvio IM\n");
         execl("./input_manager", "input_manger", argv[2], NULL);
     }
 }
