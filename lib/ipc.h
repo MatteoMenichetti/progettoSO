@@ -10,12 +10,10 @@
 #define PIPEDP1PATH "../tmp/pipeDP1"
 #define PIPEDP2PATH "../tmp/pipeDP2"
 #define PIPEDP3PATH "../tmp/pipeDP3"
-#define WATCHPATH "../tmp/pipeWATCDOG"
 #define DEFAULT 0
 #define P1 1
 #define P2 2
 #define P3 3
-#define IMALIVE "IMALIVE"
 #define PERMISSIONPIPE 0777
 
 void createPIPE(char **, int);
