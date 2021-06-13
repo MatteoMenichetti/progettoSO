@@ -1,10 +1,14 @@
 #include "../lib/ipc.h"
 
-int failure_pid = 0;
+int allarme = 0;
 
-void USR1_handler() {
-    printf("watchdog: inivio SIGUSR1 a FM (%d)\n", failure_pid);
-    kill(failure_pid, SIGUSR1);
+void handler() {
+    allarme = 1;
+}
+
+void I_AM_ALIVE() {
+    printf("I AM ALIVE \n");
+    alarm(2);
 }
 
 int main(int argc, char *argv[]) {
@@ -12,23 +16,12 @@ int main(int argc, char *argv[]) {
         printf("watchdog: numero argomenti insuff.");
         exit(EXIT_FAILURE);
     }
-
-    failure_pid = atoi(argv[1]);
-
-    int fd = *openPIPE((char **) &WATCHPATH, 1, O_RDONLY);
-
-    char *buff = (char *) calloc(1, strlen(IMALIVE));
-
-    signal(SIGALRM, USR1_handler);
-
-    while (0 == 0) {
-        alarm(3);
-        if ((read(fd, buff, sizeof(buff))) == -1) {
-            perror("watchdog: lettura");
-            exit(EXIT_FAILURE);
-        }
-        if ((strcmp(buff, IMALIVE)) == 0) {
-            alarm(0);
-        }
-    }
+    int pid_failure_manager = atoi(argv[0]);
+    printf("ho aperto watchDog \n");
+    signal(SIGUSR1, I_AM_ALIVE);
+    signal(SIGALRM, handler);
+    alarm(2);
+    while (allarme == 0) { pause(); };
+    kill(pid_failure_manager, SIGUSR1);
 }
+
