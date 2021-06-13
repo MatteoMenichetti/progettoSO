@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
         printf("input_manager: numero argomenti insuff.\n");
         exit(EXIT_FAILURE);
     }
-    char buff[BUFSIZ];
+    char buff[BUFSIZ], *path[1] = {PIPEPATH};
     int flag[1] = {O_WRONLY}, fdPipe, fpAppoggio = open(FILEPATH,
                                                         O_CREAT | O_WRONLY |
                                                         O_TRUNC,
@@ -51,18 +51,20 @@ int main(int argc, char *argv[]) {
 
     printf("IM: create PIPE\n");
 
-    createPIPE((char **) &PIPEPATH, 1);
+    createPIPE(path, 1);
 
     printf("IM: open PIPE\n");
 
-    fdPipe = *openPIPE((char **) &PIPEPATH, 1, flag);
+    fdPipe = *openPIPE(path, 1, flag);
 
+    printf("IM: accept\n");
     acceptSOCKET(&sfd);
 
     fgets(buff, BUFSIZ, fpData);
     strncpy(buff, "\0", strlen(buff));
 
     while (fgets(buff, BUFSIZ, fpData) != NULL) {
+        printf("IM: write for P\n");
         //
         write(fdPipe, buff, strlen(buff));
         //
