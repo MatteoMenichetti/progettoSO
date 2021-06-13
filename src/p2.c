@@ -33,10 +33,11 @@ void p2(int modality, int pid) {
     printf("P2: open PIPEDP2\n");
     psfd = *openPIPE(path, 1, flag);
 
-    printf("P1: connessione socket\n");
+    printf("P2: connessione socket\n");
     connecting(csfd);
 
     while (0 == 0) {
+        printf("P2: read\n");
         if ((read(csfd, buff, sizeof(buff))) == -1) {
             perror("P2: lettura socket");
             exit(EXIT_FAILURE);
