@@ -1,28 +1,27 @@
 #include "../lib/p.h"
 
 void p1(int modality, int pid) {
-    int flag=O_WRONLY;
-    createPIPE((char**)PIPEDP1PATH,1);
+    int flag[1] = {O_WRONLY};
+    char *path[1] = {PIPEDP1PATH};
+
+    printf("P1: creazione PIPEDP1\n");
+    createPIPE(path, 1);
 
     int kills = kill(pid, SIGCONT);
 
-    int psfd = openPIPE((char**)PIPEDP1PATH, 1, &flag);
+    printf("P1: open PIPEDP1\n");
+    int psfd = *openPIPE(path, 1, flag);
 
     int pfd = open(PIPEPATH, O_RDONLY);
 
     char buff[BUFSIZ];
     int s = 0, r = 0;
     while (0 == 0) {
-        r = read(pfd, buff, sizeof(buff));
-        if (r == 0) {
-            continue;
-        }
-
-        if (r == -1) {
+        if((r = read(pfd, buff, sizeof(buff)))==-1) {
             perror("P1: read su pipe");
             exit(EXIT_FAILURE);
         }
-
+        printf("P1: splitP1\n");
         splitP1(buff, &s);
 
         if (modality == ACTIVE_FAILURE)errsum(&s, 10);
