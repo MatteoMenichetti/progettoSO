@@ -7,7 +7,7 @@ void handler() {
 }
 
 void I_AM_ALIVE() {
-    printf("I AM ALIVE \n");
+    printf("watchdog: I AM ALIVE \n");
     alarm(2);
 }
 
@@ -16,8 +16,8 @@ int main(int argc, char *argv[]) {
         printf("watchdog: numero argomenti insuff.");
         exit(EXIT_FAILURE);
     }
-    int pid_failure_manager = atoi(argv[0]);
-    printf("ho aperto watchDog \n");
+    int pid_failure_manager = atoi(argv[1]);
+    printf("watchdog avviato\n");
     signal(SIGUSR1, I_AM_ALIVE);
     signal(SIGALRM, handler);
     alarm(2);
