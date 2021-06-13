@@ -28,12 +28,12 @@ void p3(int modality, int pid) {
             printf("P3: splitP2\n");
             token = splitP2(buff);
             s = sum(token, 0);
-            if (modality == ACTIVE_FAILURE) { errsum(&s, 30); }
+            if (modality == ACTIVE_FAILURE)errsum(&s, 30);
             if (write(psfd, &s, sizeof(s)) == -1) {
-                perror("P1: write");
+                perror("P3: write");
                 exit(EXIT_FAILURE);
             }
-            printf("Inviato P3: %d \n", s);
+            printf("P3: %d \n", s);
         }
         fseek(fd, res, SEEK_SET);
     }
