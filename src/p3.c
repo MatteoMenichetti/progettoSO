@@ -2,12 +2,15 @@
 
 void p3(int modality, int pid) {
     int flag[1] = {O_WRONLY};
+    char *path[1] = {PIPEDP3PATH};
 
-    createPIPE((char **) PIPEDP3PATH, 1);
+    printf("P3: creazione PIPEDP3\n");
+    createPIPE(path, 1);
 
     kill(pid, SIGCONT);
 
-    int psfd = openPIPE((char **) PIPEDP3PATH, 1, flag);
+    printf("P3: open PIPEDP3\n");
+    int psfd = *openPIPE(path, 1, flag);
 
     FILE *fd = fopen(FILEPATH, "r+");
 
@@ -22,6 +25,7 @@ void p3(int modality, int pid) {
     while (0 == 0) {
         if (fgets(buff, sizeof(buff), fd)) {
             res += strlen(buff);
+            printf("P3: splitP2\n");
             token = splitP2(buff);
             s = sum(token, 0);
             if (modality == ACTIVE_FAILURE) { errsum(&s, 30); }
