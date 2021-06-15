@@ -1,6 +1,4 @@
-#include <signal.h>
-#include <unistd.h>
-#include <stdio.h>
+#include "../lib/common.h"
 
 void USR1_handler(int sig) {
     printf("failure_manager: uccido tutti\n");
