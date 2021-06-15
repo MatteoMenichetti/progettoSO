@@ -14,8 +14,10 @@ void writeOnLog(int fd, int pid_failure_manager, char *buffer) {
         perror("DF: write on voted_output");
         exit(EXIT_FAILURE);
     }
-
-    kill(pid_failure_manager, SIGUSR1);
+    if ((kill(pid_failure_manager, SIGUSR1)) == -1) {
+        perror("decision_function: kill on failure_manager");
+        exit(EXIT_FAILURE);
+    }
 }
 
 void openFILE(int *fd) {
@@ -31,8 +33,8 @@ void openFILE(int *fd) {
 }
 
 
-int EqualCondition(int vp1, int vp2, int vp3) {
-    if (!(vp1 == vp2) && !(vp1 == vp3) && !(vp2 == vp3))return 1;
+int EqualityCondition(int vp1, int vp2, int vp3) {
+    if (vp1 != vp2 && vp1 != vp3 && vp2 != vp3)return 1;
     return 0;
 }
 
@@ -79,7 +81,7 @@ int main(void) {
                 valueSplitSum[P2 - 1],
                 valueSplitSum[P3 - 1]);
 
-        if (!EqualCondition(valueSplitSum[P1 - 1], valueSplitSum[P2 - 1], valueSplitSum[P3 - 1])) {
+        if (!EqualityCondition(valueSplitSum[P1 - 1], valueSplitSum[P2 - 1], valueSplitSum[P3 - 1])) {
             writeOnLog(fd[VOTEDPOS], watchdog_pid, FALLIMENTO);
             printf("DF: FALLIMENTO\n");
             kill(failure_pid, SIGUSR1);
