@@ -32,7 +32,6 @@ void openFILE(int *fd) {
     }
 }
 
-
 int EqualityCondition(int vp1, int vp2, int vp3) {
     if (vp1 != vp2 && vp1 != vp3 && vp2 != vp3)return 1;
     return 0;
@@ -42,11 +41,13 @@ void openPIPES(int fd[]) {
     char *paths[3] = {PIPEDP1PATH, PIPEDP2PATH, PIPEDP3PATH};
     printf("DF: *path[0] = %s , *path[1] = %s, *path[2] = %s\n", paths[0], paths[1], paths[2]);
     int flags[3] = {O_RDONLY, O_RDONLY, O_RDONLY};
-    fd = openPIPE(paths, 3, flags);
-    printf("DF: apertura PIPES %d %d %d %d\n", fd[0], fd[1], fd[2], fd[3]);
+    for (int i = 0; i < 3; i++)
+        fd[i] = openPIPE(paths[i], flags[i]);
+    printf("DF: apertura PIPES fd[0] = %d, fd[1] = %d, fd[2] = %d, fd[3] = %d\n", fd[0], fd[1], fd[2], fd[3]);
 }
 
 int main(void) {
+    signal(SIGUSR1, SIG_IGN);
     int fd[5], failure_pid, watchdog_pid, valueSplitSum[3], i = 1;
 
     printf("DF: avvio FM\n");
