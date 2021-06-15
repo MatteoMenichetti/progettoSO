@@ -16,6 +16,7 @@ int main(int argc, char *argv[]) {
     for (int NP = 1; NP <= 3; NP++) {
         if (!fork()) {
             c = NP + 48;
+            printf("%c ", c);
             int e = execl("./p", "p", argv[1], &c, cpid, (char *) 0);
             if (e == -1) {
                 perror("m: execl");
@@ -27,7 +28,7 @@ int main(int argc, char *argv[]) {
 
     int pid_decision = fork();
     if (pid_decision == 0) {
-        printf("main: avvio DF\n");
+        printf("\nmain: avvio DF\n");
         execl("./decision_function", "decision_function", NULL);
     } else {
         printf("main: avvio IM\n");
