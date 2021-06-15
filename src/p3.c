@@ -1,16 +1,13 @@
 #include "../lib/p.h"
 
 void p3(int modality, int pid) {
-    int flag[1] = {O_WRONLY};
-    char *path[1] = {PIPEDP3PATH};
-
-    printf("P3: creazione PIPEDP3\n");
-    createPIPE(path, 1);
-
+    createPIPE(PIPEDP3PATH);
     kill(pid, SIGCONT);
-
+    int psfd, flag = O_WRONLY;
+    char *path = {PIPEDP3PATH};
+    //psfd=*openPIPE(&path, 1, &flag );
+    psfd = openPIPE(path, flag);
     printf("P3: open PIPEDP3\n");
-    int psfd = *openPIPE(path, 1, flag);
 
     FILE *fd = fopen(FILEPATH, "r+");
 
