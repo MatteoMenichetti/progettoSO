@@ -33,8 +33,8 @@ void openFILE(int *fd) {
 }
 
 int EqualityCondition(int vp1, int vp2, int vp3) {
-    if (vp1 != vp2 && vp1 != vp3 && vp2 != vp3)return 1;
-    return 0;
+    if (vp1 != vp2 && vp1 != vp3 && vp2 != vp3)return 0;
+    return 1;
 }
 
 void openPIPES(int fd[]) {
@@ -71,13 +71,13 @@ int main(void) {
 
     while (0 == 0) {
         printf("DF: read\n");
-        if ((read(fd[P1 - 1], (valueSplitSum + P1 - 1), sizeof(int))) == -1) perror("DF: read P1");
+        if ((read(fd[P1 - 1], &valueSplitSum[P1 - 1], sizeof(int))) == -1) perror("DF: read P1");
 
-        if ((read(fd[P2 - 1], (valueSplitSum + P2 - 1), sizeof(int))) == -1) perror("DF: read P2");
+        if ((read(fd[P2 - 1], &valueSplitSum[P2 - 1], sizeof(int))) == -1) perror("DF: read P2");
 
-        if ((read(fd[P3 - 1], (valueSplitSum + P3 - 1), sizeof(int))) == -1) perror("DF: read P3");
-        printf("DF:  read fd[P1] = %s, fd[P2] = %s, fd[P3] = %s\n", valueSplitSum + P1 - 1, valueSplitSum + P2 - 1,
-               valueSplitSum + P3 - 1);
+        if ((read(fd[P3 - 1], &valueSplitSum[P3 - 1], sizeof(int))) == -1) perror("DF: read P3");
+        printf("DF:  read fd[P1] = %d, fd[P2] = %d, fd[P3] = %d\n", valueSplitSum[P1 - 1], valueSplitSum[P2 - 1],
+               valueSplitSum[P3 - 1]);
         dprintf(fd[LOGPOS], "READ %d : p1 = %d p2 = %d p3 = %d \n", i, valueSplitSum[P1 - 1],
                 valueSplitSum[P2 - 1],
                 valueSplitSum[P3 - 1]);
