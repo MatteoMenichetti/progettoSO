@@ -16,6 +16,7 @@
 #define P3 3
 #define PERMISSIONPIPE 0777
 
-void createPIPE(char **, int);
+void createPIPE(char*pipe);
 
-int *openPIPE(char **, int, int *);
+//int* openPIPE(char**, int, int*);
+int openPIPE(char[], int);
