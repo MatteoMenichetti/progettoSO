@@ -56,12 +56,9 @@ void p1(int modality, int pid) {
         splitP1(buff, &s);
         if (modality == ACTIVE_FAILURE)errsum(&s, 10);
 
-        char str[sizeof(int)];
-        sprintf(str, "%d", s);
-        printf("P1: str %s\n", str);
 
-        printf("\nP1: invio a DF %s (write on %d)\n", str, fd[0]);
-        if (write(fd[0], str, sizeof(str)) == -1) {
+        printf("P1: invio a DF %d\n", s);
+        if (write(fd[0], &s, sizeof(s)) == -1) {
             perror("P1: write");
             exit(EXIT_FAILURE);
         }
