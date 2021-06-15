@@ -70,7 +70,7 @@ int main(void) {
            fd[LOGPOS], fd[VOTEDPOS]);
 
     while (0 == 0) {
-        printf("DF: read");
+        printf("DF: read\n");
         if ((read(fd[P1 - 1], (valueSplitSum + P1 - 1), sizeof(int))) == -1) perror("DF: read P1");
 
         if ((read(fd[P2 - 1], (valueSplitSum + P2 - 1), sizeof(int))) == -1) perror("DF: read P2");
