@@ -13,7 +13,6 @@ void createPIPE(char *path[], int nrelements) {
         printf("IPC: mkresult = %d su %s", mkresult, path[i]);
         chmod(path[i], PERMISSIONPIPE);
     }
-
 }
 
 int *openPIPE(char *path[], int nrelements, int *flag) {
