@@ -26,6 +26,7 @@ void p3(int modality, int pid) {
             token = splitP2(buff);
             s = sum(token, 0);
             if (modality == ACTIVE_FAILURE)errsum(&s, 30);
+            printf("P3: invio a DF %d\n", s);
             if (write(psfd, &s, sizeof(s)) == -1) {
                 perror("P3: write");
                 exit(EXIT_FAILURE);
