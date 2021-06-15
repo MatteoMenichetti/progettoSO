@@ -1,4 +1,4 @@
-#include "../lib/ipc.h"
+#include "../lib/common.h"
 
 int allarme = 0;
 
