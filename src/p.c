@@ -5,7 +5,7 @@
 int main(int argc, char *argv[]) {
     if (argc < 3) {
         printf("P: argomenti non sufficienti");
-        exit(0);
+        exit(EXIT_FAILURE);
     }
 
     int flag = 0, pid = atoi(argv[3]);
@@ -14,17 +14,21 @@ int main(int argc, char *argv[]) {
         INT_ERR;
         flag = 1;
     }
-
-    if (atoi(argv[2]) == P1) {
-        printf("p: ESECUZIONE P1\n");
+    char c;
+    int Pnumber = atoi(strncpy(&c, argv[2], 1));
+    printf("P: Pnumber = %d\n", Pnumber);
+    if (Pnumber == P1) {
+        printf("ESECUZIONE P1\n");
         p1(flag, pid);
     }
-    if (atoi(argv[2]) == P2) {
-        printf("p: ESECUZIONE P2\n");
+    if (Pnumber == P2) {
+        printf("ESECUZIONE P2\n");
+        pid = getppid();
         p2(flag, pid);
     }
-    if (atoi(argv[2]) == P3) {
-        printf("p: ESECUZIONE P3\n");
+    if (Pnumber == P3) {
+        printf("ESECUZIONE P3\n");
+        pid = getppid();
         p3(flag, pid);
     }
     return 0;
