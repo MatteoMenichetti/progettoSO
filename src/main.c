@@ -8,9 +8,10 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    char *cpid = calloc(1, sizeof(char));
+    char *cpid = calloc(1, sizeof(char)), c;
+
     sprintf(cpid, "%d", getpid());
-    char c;
+
     signal(SIGCONT, SIGCONT_handler);
     printf("main: avvio i tre P\n");
     for (int NP = 1; NP <= 3; NP++) {
