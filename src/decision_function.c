@@ -12,11 +12,11 @@
 #define SUCCESSO "SUCCESSO\n"
 
 void writeOnLog(int fd[], int valueSplitSum[], char buffer[]){
-    dprintf(fd[LOGPOS], "p1 = %d p2 = %d p3 = %d \n", valueSplitSum[P1 - 1],
+    dprintf(fd[VOTEDPOS], "p1 = %d p2 = %d p3 = %d \n", valueSplitSum[P1 - 1],
             valueSplitSum[P2 - 1],
             valueSplitSum[P3 - 1]);
 
-    if ((write(fd[VOTEDPOS], buffer, strlen(buffer))) == -1) {
+    if ((write(fd[LOGPOS], buffer, strlen(buffer))) == -1) {
         perror("DF: write on voted_output");
         exit(EXIT_FAILURE);
     }
@@ -82,11 +82,11 @@ int main(void) {
 
     int fd[5], pid[2], valueSplitSum[3];
 
-    printf("DF: avvio FM\n");
+    printf("DF: start failure_manager\n");
     if (!(pid[FAILURE_MANAGER] = fork()))
         execl("./failure_manager", (char *) NULL);
 
-    printf("DF: avvio watchdog\n");
+    printf("DF: avvio watchdog\n");//eliminare
 
     if (!(pid[WATCHDOG] = fork())) {
         char *failure_manager_pid = (char *) calloc(1, sizeof(pid[FAILURE_MANAGER]));
