@@ -1,13 +1,14 @@
 #include "../lib/common.h"
 
 void USR1_handler(int sig) {
-    printf("failure_manager: uccido tutti\n");
+    printf("failure_manager: kill all\n");
     kill(0, SIGKILL);
 }
 
 
-int main(int argc, char *argv[]) {
-    printf("FM: failure_pid = %d\n", getpid());
+int main(void) {
+    printf("failure_manager: start\n");
+    printf("FM: failure_pid = %d\n", getpid());//ELIMINARE
     signal(SIGUSR1, USR1_handler);
     int status;
     do { status = pause(); } while (status != -1);
