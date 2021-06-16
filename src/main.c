@@ -1,6 +1,6 @@
 #include "../lib/common.h"
 
-void trap(int sig) { /* do nothing */ }
+void SIGCONT_handler() { /* do nothing */ }
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
     char *cpid = calloc(1, sizeof(char));
     sprintf(cpid, "%d", getpid());
     char c;
-    signal(SIGCONT, trap);
+    signal(SIGCONT, SIGCONT_handler);
     printf("main: avvio i tre P\n");
     for (int NP = 1; NP <= 3; NP++) {
         if (!fork()) {
