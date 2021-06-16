@@ -59,16 +59,17 @@ void openFILE(int *fd) {
         perror("DF: open voted_output");
         exit(EXIT_FAILURE);
     }
-    printf("decision_function: fd[LOGPOS] = %d, fd[VOTEDPOS] = %d\n", fd[LOGPOS], fd[VOTEDPOS]);
+    printf("decision_function: fd[LOGPOS] = %d, fd[VOTEDPOS] = %d\n", fd[LOGPOS], fd[VOTEDPOS]); //eliminare
 }
 
 void openPIPES(int fd[]) {
     char *paths[3] = {PIPEDP1PATH, PIPEDP2PATH, PIPEDP3PATH};
-    printf("DF: *path[0] = %s , *path[1] = %s, *path[2] = %s\n", paths[0], paths[1], paths[2]);
+    printf("DF: *path[0] = %s , *path[1] = %s, *path[2] = %s\n", paths[0], paths[1], paths[2]);//eliminare
     int flags[3] = {O_RDONLY, O_RDONLY, O_RDONLY};
     for (int i = 0; i < 3; i++)
         fd[i] = openPIPE(paths[i], flags[i]);
-    printf("DF: apertura PIPES fd[0] = %d, fd[1] = %d, fd[2] = %d, fd[3] = %d\n", fd[0], fd[1], fd[2], fd[3]);
+    printf("DF: apertura PIPES fd[0] = %d, fd[1] = %d, fd[2] = %d, fd[3] = %d\n", fd[0], fd[1], fd[2],
+           fd[3]);//eliminare
 }
 
 int main(void) {
@@ -88,9 +89,9 @@ int main(void) {
         execl("./watchdog", "watchdog", failure_manager_pid, (char *) NULL);
     }
 
-    printf("DF: open FILE\n");
+    printf("decision_function: open FILE\n");
     openFILE(fd);
-    printf("DF: open PIPES\n");
+    printf("decision_function: open PIPES\n");
     openPIPES(fd);
     printf("DF: fd[P1] = %d, fd[P2] = %d, fd[P3] = %d, fd[LOGPOS] = %d, fd[VOTEDPOS] = %d\n", fd[P1], fd[P2], fd[P3],
            fd[LOGPOS], fd[VOTEDPOS]);//eliminare
