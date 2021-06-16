@@ -30,6 +30,7 @@ void openFILE(int *fd) {
         perror("DF: open voted_output");
         exit(EXIT_FAILURE);
     }
+    printf("decision_function: fd[LOGPOS] = %d, fd[VOTEDPOS] = %d\n", fd[LOGPOS], fd[VOTEDPOS]);
 }
 
 int EqualityCondition(int vp1, int vp2, int vp3) {
