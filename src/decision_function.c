@@ -6,8 +6,8 @@
 #define VOTEDPOS 3
 #define LOGPOS 4
 
-#define FALLIMENTO "FALLIMENTO \n"
-#define SUCCESSO "SUCCESSO \n"
+#define FALLIMENTO "\nFALLIMENTO"
+#define SUCCESSO "\nSUCCESSO"
 
 void writeOnLog(int fd, int pid_failure_manager, char *buffer) {
     if ((write(fd, buffer, strlen(buffer))) == -1) {
