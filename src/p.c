@@ -27,12 +27,10 @@ int main(int argc, char *argv[]) {
     }
     if (Pnumber == P2) {
         printf("ESECUZIONE P2\n");
-        pid = getppid();
         p2(flag, pid);
     }
     if (Pnumber == P3) {
         printf("ESECUZIONE P3\n");
-        pid = getppid();
         p3(flag, pid);
     }
     return 0;
