@@ -16,7 +16,9 @@ int main(int argc, char *argv[]) {
     }
     char c;
     strncpy(&c, argv[2], 1);
+
     int Pnumber = atoi((const char *)&c);
+
     printf("P: Pnumber = %d\n", Pnumber);//eliminare
 
     if (Pnumber == P1) {
