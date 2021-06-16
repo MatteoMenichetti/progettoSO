@@ -20,67 +20,35 @@ void connecting(int sfd) {
     }
 }
 
-/*void p2(int modality, int pid) {
-    int psfd, csfd = definesocket(), s = 0, flag[1] = {O_WRONLY};
-    char *token = (char *) calloc(1, sizeof(char)), buff[BUFSIZ], *path[1] = {PIPEDP2PATH};
-
-    printf("P2: creazione PIPEDP2\n");
-    createPIPE(path, 1);
-    kill(pid, SIGCONT);
-
-    printf("P2: open PIPEDP2\n");
-    psfd = *openPIPE(path, 1, flag);
-
-    printf("P2: connessione socket\n");
-    connecting(csfd);
-
-    while (0 == 0) {
-        printf("P2: read\n");
-        if ((read(csfd, buff, sizeof(buff))) == -1) {
-            perror("P2: lettura socket");
-            exit(EXIT_FAILURE);
-        }
-
-        printf("P2: splitP2\n");
-        token = splitP2(buff);
-        s = sum(token, strlen(token));
-        if (modality == ACTIVE_FAILURE) errsum(&s, 20);
-
-        printf("P2: invio a DF %d\n", s);
-        if (write(psfd, &s, sizeof(s)) == -1) {
-            perror("P1: write");
-            exit(EXIT_FAILURE);
-        }
-
-        strncpy(buff, "\0", strlen(buff));
-    }
-}*/
-
 void p2(int modality, int pid) {
     createPIPE(PIPEDP2PATH);
     kill(pid, SIGCONT);
-    int psfd, flag = O_WRONLY;
-    char *path = PIPEDP2PATH;
+
+    int psfd, flag = O_WRONLY,csfd = definesocket(), s = 0;
+    char *path = PIPEDP2PATH, buff[BUFSIZ], *token = (char *) calloc(1, sizeof(char));
 
     psfd = openPIPE(path, flag);
-    int csfd = definesocket(), s = 0;
+
     connecting(csfd);
-    char buff[BUFSIZ], *token = (char *) calloc(1, sizeof(char));
-    int r = 0;
+
     while (0 == 0) {
-        if((r = read(csfd, buff, sizeof(buff)))==-1){
-            perror("P1: read su pipe");
+        if((read(csfd, buff, sizeof(buff)))==-1){
+            perror("P1: read from pipe");
             exit(EXIT_FAILURE);
         }
 
         token = splitP2(buff);
         s = sum(token, strlen(token));
-        if (modality == ACTIVE_FAILURE) { errsum(&s, 20); }
-        printf("P2: invio a DF %d\n", s);
+
+        if (modality == ACTIVE_FAILURE) errsum(&s, 20);
+
+        printf("P2: send to DF %d\n", s);
+
         if (write(psfd, &s, sizeof(s)) == -1) {
             perror("P1: write");
             exit(EXIT_FAILURE);
         }
+
         strncpy(buff, "\0", strlen(buff));
     }
 }
