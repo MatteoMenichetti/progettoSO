@@ -84,5 +84,6 @@ int main(int argc, char *argv[]) {
     close(fdShareFile);
     close(fdPipe);
 
+    printf("input_manager: end of file (kill all process)\n");
     kill(0, SIGKILL);
 }
