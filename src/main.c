@@ -8,19 +8,20 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    char *cpid = calloc(1, sizeof(char)), c;
+    char *mainPID = calloc(1, sizeof(char)), Pnumber;
 
-    sprintf(cpid, "%d", getpid());
+    sprintf(mainPID, "%d", getpid());
 
     signal(SIGCONT, SIGCONT_handler);
-    printf("main: avvio i tre P\n");
+    printf("main: start P\n");
+
     for (int NP = 1; NP <= 3; NP++) {
         if (!fork()) {
-            c = NP + 48;
-            printf("%c ", c);
-            int e = execl("./p", "p", argv[1], &c, cpid, (char *) 0);
+            Pnumber = NP + 48;
+            printf("main: Pnumber = %c ", Pnumber);//eliminare
+            int e = execl("./p", "p", argv[1], &Pnumber, mainPID, (char *) NULL);
             if (e == -1) {
-                perror("m: execl");
+                perror("main: execl");
                 exit(EXIT_FAILURE);
             }
         }
@@ -28,6 +29,7 @@ int main(int argc, char *argv[]) {
     }
 
     int pid_decision = fork();
+
     if (pid_decision == 0) {
         printf("main: avvio DF\n");
         execl("./decision_function", "decision_function", NULL);
