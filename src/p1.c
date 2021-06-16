@@ -41,7 +41,8 @@ void p1(int modality, int pid) {
 
     kill(pid, SIGCONT);
 
-    int flags[] = {O_WRONLY, O_RDONLY}, fd[2], s = 0;ssize_t r = 0;
+    int flags[] = {O_WRONLY, O_RDONLY}, fd[2], s = 0;
+    ssize_t r = 0;
     char *paths[] = {PIPEDP1PATH, PIPEPATH}, buff[BUFSIZ];
 
     for (int i = 0; i < 2; i++)
