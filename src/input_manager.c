@@ -44,12 +44,13 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     char buff[BUFSIZ], *path = {PIPEPATH};
-    int flag = O_WRONLY, fdPipe, fpAppoggio = open(FILEPATH,
+
+    int pipeFlag = O_WRONLY, fdPipe, fdShareFile = open(FILEPATH,
                                                    O_CREAT | O_WRONLY |
                                                    O_TRUNC,
-                                                   PERMISSIONFILE), sfd;
+                                                        PERMISSIONFILE), sfd;
 
-    FILE *fpData = fopen(argv[1], "r");
+    FILE *fpDataSet = fopen(argv[1], "r");
 
     printf("input_manager: create PIPE\n");
 
@@ -60,25 +61,26 @@ int main(int argc, char *argv[]) {
 
     printf("input_manager: open PIPE\n");
 
-    fdPipe = openPIPE(path, flag);
+    fdPipe = openPIPE(path, pipeFlag);
 
-    fgets(buff, BUFSIZ, fpData);
+    fgets(buff, BUFSIZ, fpDataSet);
     strncpy(buff, "\0", strlen(buff));
 
-    while (fgets(buff, BUFSIZ, fpData) != NULL) {
+    while (fgets(buff, BUFSIZ, fpDataSet) != NULL) {
         printf("input_manager: write for P\n");
         //
         write(fdPipe, buff, strlen(buff));
         //
         write(sfd, buff, strlen(buff));
         //
-        write(fpAppoggio, buff, strlen(buff));
-        fsync(fpAppoggio);
+        write(fdShareFile, buff, strlen(buff));
+        fsync(fdShareFile);
         //
         sleep(1);
         strncpy(buff, "\0", strlen(buff));
     }
-    fclose(fpData);
-    close(fpAppoggio);
+    fclose(fpDataSet);
+    close(fdShareFile);
+    close(fdPipe);
     kill(0, SIGKILL);
 }
