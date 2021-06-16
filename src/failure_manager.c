@@ -1,6 +1,6 @@
 #include "../lib/common.h"
 
-void USR1_handler(int sig) {
+void USR1_handler() {
     printf("failure_manager: kill all\n");
     kill(0, SIGKILL);
 }
