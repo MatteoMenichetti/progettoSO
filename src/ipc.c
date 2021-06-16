@@ -11,14 +11,14 @@ void createPIPE(char *pipe) {
 
 int openPIPE(char path[], int flag) {
     int fd;
-    printf("IPC: open %s with flag %d", path, flag);
+    printf("IPC: open %s with flag %d", path, flag);//eliminare
+
     if ((fd = open(path, flag)) == -1) {
         char message[100];
-        sprintf(message, "open %s", path);
+        sprintf(message, "open %s with result %d\n", path, fd); //eliminare
         perror(message);
         exit(EXIT_FAILURE);
     }
-    printf(" with result %d\n", fd);
 
     return fd;
 }
