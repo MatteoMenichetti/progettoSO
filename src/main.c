@@ -18,7 +18,6 @@ int main(int argc, char *argv[]) {
     for (int NP = 1; NP <= 3; NP++) {
         if (!fork()) {
             Pnumber = NP + 48;
-            printf("main: Pnumber = %c ", Pnumber);//eliminare
             int e = execl("./p", "p", argv[1], &Pnumber, mainPID, (char *) NULL);
             if (e == -1) {
                 perror("main: execl");

@@ -29,10 +29,10 @@ int initializationSOCKET(struct sockaddr_un *sockServer) {
 //asfd = anonymous socket fd
 void acceptSOCKET(int *asfd) {
     struct sockaddr_un sockServer, socketClient;
-    int ssfd = initializationSOCKET(&sockServer);
+    int sfd = initializationSOCKET(&sockServer);
     unsigned int len = sizeof(socketClient);
 
-    if ((*asfd = accept(ssfd, (struct sockaddr *) &socketClient, &len)) == -1) {
+    if ((*asfd = accept(sfd, (struct sockaddr *) &socketClient, &len)) == -1) {
         perror("input_manager: accept");
         exit(EXIT_FAILURE);
     }

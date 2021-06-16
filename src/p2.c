@@ -24,7 +24,7 @@ void p2(int modality, int pid) {
     createPIPE(PIPEDP2PATH);
     kill(pid, SIGCONT);
 
-    int psfd, flag = O_WRONLY,csfd = definesocket(), s = 0;
+    int psfd, flag = O_WRONLY, csfd = definesocket(), s = 0;
     char *path = PIPEDP2PATH, buff[BUFSIZ], *token = (char *) calloc(1, sizeof(char));
 
     psfd = openPIPE(path, flag);
@@ -32,7 +32,7 @@ void p2(int modality, int pid) {
     connecting(csfd);
 
     while (0 == 0) {
-        if((read(csfd, buff, sizeof(buff)))==-1){
+        if ((read(csfd, buff, sizeof(buff))) == -1) {
             perror("P1: read from pipe");
             exit(EXIT_FAILURE);
         }
@@ -41,8 +41,6 @@ void p2(int modality, int pid) {
         s = sum(token, strlen(token));
 
         if (modality == ACTIVE_FAILURE) errsum(&s, 20);
-
-        printf("P2: send to DF %d\n", s);
 
         if (write(psfd, &s, sizeof(s)) == -1) {
             perror("P1: write");

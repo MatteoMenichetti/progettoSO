@@ -11,8 +11,6 @@ void p1(int modality, int pid) {
 
     for (int i = 0; i < 2; i++)
         fd[i] = openPIPE(paths[i], flags[i]);
-    printf("P1: fd[0] = %d\n", fd[0]);//eliminare
-    printf("P1: fd[1] = %d\n", fd[1]);//eliminare
 
     while (0 == 0) {
         if ((r = read(fd[1], buff, sizeof(buff))) == -1) {
@@ -23,7 +21,6 @@ void p1(int modality, int pid) {
         splitP1(buff, &s);
         if (modality == ACTIVE_FAILURE)errsum(&s, 10);
 
-        printf("P1: send to DF %d\n", s);
         if (write(fd[0], &s, sizeof(s)) == -1) {
             perror("P1: write");
             exit(EXIT_FAILURE);

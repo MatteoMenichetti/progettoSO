@@ -7,7 +7,7 @@ void SIGALRM_handler() {
 }
 
 void SIGUSR1_handler() {
-    printf("watchdog: SIGUSR1_handler \n");
+    printf("watchdog: I_AM_ALIVE\n");
     alarm(2);
 }
 
@@ -30,4 +30,3 @@ int main(int argc, char *argv[]) {
 
     kill(pid_failure_manager, SIGUSR1);
 }
-

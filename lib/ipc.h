@@ -18,5 +18,4 @@
 
 void createPIPE(char*pipe);
 
-//int* openPIPE(char**, int, int*);
 int openPIPE(char[], int);

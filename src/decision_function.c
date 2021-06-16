@@ -29,13 +29,17 @@ int EqualityCondition(int vp1, int vp2, int vp3) {
 
 void controllValueRecived(int *fd, int *pid, int *valueSplitSum) {
     char *buffer;
-    printf("decision_function: valueSplitSum[P1 - 1] = %d, valueSplitSum[P2 - 1] = %d, valueSplitSum[P3 - 1] = %d\n",
-           valueSplitSum[P1 - 1], valueSplitSum[P2 - 1], valueSplitSum[P3 - 1]);//eliminare
+
     if (!EqualityCondition(valueSplitSum[P1 - 1], valueSplitSum[P2 - 1], valueSplitSum[P3 - 1]))
         buffer = FALLIMENTO;
     else buffer = SUCCESSO;
 
     writeOnLog(fd, valueSplitSum, buffer);
+
+    if ((kill(pid[WATCHDOG], SIGUSR1)) == -1) {
+        perror("decision_function: kill on watchdog");
+        exit(EXIT_FAILURE);
+    }
 
     if ((strcmp(buffer, FALLIMENTO)) == 0) {
         printf("decision_function: send SIGUSR1 to failure_manager (FALLIMENTO)\n");
@@ -43,12 +47,6 @@ void controllValueRecived(int *fd, int *pid, int *valueSplitSum) {
     }
 
     printf("decision_function: send signal (SIGUSR1_handler) to watchdog\n");
-
-    if ((kill(pid[WATCHDOG], SIGUSR1)) == -1) {
-        perror("decision_function: kill on watchdog");
-        exit(EXIT_FAILURE);
-    }
-
 }
 
 void openFILE(int *fd) {
@@ -61,20 +59,15 @@ void openFILE(int *fd) {
         perror("DF: open voted_output");
         exit(EXIT_FAILURE);
     }
-    printf("decision_function: fd[LOGPOS] = %d, fd[VOTEDPOS] = %d\n", fd[LOGPOS], fd[VOTEDPOS]); //eliminare
 }
 
 void openPIPES(int fd[]) {
     char *paths[3] = {PIPEDP1PATH, PIPEDP2PATH, PIPEDP3PATH};
     int flags[3] = {O_RDONLY, O_RDONLY, O_RDONLY};
 
-    printf("DF: *path[0] = %s , *path[1] = %s, *path[2] = %s\n", paths[0], paths[1], paths[2]);//eliminare
-
     for (int i = 0; i < 3; i++)
         fd[i] = openPIPE(paths[i], flags[i]);
 
-    printf("DF: apertura PIPES fd[0] = %d, fd[1] = %d, fd[2] = %d, fd[3] = %d\n", fd[0], fd[1], fd[2],
-           fd[3]);//eliminare
 }
 
 int main(void) {
@@ -86,7 +79,6 @@ int main(void) {
     if (!(pid[FAILURE_MANAGER] = fork()))
         execl("./failure_manager", (char *) NULL);
 
-    printf("DF: avvio watchdog\n");//eliminare
 
     if (!(pid[WATCHDOG] = fork())) {
         char *failure_manager_pid = (char *) calloc(1, sizeof(pid[FAILURE_MANAGER]));
@@ -99,9 +91,6 @@ int main(void) {
 
     printf("decision_function: open PIPES\n");
     openPIPES(fd);
-
-    printf("DF: fd[P1] = %d, fd[P2] = %d, fd[P3] = %d, fd[LOGPOS] = %d, fd[VOTEDPOS] = %d\n", fd[P1], fd[P2], fd[P3],
-           fd[LOGPOS], fd[VOTEDPOS]);//eliminare
 
     while (0 == 0) {
         printf("decision_function: read from p pipe\n");

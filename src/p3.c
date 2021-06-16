@@ -10,7 +10,7 @@ void p3(int modality, int pid) {
 
     char *path = {PIPEDP3PATH}, buff[BUFSIZ], *token = (char *) malloc(sizeof(char));
 
-    printf("P3: open PIPEDP3\n");
+    printf("P3: start PIPEDP3\n");
     psfd = openPIPE(path, flag);
 
     FILE *fd = fopen(FILEPATH, "r+");
@@ -24,13 +24,11 @@ void p3(int modality, int pid) {
         if (fgets(buff, sizeof(buff), fd)) {
             res += strlen(buff);
 
-            printf("P3: splitP2\n");
             token = splitP2(buff);
 
             s = sum(token, 0);
             if (modality == ACTIVE_FAILURE)errsum(&s, 30);
 
-            printf("P3: send to DF %d\n", s);
             if (write(psfd, &s, sizeof(s)) == -1) {
                 perror("P3: write");
                 exit(EXIT_FAILURE);
