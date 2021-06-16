@@ -4,7 +4,7 @@ void trap(int sig) { /* do nothing */ }
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        printf("main: numero argomenti non suff.");
+        printf("main: less than 2 arguments");
         exit(EXIT_FAILURE);
     }
 
