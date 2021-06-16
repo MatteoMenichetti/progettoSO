@@ -50,7 +50,7 @@ int sumFromLast(char *token) {
     return s;
 }
 
-int sum(char *token, int start) {
+int sum(char *token, unsigned long start) {
     if (start == 0)return sumFromFirst(token);
     return sumFromLast(token);
 }

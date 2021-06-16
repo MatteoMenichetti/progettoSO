@@ -12,7 +12,7 @@ void splitP1(char *, int *);
 
 char *splitP2(char *);
 
-int sum(char *, int);
+int sum(char *, unsigned long);
 
 void p1(int, int);
 
