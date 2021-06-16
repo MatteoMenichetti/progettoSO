@@ -45,8 +45,6 @@ void controllValueRecived(int *fd, int *pid, int *valueSplitSum) {
         printf("decision_function: send SIGUSR1 to failure_manager (FALLIMENTO)\n");
         kill(pid[FAILURE_MANAGER], SIGUSR1);
     }
-
-    printf("decision_function: send signal (SIGUSR1_handler) to watchdog\n");
 }
 
 void openFILE(int *fd) {
@@ -93,7 +91,6 @@ int main(void) {
     openPIPES(fd);
 
     while (0 == 0) {
-        printf("decision_function: read from p pipe\n");
         if ((read(fd[P1 - 1], &valueSplitSum[P1 - 1], sizeof(int))) == -1) perror("DF: read P1");
 
         if ((read(fd[P2 - 1], &valueSplitSum[P2 - 1], sizeof(int))) == -1) perror("DF: read P2");
