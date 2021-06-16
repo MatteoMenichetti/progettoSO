@@ -68,19 +68,21 @@ int main(int argc, char *argv[]) {
 
     while (fgets(buff, BUFSIZ, fpDataSet) != NULL) {
         printf("input_manager: write for P\n");
-        //
+        //scrittura su pipe
         write(fdPipe, buff, strlen(buff));
-        //
+        //scrittura su socket
         write(sfd, buff, strlen(buff));
-        //
+        //scrittura su file
         write(fdShareFile, buff, strlen(buff));
         fsync(fdShareFile);
         //
         sleep(1);
         strncpy(buff, "\0", strlen(buff));
     }
+
     fclose(fpDataSet);
     close(fdShareFile);
     close(fdPipe);
+
     kill(0, SIGKILL);
 }
