@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {
-        printf("P: argomenti non sufficienti");
+        printf("P: less than 3 arguments");
         exit(EXIT_FAILURE);
     }
 
@@ -15,8 +15,10 @@ int main(int argc, char *argv[]) {
         flag = 1;
     }
     char c;
-    int Pnumber = atoi(strncpy(&c, argv[2], 1));
-    printf("P: Pnumber = %d\n", Pnumber);
+    strncpy(&c, argv[2], 1);
+    int Pnumber = atoi((const char *)&c);
+    printf("P: Pnumber = %d\n", Pnumber);//eliminare
+
     if (Pnumber == P1) {
         printf("ESECUZIONE P1\n");
         p1(flag, pid);
