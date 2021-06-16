@@ -38,18 +38,20 @@
 }*/
 void p1(int modality, int pid) {
     createPIPE(PIPEDP1PATH);
-    int kills = kill(pid, SIGCONT);
-    char *paths[] = {PIPEDP1PATH, PIPEPATH};
-    int flags[] = {O_WRONLY, O_RDONLY},fd[2];
+
+    kill(pid, SIGCONT);
+
+    int flags[] = {O_WRONLY, O_RDONLY}, fd[2], s = 0;ssize_t r = 0;
+    char *paths[] = {PIPEDP1PATH, PIPEPATH}, buff[BUFSIZ];
+
     for (int i = 0; i < 2; i++)
         fd[i] = openPIPE(paths[i], flags[i]);
-    printf("P1: fd[0] = %d\n", fd[0]);
-    printf("P1: fd[1] = %d\n", fd[1]);
-    char buff[BUFSIZ];
-    int s = 0, r = 0;
+    printf("P1: fd[0] = %d\n", fd[0]);//eliminare
+    printf("P1: fd[1] = %d\n", fd[1]);//eliminare
+
     while (0 == 0) {
-        if((r = read(fd[1], buff, sizeof(buff)))==-1){
-            perror("P1: read su pipe");
+        if ((r = read(fd[1], buff, sizeof(buff))) == -1) {
+            perror("P1: read on pipe");
             exit(EXIT_FAILURE);
         }
 
@@ -57,7 +59,7 @@ void p1(int modality, int pid) {
         if (modality == ACTIVE_FAILURE)errsum(&s, 10);
 
 
-        printf("P1: invio a DF %d\n", s);
+        printf("P1: send to DF %d\n", s);
         if (write(fd[0], &s, sizeof(s)) == -1) {
             perror("P1: write");
             exit(EXIT_FAILURE);
