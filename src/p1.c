@@ -59,7 +59,6 @@ void p1(int modality, int pid) {
         splitP1(buff, &s);
         if (modality == ACTIVE_FAILURE)errsum(&s, 10);
 
-
         printf("P1: send to DF %d\n", s);
         if (write(fd[0], &s, sizeof(s)) == -1) {
             perror("P1: write");
