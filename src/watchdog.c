@@ -2,26 +2,32 @@
 
 int allarme = 0;
 
-void handler() {
+void SIGALRM_handler() {
     allarme = 1;
 }
 
-void I_AM_ALIVE() {
-    printf("watchdog: I AM ALIVE \n");
+void SIGUSR1_handler() {
+    printf("watchdog: SIGUSR1_handler \n");
     alarm(2);
 }
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        printf("watchdog: numero argomenti insuff.");
+        printf("watchdog: less than 2 arguments");
         exit(EXIT_FAILURE);
     }
+
+    printf("watchdog start\n");
+
     int pid_failure_manager = atoi(argv[1]);
-    printf("watchdog avviato\n");
-    signal(SIGUSR1, I_AM_ALIVE);
-    signal(SIGALRM, handler);
+
+    signal(SIGUSR1, SIGUSR1_handler);
+    signal(SIGALRM, SIGALRM_handler);
+
     alarm(2);
+
     while (allarme == 0) { pause(); };
+
     kill(pid_failure_manager, SIGUSR1);
 }
 
