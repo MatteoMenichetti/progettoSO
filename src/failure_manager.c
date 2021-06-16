@@ -5,7 +5,6 @@ void USR1_handler(int sig) {
     kill(0, SIGKILL);
 }
 
-
 int main(void) {
     printf("failure_manager: start\n");
     printf("FM: failure_pid = %d\n", getpid());//ELIMINARE
