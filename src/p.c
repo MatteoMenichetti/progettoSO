@@ -14,9 +14,9 @@ int main(int argc, char *argv[]) {
         INT_ERR;
         flag = 1;
     }
-    char c;
-    strncpy(&c, argv[2], 1);
-    int Pnumber = atoi((const char *)&c);
+    char cPnumebr;
+    strncpy(&cPnumebr, argv[2], 1);
+    int Pnumber = atoi((const char *)&cPnumebr);
 
     if (Pnumber == P1) {
         printf("ESECUZIONE P1\n");
