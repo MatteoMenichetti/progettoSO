@@ -11,7 +11,9 @@
 #define FALLIMENTO "FALLIMENTO\n"
 #define SUCCESSO "SUCCESSO\n"
 
-void writeOnLog(int fd[], int valueSplitSum[], char buffer[]){
+/*metodo che scrive sul file Voted Output i risultati delle somme e scrive SUCCESSO o FALLIMENTO
+  sul file System_Log */
+void writeOnLog(int fd[], int valueSplitSum[], char buffer[]) {
     dprintf(fd[VOTEDPOS], "p1 = %d p2 = %d p3 = %d \n", valueSplitSum[P1 - 1],
             valueSplitSum[P2 - 1],
             valueSplitSum[P3 - 1]);
@@ -22,19 +24,21 @@ void writeOnLog(int fd[], int valueSplitSum[], char buffer[]){
     }
 }
 
+//metodo che stabilisce se c'è stato un voto di maggioranza oppure no
 int EqualityCondition(int vp1, int vp2, int vp3) {
     if (vp1 != vp2 && vp1 != vp3 && vp2 != vp3)return 0;
     return 1;
 }
 
-void controllValueRecived(int *fd, int *pid, int *valueSplitSum) {
+//metodo che richiama EqualityCondition e writeOnLog e invia i segnali a WatchDog e a Failure Manager
+void controllValueRecived(int *fd, int *pid, int *value_Split_Sum) {
     char *buffer;
 
-    if (!EqualityCondition(valueSplitSum[P1 - 1], valueSplitSum[P2 - 1], valueSplitSum[P3 - 1]))
+    if (!EqualityCondition(value_Split_Sum[P1 - 1], value_Split_Sum[P2 - 1], value_Split_Sum[P3 - 1]))
         buffer = FALLIMENTO;
     else buffer = SUCCESSO;
 
-    writeOnLog(fd, valueSplitSum, buffer);
+    writeOnLog(fd, value_Split_Sum, buffer);
 
     if ((kill(pid[WATCHDOG], SIGUSR1)) == -1) {
         perror("decision_function: kill on watchdog");
@@ -47,6 +51,7 @@ void controllValueRecived(int *fd, int *pid, int *valueSplitSum) {
     }
 }
 
+//metodo che crea e apre in scrittura i file System Log e Voted Output
 void openFILE(int *fd) {
     if (((fd[LOGPOS] = open(LOGPATH, O_WRONLY | O_CREAT | O_TRUNC, PERMISSIONFILE)) == -1)) {
         perror("DF: open log");
@@ -59,6 +64,7 @@ void openFILE(int *fd) {
     }
 }
 
+// metodo che apre in lettura le pipe PIPEDP1PATH, PIPEDP2PATH e PIPEDP3PATH
 void openPIPES(int fd[]) {
     char *paths[3] = {PIPEDP1PATH, PIPEDP2PATH, PIPEDP3PATH};
     int flags[3] = {O_RDONLY, O_RDONLY, O_RDONLY};
@@ -71,13 +77,17 @@ void openPIPES(int fd[]) {
 int main(void) {
     signal(SIGUSR1, SIG_IGN);
 
-    int fd[5], pid[2], valueSplitSum[3];
+    /* fd[] array che contiene i file descriptor di PIPEDP1PATH, PIPEDP2PATH e PIPEDP3PATH e dei file System Log e Voted Output
+       pid[] array che contiene i pid dei processi Failure Manager e WatchDog
+       value_Split_Sum array in cui inseriamo le somme inviate dai tre processi p
+    */
+    int fd[5], pid[2], value_Split_Sum[3];
 
-    printf("DF: start failure_manager\n");
+    //creazione processo failure manager
     if (!(pid[FAILURE_MANAGER] = fork()))
         execl("./failure_manager", (char *) NULL);
 
-
+    //creazione processo WatchDog
     if (!(pid[WATCHDOG] = fork())) {
         char *failure_manager_pid = (char *) calloc(1, sizeof(pid[FAILURE_MANAGER]));
         sprintf(failure_manager_pid, "%d", pid[FAILURE_MANAGER]);
@@ -90,17 +100,18 @@ int main(void) {
     printf("decision_function: open PIPES\n");
     openPIPES(fd);
 
+    // si ricevono le somme dai tre processi p
     while (0 == 0) {
-        if ((read(fd[P1 - 1], &valueSplitSum[P1 - 1], sizeof(int))) == -1) perror("DF: read P1");
+        if ((read(fd[P1 - 1], &value_Split_Sum[P1 - 1], sizeof(int))) == -1) perror("DF: read P1");
 
-        if ((read(fd[P2 - 1], &valueSplitSum[P2 - 1], sizeof(int))) == -1) perror("DF: read P2");
+        if ((read(fd[P2 - 1], &value_Split_Sum[P2 - 1], sizeof(int))) == -1) perror("DF: read P2");
 
-        if ((read(fd[P3 - 1], &valueSplitSum[P3 - 1], sizeof(int))) == -1) perror("DF: read P3");
+        if ((read(fd[P3 - 1], &value_Split_Sum[P3 - 1], sizeof(int))) == -1) perror("DF: read P3");
 
-        printf("DF:  read fd[P1] = %d, fd[P2] = %d, fd[P3] = %d\n", valueSplitSum[P1 - 1], valueSplitSum[P2 - 1],
-               valueSplitSum[P3 - 1]);//eliminare
+        printf("DF:  read fd[P1] = %d, fd[P2] = %d, fd[P3] = %d\n", value_Split_Sum[P1 - 1], value_Split_Sum[P2 - 1],
+               value_Split_Sum[P3 - 1]);
 
-        controllValueRecived(fd, pid, valueSplitSum);
+        controllValueRecived(fd, pid, value_Split_Sum);
 
     }
 }

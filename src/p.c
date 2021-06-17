@@ -10,14 +10,19 @@ int main(int argc, char *argv[]) {
 
     int flag = 0, pid = atoi(argv[3]);
 
+    /* Con questo if si controlla la modalità d'esecuzione con cui i p devono essere eseguiti:
+       Se l'argomento in argv[1] è uguale a ENABLE allora sarà attivata la modalità FALLIMENTO mettento flag uguale ad 1 */
+
     if ((strcmp(argv[1], ENABLE)) == 0) {
         INT_ERR;
         flag = 1;
     }
+
     char cPnumebr;
     strncpy(&cPnumebr, argv[2], 1);
     int Pnumber = atoi((const char *)&cPnumebr);
 
+    /* Si avvia il p specificato dal Pnumber passato */
     if (Pnumber == P1) {
         printf("ESECUZIONE P1\n");
         p1(flag, pid);
@@ -33,6 +38,7 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
+//metodo che compie la somma partendo dall'inizio della stringa
 int sumFromFirst(char *token) {
     int s = 0;
     for (int l = 0; l < strlen(token); l++)
@@ -40,18 +46,21 @@ int sumFromFirst(char *token) {
     return s;
 }
 
+//metodo che compie la somma partendo dalla fine della stringa
 int sumFromLast(char *token) {
     int s = 0;
-    for (int l = strlen(token); l >= 0; l--)
+    for (unsigned  long l = strlen(token); l >= 0; l--)
         s += *(token + l);
     return s;
 }
 
+//metodo che ci consente di scegliere quale tipo di somma eseguire
 int sum(char *token, unsigned long start) {
     if (start == 0)return sumFromFirst(token);
     return sumFromLast(token);
 }
 
+//metodo che aggiunge il valore value alla somma con probabilità 0,1 se si verifica la condizione di fallimento
 void errsum(int *s, int value) {
     if ((ERR == EVENT))*s += value;
 }
