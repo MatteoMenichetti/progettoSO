@@ -35,6 +35,7 @@ int main(int argc, char *argv[]) {
     /*questo ciclo mette in pausa watchdog fino alla ricezione di un allarme */
     while (allarme == 0) pause();
     
-    //invio segnale al failure manager 
+    //invio segnale al failure manager
+    printf("watchgod: SIGUSR1 not arrived (send SIGUSR1 to failure_manager)\n");
     kill(pid_failure_manager, SIGUSR1);
 }
