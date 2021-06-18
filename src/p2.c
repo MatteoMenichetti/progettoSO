@@ -51,7 +51,7 @@ void p2(int modality, int main_pid) {
 
         // eseguo errsum se il fallimento è attivo
         if (modality == ACTIVE_FAILURE) errsum(&line_sum, 20);
-        printf("P2: send to decision_function%d\n", line_sum);
+        printf("P2: send to decision_function %d\n", line_sum);
 
         // scrivo la somma della riga nella pipe per passarla a Decision Function
         if (write(fd_pipe_decision_p2, &line_sum, sizeof(line_sum)) == -1) {

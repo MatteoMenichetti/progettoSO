@@ -60,7 +60,7 @@ void openFILE(int *fd) {
     }
 
     if ((fd[VOTEDPOS] = open(VOTEDPATH, O_WRONLY | O_CREAT | O_TRUNC, PERMISSIONFILE)) == -1) {
-        perror("DF: open voted_output");
+        perror("decision_function: open voted_output");
         exit(EXIT_FAILURE);
     }
 }
