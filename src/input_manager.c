@@ -46,7 +46,6 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-
     char buff[BUFSIZ], *path = {PIPEPATH};
 
     /* pipe_flag= modalità di apertura della pipe PIPEPATH
@@ -58,12 +57,13 @@ int main(int argc, char *argv[]) {
                                                             O_CREAT | O_WRONLY |
                                                             O_TRUNC,
                                                             PERMISSIONFILE), socket_server_fd;
-    //apertura del dataset.csv in lettura
-    FILE *fp_data_set = fopen(argv[1], "r");
 
     createPIPE(PIPEPATH);
 
     acceptSOCKET(&socket_server_fd);
+
+    //apertura del dataset.csv in lettura
+    FILE *fp_data_set = fopen(argv[1], "r");
 
     fd_pipe = openPIPE(path, pipe_flag);
 
