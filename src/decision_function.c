@@ -11,18 +11,20 @@
 #define FALLIMENTO "FALLIMENTO\n"
 #define SUCCESSO "SUCCESSO\n"
 
+
 /*metodo che scrive sul file Voted Output i risultati delle somme e scrive SUCCESSO o FALLIMENTO
   sul file System_Log */
-void writeOnLog(int fd[], int valueSplitSum[], char buffer[]) {
-    dprintf(fd[VOTEDPOS], "p1 = %d p2 = %d p3 = %d \n", valueSplitSum[P1 - 1],
-            valueSplitSum[P2 - 1],
-            valueSplitSum[P3 - 1]);
+void writeOnLog(int fd[], int value_Split_Sum[], char buffer[]) {
+    dprintf(fd[VOTEDPOS], "p1 = %d p2 = %d p3 = %d \n", value_Split_Sum[P1],
+            value_Split_Sum[P2],
+            value_Split_Sum[P3]);
 
     if ((write(fd[LOGPOS], buffer, strlen(buffer))) == -1) {
         perror("DF: write on voted_output");
         exit(EXIT_FAILURE);
     }
 }
+
 
 //metodo che stabilisce se c'è stato un voto di maggioranza oppure no
 int EqualityCondition(int vp1, int vp2, int vp3) {
@@ -32,9 +34,8 @@ int EqualityCondition(int vp1, int vp2, int vp3) {
 
 //metodo che richiama EqualityCondition e writeOnLog e invia i segnali a WatchDog e a Failure Manager
 void controllValueRecived(int *fd, int *pid, int *value_Split_Sum) {
-    char *buffer;
-
-    if (!EqualityCondition(value_Split_Sum[P1 - 1], value_Split_Sum[P2 - 1], value_Split_Sum[P3 - 1]))
+    char *buffer; //buffer in cui viene inserito l'esito della votazione
+    if (!EqualityCondition(value_Split_Sum[P1], value_Split_Sum[P2], value_Split_Sum[P3]))
         buffer = FALLIMENTO;
     else buffer = SUCCESSO;
 
@@ -75,7 +76,9 @@ void openPIPES(int fd[]) {
 }
 
 int main(void) {
-    signal(SIGUSR1, SIG_IGN);
+    printf("decision_function: start\n");
+
+    //signal(SIGUSR1, SIG_IGN);
 
     /* fd[] array che contiene i file descriptor di PIPEDP1PATH, PIPEDP2PATH e PIPEDP3PATH e dei file System Log e Voted Output
        pid[] array che contiene i pid dei processi Failure Manager e WatchDog
@@ -85,32 +88,34 @@ int main(void) {
 
     //creazione processo failure manager
     if (!(pid[FAILURE_MANAGER] = fork()))
-        execl("./failure_manager", (char *) NULL);
+        execl("./failure_manager", "failure_manager", (char *) NULL);
 
     //creazione processo WatchDog
     if (!(pid[WATCHDOG] = fork())) {
         char *failure_manager_pid = (char *) calloc(1, sizeof(pid[FAILURE_MANAGER]));
-        sprintf(failure_manager_pid, "%d", pid[FAILURE_MANAGER]);
+        sprintf(failure_manager_pid, "%d", pid[FAILURE_MANAGER]); //neccesario inviare il pid del failure_manager in caso di SIGALRM è necesssario terminare i processi
         execl("./watchdog", "watchdog", failure_manager_pid, (char *) NULL);
     }
 
-    printf("decision_function: open FILE\n");
     openFILE(fd);
-
-    printf("decision_function: open PIPES\n");
     openPIPES(fd);
 
     // si ricevono le somme dai tre processi p
     while (0 == 0) {
-        if ((read(fd[P1 - 1], &value_Split_Sum[P1 - 1], sizeof(int))) == -1) perror("DF: read P1");
+        if ((read(fd[P1], &value_Split_Sum[P1], sizeof(int))) == -1) {
+            perror("dicision_function: read P1");
+            exit(EXIT_FAILURE);
+        }
 
-        if ((read(fd[P2 - 1], &value_Split_Sum[P2 - 1], sizeof(int))) == -1) perror("DF: read P2");
+        if ((read(fd[P2], &value_Split_Sum[P2], sizeof(int))) == -1) {
+            perror("dicision_function: read P2");
+            exit(EXIT_FAILURE);
+        }
 
-        if ((read(fd[P3 - 1], &value_Split_Sum[P3 - 1], sizeof(int))) == -1) perror("DF: read P3");
-
-        printf("DF:  read fd[P1] = %d, fd[P2] = %d, fd[P3] = %d\n", value_Split_Sum[P1 - 1], value_Split_Sum[P2 - 1],
-               value_Split_Sum[P3 - 1]);
-
+        if ((read(fd[P3], &value_Split_Sum[P3], sizeof(int))) == -1) {
+            perror("dicision_function: read P3");
+            exit(EXIT_FAILURE);
+        }
         controllValueRecived(fd, pid, value_Split_Sum);
 
     }

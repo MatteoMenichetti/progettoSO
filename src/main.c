@@ -3,6 +3,7 @@
 void SIGCONT_handler() { /* do nothing */ }
 
 int main(int argc, char *argv[]) {
+
     //si controlla che siano passati il giusto numero di argomenti
     if (argc < 2) {
         printf("main: less than 2 arguments");
@@ -10,17 +11,16 @@ int main(int argc, char *argv[]) {
     }
 
     char *mainPID = calloc(1, sizeof(char)), Pnumber;
-
     sprintf(mainPID, "%d", getpid());
-
     signal(SIGCONT, SIGCONT_handler);
     printf("main: start P\n");
 
-    /*si avviano i 3 processi p: Ad ogni p viene passato la modalità di esecuzione, Pnumber che specifica quale processo p deve
-    essere eseguito e infine il pid del main. Il main dovrà aspettare,tramite la pause(), il segnale dal processo appena creato per
-    andare avanti*/
+    /*si avviano i 3 processi p: Ad ogni p viene passato la modalità di esecuzione, Pnumber che specifica quale processo p deve 
+    essere eseguito e infine il pid del main. Il main dovrà aspettare,tramite la pause(), il segnale dal processo appena creato per 
+    andare avanti. L'invocazione della funzione pause() è dovuta alla creazione delle pipe neccessarie per la comunicazione tra
+    i p e il decision_function (se non sono state create non è possibile comunicare)*/
 
-    for (int NP = 1; NP <= 3; NP++) {
+    for (int NP = 0; NP < 3; NP++) {
         if (!fork()) {
             Pnumber = NP + 48;
             int e = execl("./p", "p", argv[1], &Pnumber, mainPID, (char *) NULL);

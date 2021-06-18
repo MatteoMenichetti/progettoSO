@@ -2,9 +2,9 @@
 #include <time.h>
 #include <sys/wait.h>
 
-#define ERR rand() % (10)
-#define delim ","
-#define ENABLE "FALLIMENTO"
+#define random_failure rand() % (10) //è necessaria solo una cifra decimale per la probabilita 1/10
+#define DELIMITER ","
+#define FAILURE "FALLIMENTO"
 #define EVENT 0
 #define ACTIVE_FAILURE 1
 
