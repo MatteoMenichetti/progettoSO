@@ -103,17 +103,17 @@ int main(void) {
     // si ricevono le somme dai tre processi p
     while (0 == 0) {
         if ((read(fd[P1], &value_Split_Sum[P1], sizeof(int))) == -1) {
-            perror("dicision_function: read P1");
+            perror("decision_function: read P1");
             exit(EXIT_FAILURE);
         }
 
         if ((read(fd[P2], &value_Split_Sum[P2], sizeof(int))) == -1) {
-            perror("dicision_function: read P2");
+            perror("decision_function: read P2");
             exit(EXIT_FAILURE);
         }
 
         if ((read(fd[P3], &value_Split_Sum[P3], sizeof(int))) == -1) {
-            perror("dicision_function: read P3");
+            perror("decision_function: read P3");
             exit(EXIT_FAILURE);
         }
         controllValueRecived(fd, pid, value_Split_Sum);
