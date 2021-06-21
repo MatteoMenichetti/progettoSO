@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     strncpy(&cPnumber, argv[2], 1);
     int Pnumber = atoi((const char *) &cPnumber);
 
-    /* Si avvia il p specificato dal Pnumber passato */
+    /* Si avvia il p specifica to dal Pnumber passato */
 
     if (Pnumber == P1) {
         printf("ESECUZIONE P1\n");
