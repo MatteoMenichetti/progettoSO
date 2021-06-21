@@ -5,6 +5,7 @@
 #define random_failure rand() % (10) //è necessaria solo una cifra decimale per la probabilita 1/10
 #define DELIMITER ","
 #define FAILURE "FALLIMENTO"
+#define NORMAL "NORMALE"
 #define EVENT 0
 #define ACTIVE_FAILURE 1
 
