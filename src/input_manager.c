@@ -1,7 +1,6 @@
 #include "../lib/ipc.h"
 
-
-//questo metodo inizializza la socket, esegue la bind e la listen e restituisce il File descriptor della socket
+//questo metodo inizializza la socket, esegue la bind e la listen restituendo il File descriptor della socket
 int initializationSOCKET(struct sockaddr_un *sock_server) {
     int socket_server_fd;
 
@@ -63,7 +62,13 @@ int main(int argc, char *argv[]) {
     acceptSOCKET(&socket_server_fd);
 
     //apertura del dataset.csv in lettura
-    FILE *fp_data_set = fopen(argv[1], "r");
+    FILE *fp_data_set;
+    if ((fp_data_set = fopen(argv[1], "r")) == NULL) {
+        perror("input_manager: path dataset.csv incorrect ");
+        kill(0, SIGKILL);
+        //dato che non è possibile leggere dal file perché non esiste all'indirizzo
+        // ricevuto termina tutti i processi del gruppo
+    }
 
     fd_pipe = openPIPE(path, pipe_flag);
 
