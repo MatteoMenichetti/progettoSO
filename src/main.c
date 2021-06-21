@@ -5,8 +5,8 @@ void SIGCONT_handler() { /* do nothing */ }
 int main(int argc, char *argv[]) {
 
     //si controlla che siano passati il giusto numero di argomenti
-    if (argc < 2) {
-        printf("main: less than 2 arguments");
+    if (argc < 3) {
+        printf("main: less than 3 arguments");
         exit(EXIT_FAILURE);
     }
 
