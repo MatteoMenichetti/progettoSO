@@ -6,7 +6,7 @@ int main(int argc, char *argv[]) {
 
     //si controlla che siano passati il giusto numero di argomenti
     if (argc < 3) {
-        printf("main: less than 3 arguments");
+        printf("main: less than 3 arguments\n");
         exit(EXIT_FAILURE);
     }
 
@@ -37,11 +37,11 @@ int main(int argc, char *argv[]) {
 
     //si crea il processo Decision Function
     if (pid_decision == 0) {
-        printf("main: start DF\n");
+        printf("main: start decision_function\n");
         execl("./decision_function", "decision_function", (char *) NULL);
     } else {
         // il main esegue il codice di Input Manager
-        printf("main: start IM\n");
+        printf("main: start input_manager\n");
         execl("./input_manager", "input_manger", argv[2], (char *) NULL);
     }
 }

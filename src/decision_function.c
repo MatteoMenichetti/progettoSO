@@ -93,7 +93,7 @@ int main(void) {
     //creazione processo WatchDog
     if (!(pid[WATCHDOG] = fork())) {
         char *failure_manager_pid = (char *) calloc(1, sizeof(pid[FAILURE_MANAGER]));
-        sprintf(failure_manager_pid, "%d", pid[FAILURE_MANAGER]); //neccesario inviare il pid del failure_manager in caso di SIGALRM è necesssario terminare i processi
+        sprintf(failure_manager_pid, "%d", pid[FAILURE_MANAGER]); // Si invia il pid di failure_manager cosi che gli possa inviare un segnale SIGUSR1
         execl("./watchdog", "watchdog", failure_manager_pid, (char *) NULL);
     }
 

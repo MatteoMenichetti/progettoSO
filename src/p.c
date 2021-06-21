@@ -45,7 +45,6 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-
 //metodo che compie la somma partendo dall'inizio della stringa
 int sumFromFirst(char *token) {
     int s = 0;
