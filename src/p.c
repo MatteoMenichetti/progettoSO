@@ -19,8 +19,8 @@ int main(int argc, char *argv[]) {
     } else {
         //controllo necessario per stabilire se la modalità ricevuta è corretta
         if ((strcmp(argv[1], NORMAL)) != 0) {
-            printf("P: error on modality\n");
-            exit(EXIT_FAILURE);
+            printf("P: MODALITY isn't correct\n");
+            kill(0, SIGKILL);
         }
     }
 
