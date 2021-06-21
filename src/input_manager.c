@@ -73,28 +73,30 @@ int main(int argc, char *argv[]) {
     fd_pipe = openPIPE(path, pipe_flag);
 
     //ignora prima linea
-    fgets(buff, BUFSIZ, fp_data_set);
-    strncpy(buff, "\0", strlen(buff));
+    if ((fgets(buff, BUFSIZ, fp_data_set)) != NULL) {
+        strncpy(buff, "\0", strlen(buff));
 
-    while (fgets(buff, BUFSIZ, fp_data_set) != NULL) {
-        printf("input_manager: write for P\n");
-        //scrittura su pipe
-        write(fd_pipe, buff, strlen(buff));
-        //scrittura su socket
-        write(socket_server_fd, buff, strlen(buff));
-        //scrittura su file
-        write(fd_share_file, buff, strlen(buff));
-        fsync(fd_share_file);
-        //
-        sleep(1);
-        strncpy(buff, "\0", strlen(buff)); //necessario per invalidare il buffer estratto da dataset.csv
-    }
+        while (fgets(buff, BUFSIZ, fp_data_set) != NULL) {
+            printf("input_manager: write for P\n");
+            //scrittura su pipe
+            write(fd_pipe, buff, strlen(buff));
+            //scrittura su socket
+            write(socket_server_fd, buff, strlen(buff));
+            //scrittura su file
+            write(fd_share_file, buff, strlen(buff));
+            fsync(fd_share_file);
+            //
+            sleep(1);
+            strncpy(buff, "\0", strlen(buff)); //necessario per invalidare il buffer estratto da dataset.csv
+        }
+        printf("input_manager: end of file");
+    }else printf("input_manager: %s is empty", argv[1]);
 
     //chiusura file
     fclose(fp_data_set);
     close(fd_share_file);
     close(fd_pipe);
 
-    printf("input_manager: end of file (kill all process)\n");
+    printf(" (kill all process)\n");
     kill(0, SIGKILL);
 }
