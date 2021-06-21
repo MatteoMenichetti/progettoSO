@@ -18,7 +18,8 @@ int main(int argc, char *argv[]) {
     /*si avviano i 3 processi p: Ad ogni p viene passato la modalità di esecuzione, Pnumber che specifica quale processo p deve 
     essere eseguito e infine il pid del main. Il main dovrà aspettare,tramite la pause(), il segnale dal processo appena creato per 
     andare avanti. L'invocazione della funzione pause() è dovuta alla creazione delle pipe neccessarie per la comunicazione tra
-    i p e il decision_function (se non sono state create non è possibile comunicare)*/
+    i p e il decision_function (se non sono state create non è possibile comunicare) e quindi per evitare errori durante l'apertura,
+     da parte del decision_function, delle pipe la sua creazione sarà posticipata fin quando le pipe non sono state create*/
 
     for (int NP = 0; NP < 3; NP++) {
         if (!fork()) {
