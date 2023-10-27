@@ -49,4 +49,5 @@ Requisiti del progetto:
 Il programma è avviato con un singolo comando di shell, specificando se la modalità di esecuzione è
 NORMALE o FALLIMENTO, e indicando il percorso del file dataset.csv. Nella modalità FALLIMENTO, la
 funzonalità random_failure su P1, P2, e P3 è abilitata, mentre nella modalità NORMALE è disabilitata.
+
 Esempio: ./main NORMALE /path/dataset.csv
