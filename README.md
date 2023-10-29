@@ -7,7 +7,7 @@ Requisiti del progetto:
 
 1) Input Manager: questo componente deve essere realizzato da almeno un processo e ha accesso al file dataset.csv. Input Manager effetua le seguenti azioni:
    - scarta la prima ria di dataset.csv;
-   - con periodo di 1 secondo, legge un'intera riga di dataset.csv e la iniviaal componente P1 tramite pipe, al componente P2 tramite socket ed al componente P3 tramite file condiviso.
+   - con periodo di 1 secondo, legge un'intera riga di dataset.csv e la inivia al componente P1 tramite pipe, al componente P2 tramite socket ed al componente P3 tramite file condiviso.
 
 2) P1: iterativamente, il componente P1, deve:
    - ricevere una stringa da Input Manager;
